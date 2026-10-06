@@ -1,0 +1,56 @@
+{
+  "dataset": {
+    "rows": 2419200,
+    "columns": 13,
+    "time_min": 0,
+    "time_max": 839,
+    "beam_count": 2880
+  },
+  "split": {
+    "method": "chronological",
+    "train_time": [
+      0,
+      671
+    ],
+    "test_time": [
+      672,
+      839
+    ],
+    "train_rows": 1935360,
+    "test_rows": 483840
+  },
+  "standardisation": {
+    "method": "StandardScaler",
+    "fit_scope": "training data only",
+    "kpi_columns": [
+      "DLPRB",
+      "DLThpVol",
+      "DLThpTime",
+      "MR_number"
+    ],
+    "mean": {
+      "DLPRB": 0.5368389103188219,
+      "DLThpVol": 0.32261652729989343,
+      "DLThpTime": 0.42270301796165066,
+      "MR_number": 0.59742226085897
+    },
+    "scale": {
+      "DLPRB": 1.0362658750738158,
+      "DLThpVol": 1.0963622398345754,
+      "DLThpTime": 1.029391550108337,
+      "MR_number": 1.039070908232016
+    },
+    "train_standardised_mean": {
+      "DLPRB_z": -4.263387864966717e-09,
+      "DLThpVol_z": -8.017257968617741e-09,
+      "DLThpTime_z": -4.154979915682588e-09,
+      "MR_number_z": 6.189106560583468e-09
+    },
+    "train_standardised_std": {
+      "DLPRB_z": 1.0,
+      "DLThpVol_z": 1.0,
+      "DLThpTime_z": 1.0,
+      "MR_number_z": 1.0
+    }
+  }
+}
