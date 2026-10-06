@@ -4,7 +4,7 @@ import json
 
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 
 # ============================================================
@@ -45,17 +45,15 @@ TRAIN_END_TIME = 672
 
 
 # ============================================================
-# Utility functions
+# Cache check
 # ============================================================
 
 def outputs_are_up_to_date():
     """
-    Check whether preprocessing outputs already exist
-    and are newer than both:
-    1. all raw data files
-    2. this preprocessing script
-
-    If so, preprocessing can safely be skipped.
+    Skip preprocessing if:
+    - processed CSV exists
+    - preprocessing summary exists
+    - neither raw data nor this script has changed
     """
 
     if not OUTPUT_FILE.exists():
@@ -86,21 +84,18 @@ def outputs_are_up_to_date():
     return True
 
 
+# ============================================================
+# Raw data loading and validation
+# ============================================================
+
 def load_kpi_file(kpi_name, file_path):
     """
     Load and validate one raw KPI CSV file.
 
-    Parameters
-    ----------
-    kpi_name : str
-        KPI name, e.g. DLPRB.
-    file_path : Path
-        Path to the raw CSV file.
-
     Returns
     -------
     time_values : np.ndarray
-        Continuous hourly time indices.
+        Hour indices.
     beam_names : list[str]
         Beam identifiers such as '0_0_0'.
     values : np.ndarray
@@ -117,7 +112,7 @@ def load_kpi_file(kpi_name, file_path):
 
     df = pd.read_csv(file_path)
 
-    # Remove accidental whitespace from column names
+    # Remove accidental whitespace
     df.columns = [
         str(col).strip()
         for col in df.columns
@@ -126,9 +121,8 @@ def load_kpi_file(kpi_name, file_path):
     # --------------------------------------------------------
     # Recover Time column
     #
-    # The original gotsf-ds CSV files store the time index
-    # as an unnamed first column, which pandas reads as
-    # "Unnamed: 0".
+    # gotsf-ds stores the time index as an unnamed first column.
+    # Pandas reads it as "Unnamed: 0".
     # --------------------------------------------------------
 
     if "Time" not in df.columns:
@@ -160,8 +154,7 @@ def load_kpi_file(kpi_name, file_path):
 
     if time.duplicated().any():
         raise ValueError(
-            f"{file_path.name}: "
-            f"duplicate Time values detected"
+            f"{file_path.name}: duplicate Time values detected"
         )
 
     time_values = time.to_numpy(
@@ -199,8 +192,7 @@ def load_kpi_file(kpi_name, file_path):
         ):
             raise ValueError(
                 f"{file_path.name}: "
-                f"invalid beam identifier "
-                f"'{beam_name}'"
+                f"invalid beam identifier '{beam_name}'"
             )
 
     # --------------------------------------------------------
@@ -243,8 +235,7 @@ def load_kpi_file(kpi_name, file_path):
     print(f"Shape:      {df.shape}")
     print(
         f"Time:       "
-        f"{time_values[0]} "
-        f"-> {time_values[-1]}"
+        f"{time_values[0]} -> {time_values[-1]}"
     )
     print(
         f"Beam count: "
@@ -257,6 +248,10 @@ def load_kpi_file(kpi_name, file_path):
         values,
     )
 
+
+# ============================================================
+# Beam parsing
+# ============================================================
 
 def parse_beam_names(beam_names):
     """
@@ -316,6 +311,10 @@ def parse_beam_names(beam_names):
     )
 
 
+# ============================================================
+# Wide-to-long conversion
+# ============================================================
+
 def build_long_table(
     reference_time,
     reference_beams,
@@ -369,17 +368,20 @@ def build_long_table(
     return processed
 
 
+# ============================================================
+# Chronological train/test split
+# ============================================================
+
 def add_train_test_split(processed):
     """
-    Create a chronological train/test split.
+    Chronological split:
 
     Time 0-671   -> train
     Time 672-839 -> test
     """
 
     processed["split"] = np.where(
-        processed["Time"]
-        < TRAIN_END_TIME,
+        processed["Time"] < TRAIN_END_TIME,
         "train",
         "test",
     )
@@ -387,52 +389,106 @@ def add_train_test_split(processed):
     return processed
 
 
-def standardise_kpis(processed):
+# ============================================================
+# Standardisation + normalisation
+# ============================================================
+
+def scale_kpis(processed):
     """
-    Standardise all KPI columns.
+    Generate two alternative scaled representations:
+
+    1. StandardScaler
+       mean ~= 0
+       standard deviation ~= 1
+
+       Output suffix: _z
+
+    2. MinMaxScaler
+       training range -> [0, 1]
+
+       Output suffix: _mm
 
     IMPORTANT:
-    The StandardScaler is fitted on TRAINING data only.
-    Test data is transformed using the same scaler.
-
-    This prevents data leakage.
+    Both scalers are fitted ONLY on training data.
     """
 
     train_mask = (
-        processed["split"]
-        == "train"
+        processed["split"] == "train"
     )
 
-    scaler = StandardScaler()
+    train_data = processed.loc[
+        train_mask,
+        KPI_COLUMNS,
+    ]
 
-    scaler.fit(
-        processed.loc[
-            train_mask,
-            KPI_COLUMNS,
-        ]
+    # --------------------------------------------------------
+    # Standardisation
+    # --------------------------------------------------------
+
+    standard_scaler = StandardScaler()
+
+    standard_scaler.fit(
+        train_data
     )
 
-    scaled_values = scaler.transform(
-        processed[KPI_COLUMNS]
-    ).astype(np.float32)
+    standard_values = (
+        standard_scaler
+        .transform(
+            processed[KPI_COLUMNS]
+        )
+        .astype(np.float32)
+    )
 
     for index, kpi_name in enumerate(
         KPI_COLUMNS
     ):
         processed[
             f"{kpi_name}_z"
-        ] = scaled_values[:, index]
+        ] = standard_values[:, index]
 
-    return processed, scaler
+    # --------------------------------------------------------
+    # Min-Max normalisation
+    # --------------------------------------------------------
+
+    minmax_scaler = MinMaxScaler()
+
+    minmax_scaler.fit(
+        train_data
+    )
+
+    minmax_values = (
+        minmax_scaler
+        .transform(
+            processed[KPI_COLUMNS]
+        )
+        .astype(np.float32)
+    )
+
+    for index, kpi_name in enumerate(
+        KPI_COLUMNS
+    ):
+        processed[
+            f"{kpi_name}_mm"
+        ] = minmax_values[:, index]
+
+    return (
+        processed,
+        standard_scaler,
+        minmax_scaler,
+    )
 
 
-def validate_processed_data(processed):
+# ============================================================
+# Final validation
+# ============================================================
+
+def validate_processed_data(
+    processed,
+    expected_rows,
+):
     """
-    Perform final consistency checks on the
-    processed dataset.
+    Validate final processed dataset.
     """
-
-    expected_rows = 840 * 2880
 
     if len(processed) != expected_rows:
         raise ValueError(
@@ -443,14 +499,17 @@ def validate_processed_data(processed):
 
     if processed.isna().any().any():
         raise ValueError(
-            "Processed dataset contains "
-            "missing values"
+            "Processed dataset contains missing values"
         )
 
     numeric_columns = (
         KPI_COLUMNS
         + [
             f"{kpi}_z"
+            for kpi in KPI_COLUMNS
+        ]
+        + [
+            f"{kpi}_mm"
             for kpi in KPI_COLUMNS
         ]
     )
@@ -491,13 +550,17 @@ def validate_processed_data(processed):
         )
 
 
+# ============================================================
+# Save preprocessing summary
+# ============================================================
+
 def save_preprocessing_summary(
     processed,
-    scaler,
+    standard_scaler,
+    minmax_scaler,
 ):
     """
-    Save preprocessing metadata and scaler
-    parameters for reproducibility.
+    Save preprocessing metadata and scaler parameters.
     """
 
     REPORT_DIR.mkdir(
@@ -506,19 +569,26 @@ def save_preprocessing_summary(
     )
 
     train_mask = (
-        processed["split"]
-        == "train"
+        processed["split"] == "train"
     )
 
     test_mask = (
-        processed["split"]
-        == "test"
+        processed["split"] == "test"
     )
 
     z_columns = [
         f"{kpi}_z"
         for kpi in KPI_COLUMNS
     ]
+
+    mm_columns = [
+        f"{kpi}_mm"
+        for kpi in KPI_COLUMNS
+    ]
+
+    # --------------------------------------------------------
+    # StandardScaler validation statistics
+    # --------------------------------------------------------
 
     train_z_mean = (
         processed.loc[
@@ -536,25 +606,59 @@ def save_preprocessing_summary(
         .std(ddof=0)
     )
 
+    # --------------------------------------------------------
+    # MinMaxScaler validation statistics
+    # --------------------------------------------------------
+
+    train_mm_min = (
+        processed.loc[
+            train_mask,
+            mm_columns,
+        ]
+        .min()
+    )
+
+    train_mm_max = (
+        processed.loc[
+            train_mask,
+            mm_columns,
+        ]
+        .max()
+    )
+
+    test_mm_min = (
+        processed.loc[
+            test_mask,
+            mm_columns,
+        ]
+        .min()
+    )
+
+    test_mm_max = (
+        processed.loc[
+            test_mask,
+            mm_columns,
+        ]
+        .max()
+    )
+
+    # --------------------------------------------------------
+    # Summary
+    # --------------------------------------------------------
+
     summary = {
         "dataset": {
             "rows": int(
                 len(processed)
             ),
             "columns": int(
-                len(
-                    processed.columns
-                )
+                len(processed.columns)
             ),
             "time_min": int(
-                processed[
-                    "Time"
-                ].min()
+                processed["Time"].min()
             ),
             "time_max": int(
-                processed[
-                    "Time"
-                ].max()
+                processed["Time"].max()
             ),
             "beam_count": int(
                 processed[
@@ -570,13 +674,13 @@ def save_preprocessing_summary(
         },
 
         "split": {
-            "method": (
-                "chronological"
-            ),
+            "method": "chronological",
+
             "train_time": [
                 0,
                 TRAIN_END_TIME - 1,
             ],
+
             "test_time": [
                 TRAIN_END_TIME,
                 int(
@@ -585,49 +689,114 @@ def save_preprocessing_summary(
                     ].max()
                 ),
             ],
+
             "train_rows": int(
                 train_mask.sum()
             ),
+
             "test_rows": int(
                 test_mask.sum()
             ),
         },
 
         "standardisation": {
-            "method": (
-                "StandardScaler"
-            ),
+            "method": "StandardScaler",
+
             "fit_scope": (
                 "training data only"
             ),
+
             "kpi_columns": (
                 KPI_COLUMNS
             ),
+
             "mean": {
                 kpi: float(mean)
                 for kpi, mean
                 in zip(
                     KPI_COLUMNS,
-                    scaler.mean_,
+                    standard_scaler.mean_,
                 )
             },
+
             "scale": {
                 kpi: float(scale)
                 for kpi, scale
                 in zip(
                     KPI_COLUMNS,
-                    scaler.scale_,
+                    standard_scaler.scale_,
                 )
             },
+
             "train_standardised_mean": {
                 column: float(value)
                 for column, value
                 in train_z_mean.items()
             },
+
             "train_standardised_std": {
                 column: float(value)
                 for column, value
                 in train_z_std.items()
+            },
+        },
+
+        "normalisation": {
+            "method": "MinMaxScaler",
+
+            "fit_scope": (
+                "training data only"
+            ),
+
+            "feature_range": [
+                0.0,
+                1.0,
+            ],
+
+            "kpi_columns": (
+                KPI_COLUMNS
+            ),
+
+            "training_data_min": {
+                kpi: float(value)
+                for kpi, value
+                in zip(
+                    KPI_COLUMNS,
+                    minmax_scaler.data_min_,
+                )
+            },
+
+            "training_data_max": {
+                kpi: float(value)
+                for kpi, value
+                in zip(
+                    KPI_COLUMNS,
+                    minmax_scaler.data_max_,
+                )
+            },
+
+            "train_normalised_min": {
+                column: float(value)
+                for column, value
+                in train_mm_min.items()
+            },
+
+            "train_normalised_max": {
+                column: float(value)
+                for column, value
+                in train_mm_max.items()
+            },
+
+            "test_normalised_min": {
+                column: float(value)
+                for column, value
+                in test_mm_min.items()
+            },
+
+            "test_normalised_max": {
+                column: float(value)
+                for column, value
+                in test_mm_max.items()
             },
         },
     }
@@ -637,6 +806,7 @@ def save_preprocessing_summary(
         "w",
         encoding="utf-8",
     ) as file:
+
         json.dump(
             summary,
             file,
@@ -646,13 +816,13 @@ def save_preprocessing_summary(
 
 
 # ============================================================
-# Main preprocessing pipeline
+# Main pipeline
 # ============================================================
 
 def main(force=False):
 
     # --------------------------------------------------------
-    # Skip expensive preprocessing if nothing changed
+    # Skip expensive processing when cached outputs are valid
     # --------------------------------------------------------
 
     if (
@@ -660,26 +830,22 @@ def main(force=False):
         and outputs_are_up_to_date()
     ):
         print(
-            "Processed dataset is already "
-            "up to date."
+            "Processed dataset is already up to date."
         )
         print(
             f"CSV: {OUTPUT_FILE}"
         )
         print(
-            "Use --force to rebuild it."
+            f"Summary: {SUMMARY_FILE}"
+        )
+        print(
+            "Use --force to rebuild."
         )
         return
 
-    print(
-        "=" * 70
-    )
-    print(
-        "5G KPI preprocessing"
-    )
-    print(
-        "=" * 70
-    )
+    print("=" * 70)
+    print("5G KPI preprocessing")
+    print("=" * 70)
 
     loaded_data = {}
 
@@ -687,7 +853,7 @@ def main(force=False):
     reference_beams = None
 
     # --------------------------------------------------------
-    # 1. Load and validate all four KPI files
+    # 1. Load and validate all KPI files
     # --------------------------------------------------------
 
     for (
@@ -696,8 +862,7 @@ def main(force=False):
     ) in FILES.items():
 
         file_path = (
-            RAW_DIR
-            / filename
+            RAW_DIR / filename
         )
 
         (
@@ -710,20 +875,22 @@ def main(force=False):
         )
 
         if reference_time is None:
+
             reference_time = time
             reference_beams = (
                 beam_names
             )
 
         else:
+
             if not np.array_equal(
                 time,
                 reference_time,
             ):
                 raise ValueError(
                     f"{kpi_name}: "
-                    f"Time vector does "
-                    f"not match reference"
+                    f"Time vector does not "
+                    f"match reference"
                 )
 
             if (
@@ -732,8 +899,8 @@ def main(force=False):
             ):
                 raise ValueError(
                     f"{kpi_name}: "
-                    f"beam structure does "
-                    f"not match reference"
+                    f"beam structure does not "
+                    f"match reference"
                 )
 
         loaded_data[
@@ -745,8 +912,20 @@ def main(force=False):
         "have matching structure."
     )
 
+    n_times = len(
+        reference_time
+    )
+
+    n_beams = len(
+        reference_beams
+    )
+
+    expected_rows = (
+        n_times * n_beams
+    )
+
     # --------------------------------------------------------
-    # 2. Convert wide data to long format
+    # 2. Wide -> long
     # --------------------------------------------------------
 
     processed = build_long_table(
@@ -758,13 +937,17 @@ def main(force=False):
     print(
         "\nLong-format dataset created."
     )
+
     print(
-        f"Shape: "
-        f"{processed.shape}"
+        f"Shape: {processed.shape}"
     )
 
-    # Free four large wide matrices once
-    # the long table has been constructed.
+    print(
+        f"Expected rows: "
+        f"{expected_rows:,}"
+    )
+
+    # Wide matrices are no longer needed
     del loaded_data
 
     # --------------------------------------------------------
@@ -780,6 +963,7 @@ def main(force=False):
     print(
         "\nTrain/test split:"
     )
+
     print(
         processed[
             "split"
@@ -787,27 +971,33 @@ def main(force=False):
     )
 
     # --------------------------------------------------------
-    # 4. Standardise KPI columns
+    # 4. Standardisation + normalisation
     # --------------------------------------------------------
 
     (
         processed,
-        scaler,
-    ) = standardise_kpis(
+        standard_scaler,
+        minmax_scaler,
+    ) = scale_kpis(
         processed
     )
 
     print(
-        "\nStandardisation completed."
+        "\nStandardisation and "
+        "normalisation completed."
     )
 
+    # --------------------------------------------------------
+    # StandardScaler diagnostics
+    # --------------------------------------------------------
+
     print(
-        "\nScaler mean:"
+        "\nStandardScaler mean:"
     )
 
     for kpi, mean in zip(
         KPI_COLUMNS,
-        scaler.mean_,
+        standard_scaler.mean_,
     ):
         print(
             f"  {kpi}: "
@@ -815,12 +1005,13 @@ def main(force=False):
         )
 
     print(
-        "\nScaler standard deviation:"
+        "\nStandardScaler "
+        "standard deviation:"
     )
 
     for kpi, scale in zip(
         KPI_COLUMNS,
-        scaler.scale_,
+        standard_scaler.scale_,
     ):
         print(
             f"  {kpi}: "
@@ -828,11 +1019,35 @@ def main(force=False):
         )
 
     # --------------------------------------------------------
+    # MinMaxScaler diagnostics
+    # --------------------------------------------------------
+
+    print(
+        "\nMinMaxScaler training min/max:"
+    )
+
+    for (
+        kpi,
+        minimum,
+        maximum,
+    ) in zip(
+        KPI_COLUMNS,
+        minmax_scaler.data_min_,
+        minmax_scaler.data_max_,
+    ):
+        print(
+            f"  {kpi}: "
+            f"{minimum:.6f} "
+            f"-> {maximum:.6f}"
+        )
+
+    # --------------------------------------------------------
     # 5. Final validation
     # --------------------------------------------------------
 
     validate_processed_data(
-        processed
+        processed,
+        expected_rows,
     )
 
     train_mask = (
@@ -842,6 +1057,11 @@ def main(force=False):
 
     z_columns = [
         f"{kpi}_z"
+        for kpi in KPI_COLUMNS
+    ]
+
+    mm_columns = [
+        f"{kpi}_mm"
         for kpi in KPI_COLUMNS
     ]
 
@@ -869,6 +1089,30 @@ def main(force=False):
         ].std(ddof=0)
     )
 
+    print(
+        "\nTraining-set "
+        "normalised min:"
+    )
+
+    print(
+        processed.loc[
+            train_mask,
+            mm_columns,
+        ].min()
+    )
+
+    print(
+        "\nTraining-set "
+        "normalised max:"
+    )
+
+    print(
+        processed.loc[
+            train_mask,
+            mm_columns,
+        ].max()
+    )
+
     # --------------------------------------------------------
     # 6. Save processed CSV
     # --------------------------------------------------------
@@ -881,6 +1125,7 @@ def main(force=False):
     print(
         "\nSaving processed dataset..."
     )
+
     print(
         f"Output: {OUTPUT_FILE}"
     )
@@ -892,21 +1137,25 @@ def main(force=False):
     )
 
     # --------------------------------------------------------
-    # 7. Save preprocessing metadata
+    # 7. Save preprocessing summary
     # --------------------------------------------------------
 
     save_preprocessing_summary(
         processed,
-        scaler,
+        standard_scaler,
+        minmax_scaler,
     )
 
     print(
         f"Summary: {SUMMARY_FILE}"
     )
 
+    # --------------------------------------------------------
+    # Final report
+    # --------------------------------------------------------
+
     print(
-        "\n"
-        + "=" * 70
+        "\n" + "=" * 70
     )
 
     print(
@@ -916,6 +1165,11 @@ def main(force=False):
     print(
         f"Rows:       "
         f"{len(processed):,}"
+    )
+
+    print(
+        f"Columns:    "
+        f"{len(processed.columns)}"
     )
 
     print(
@@ -950,9 +1204,9 @@ if __name__ == "__main__":
         "--force",
         action="store_true",
         help=(
-            "Rebuild the processed "
-            "dataset even if cached "
-            "outputs are up to date."
+            "Rebuild the processed dataset "
+            "even if cached outputs are "
+            "already up to date."
         ),
     )
 

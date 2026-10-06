@@ -1,7 +1,7 @@
 {
   "dataset": {
     "rows": 2419200,
-    "columns": 13,
+    "columns": 17,
     "time_min": 0,
     "time_max": 839,
     "beam_count": 2880
@@ -51,6 +51,56 @@
       "DLThpVol_z": 1.0,
       "DLThpTime_z": 1.0,
       "MR_number_z": 1.0
+    }
+  },
+  "normalisation": {
+    "method": "MinMaxScaler",
+    "fit_scope": "training data only",
+    "feature_range": [
+      0.0,
+      1.0
+    ],
+    "kpi_columns": [
+      "DLPRB",
+      "DLThpVol",
+      "DLThpTime",
+      "MR_number"
+    ],
+    "training_data_min": {
+      "DLPRB": 0.0,
+      "DLThpVol": 0.0,
+      "DLThpTime": 0.0,
+      "MR_number": 0.0
+    },
+    "training_data_max": {
+      "DLPRB": 41.02625274658203,
+      "DLThpVol": 245.3745574951172,
+      "DLThpTime": 84.20681762695312,
+      "MR_number": 33.665977478027344
+    },
+    "train_normalised_min": {
+      "DLPRB_mm": 0.0,
+      "DLThpVol_mm": 0.0,
+      "DLThpTime_mm": 0.0,
+      "MR_number_mm": 0.0
+    },
+    "train_normalised_max": {
+      "DLPRB_mm": 1.0,
+      "DLThpVol_mm": 0.9999999403953552,
+      "DLThpTime_mm": 1.0,
+      "MR_number_mm": 1.0
+    },
+    "test_normalised_min": {
+      "DLPRB_mm": 0.0,
+      "DLThpVol_mm": 0.0,
+      "DLThpTime_mm": 0.0,
+      "MR_number_mm": 0.0
+    },
+    "test_normalised_max": {
+      "DLPRB_mm": 0.8502968549728394,
+      "DLThpVol_mm": 0.12138354033231735,
+      "DLThpTime_mm": 0.48144224286079407,
+      "MR_number_mm": 0.9600607752799988
     }
   }
 }
