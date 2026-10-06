@@ -1,0 +1,76 @@
+{
+  "forecast": {
+    "horizon_hours": 1,
+    "targets": [
+      "DLPRB",
+      "DLThpVol",
+      "DLThpTime",
+      "MR_number"
+    ],
+    "target_columns": [
+      "target_DLPRB",
+      "target_DLThpVol",
+      "target_DLThpTime",
+      "target_MR_number"
+    ]
+  },
+  "features": {
+    "input_representation": "StandardScaler features from W3",
+    "kpi_columns": [
+      "DLPRB",
+      "DLThpVol",
+      "DLThpTime",
+      "MR_number"
+    ],
+    "lags_hours": [
+      1,
+      2,
+      24,
+      168
+    ],
+    "feature_count": 20,
+    "feature_columns": [
+      "DLPRB_z_t",
+      "DLPRB_z_lag1",
+      "DLPRB_z_lag2",
+      "DLPRB_z_lag24",
+      "DLPRB_z_lag168",
+      "DLThpVol_z_t",
+      "DLThpVol_z_lag1",
+      "DLThpVol_z_lag2",
+      "DLThpVol_z_lag24",
+      "DLThpVol_z_lag168",
+      "DLThpTime_z_t",
+      "DLThpTime_z_lag1",
+      "DLThpTime_z_lag2",
+      "DLThpTime_z_lag24",
+      "DLThpTime_z_lag168",
+      "MR_number_z_t",
+      "MR_number_z_lag1",
+      "MR_number_z_lag2",
+      "MR_number_z_lag24",
+      "MR_number_z_lag168"
+    ],
+    "current_raw_columns_for_persistence": [
+      "DLPRB_raw_t",
+      "DLThpVol_raw_t",
+      "DLThpTime_raw_t",
+      "MR_number_raw_t"
+    ]
+  },
+  "dataset": {
+    "rows": 1932480,
+    "columns": 34,
+    "beam_count": 2880,
+    "feature_time_min": 168,
+    "feature_time_max": 838,
+    "target_time_min": 169,
+    "target_time_max": 839
+  },
+  "split": {
+    "method": "chronological split based on target time",
+    "test_start_target_time": 672,
+    "train_rows": 1448640,
+    "test_rows": 483840
+  }
+}
