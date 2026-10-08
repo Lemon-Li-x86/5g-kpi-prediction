@@ -1,8 +1,4 @@
-# 原计划第4周：传统机器学习 KPI 预测模型性能评估报告
-
-> 所属压缩项目：第2周（覆盖原计划第3–4周）  
-> 文档整理日期：2026-10-08（北京时间）  
-> 证据来源：仓库现有 `reports/model_metrics.csv`、`reports/model_run_config.json`、`reports/ml_feature_summary.json`、`src/train_ml_models.py`。本报告整理已记录的完整模式实验结果；**本次整理没有重新运行全量训练**。
+# 传统机器学习 KPI 预测模型性能评估报告
 
 ## 1. 实验目标
 
@@ -119,11 +115,11 @@
 
 ## 8. 复现文件索引
 
-- `src/download_data.py`：获取4份原始数据；
-- `src/audit_raw_data.py`：审计数据质量；
-- `src/preprocess.py`：清洗、转长表及标准化/归一化；
-- `src/build_ml_features.py`：生成各 beam 的滞后特征；
-- `src/train_ml_models.py`：拟合、预测、计算指标、生成图；
+- `../src/w2_data_preprocessing_download.py`：获取4份原始数据；
+- `../src/w2_data_preprocessing_audit.py`：审计数据质量；
+- `../src/w2_data_preprocessing_pipeline.py`：清洗、转长表及标准化/归一化；
+- `../src/w2_traditional_ml_kpi_prediction_features.py`：生成各 beam 的滞后特征；
+- `../src/w2_traditional_ml_kpi_prediction_training.py`：拟合、预测、计算指标、生成图；
 - `reports/model_metrics.csv`：本文主数据依据；
 - `reports/model_run_config.json`、`reports/ml_feature_summary.json`：训练配置与数据口径；
 - `reports/prediction_timeseries.csv`、`figures/*.png`：聚合预测曲线源数据及图像。

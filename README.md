@@ -53,16 +53,16 @@ source .venv/bin/activate
 # Windows PowerShell:
 # .venv\\Scripts\\Activate.ps1
 python -m pip install -r requirements.txt
-python src/download_data.py
-python src/audit_raw_data.py
-python src/preprocess.py
-python src/build_ml_features.py
-python src/train_ml_models.py
+python src/w2_data_preprocessing_download.py
+python src/w2_data_preprocessing_audit.py
+python src/w2_data_preprocessing_pipeline.py
+python src/w2_traditional_ml_kpi_prediction_features.py
+python src/w2_traditional_ml_kpi_prediction_training.py
 ```
 
 For a **quick smoke test** of model training, `python src/train_ml_models.py --quick` uses reduced settings and must **not** replace the full-size reported metrics. Use `python src/preprocess.py --force` and `python src/build_ml_features.py --force` to rebuild caches when needed. Note that the training job is memory- and compute-intensive because it uses up to 1.45 million training rows ×20 features across 4 targets and 5 fitted models.
 
-In regions where `huggingface.co` is not reachable, `src/download_data.py` sets `HF_ENDPOINT=https://hf-mirror.com` by default.
+In regions where `huggingface.co` is not reachable, `src/w2_data_preprocessing_download.py` sets `HF_ENDPOINT=https://hf-mirror.com` by default.
 
 ## Recorded results
 

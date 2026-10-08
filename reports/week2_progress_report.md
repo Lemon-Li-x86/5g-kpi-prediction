@@ -1,4 +1,4 @@
-# 压缩四周项目 · 第二周实验报告
+# 第二周实验报告
 
 **项目名称：** 基于 AI 的 5G 网络关键性能指标预测与异常检测系统  
 **汇报周期：** 压缩项目第2周（覆盖原8周方案中的第3–4周）  
@@ -15,7 +15,7 @@
 
 选取公开 **gotsf-ds** 数据集的 `DLPRB`、`DLThpVol`、`DLThpTime`、`MR_number` 四种 KPI。原始输入为四份含840个时间索引和2880个 beam 的宽表 CSV；beam ID 解析为基站、cell 和 beam 三个层级。
 
-已实现 `src/audit_raw_data.py` 与 `src/preprocess.py`，包括：
+已实现 `../src/w2_data_preprocessing_audit.py` 与 `../src/w2_data_preprocessing_pipeline.py`，包括：
 - 检查缺失、无穷、负值、重复时间、连续性与 beam ID 格式；
 - 保留审计通过的零值及长尾高值，不擅自视为无效异常；
 - 将宽表整理为 `Time × beam` 的长表，合计 **2,419,200行、17列**；
@@ -27,9 +27,9 @@
 
 ### 2. 传统 ML 特征构造和预测
 
-`src/build_ml_features.py` 针对每个 beam 的四个 KPI 构造五个历史值：`t,t-1,t-2,t-24,t-168`，共20个特征，以 `t+1` 为回归目标。最大滞后及预测目标决定有效样本为1,932,480行；训练样本1,448,640，测试样本483,840。
+`../src/w2_traditional_ml_kpi_prediction_features.py` 针对每个 beam 的四个 KPI 构造五个历史值：`t,t-1,t-2,t-24,t-168`，共20个特征，以 `t+1` 为回归目标。最大滞后及预测目标决定有效样本为1,932,480行；训练样本1,448,640，测试样本483,840。
 
-`src/train_ml_models.py` 实现 Persistence、LinearRegression、DecisionTree、RandomForest、XGBoost 和 LightGBM 六种比较方法，4个 KPI 共24组记录。实验配置标注为全量模式（`quick_mode=false`）。
+`../src/w2_traditional_ml_kpi_prediction_training.py` 实现 Persistence、LinearRegression、DecisionTree、RandomForest、XGBoost 和 LightGBM 六种比较方法，4个 KPI 共24组记录。实验配置标注为全量模式（`quick_mode=false`）。
 
 ### 3. 评估与结果图
 
@@ -73,10 +73,10 @@
 
 | 原方案周次 | 必需交付物 | 本次对应路径 |
 |---|---|---|
-| 第3周 | 数据预处理 Python 脚本 | `src/audit_raw_data.py`; `src/preprocess.py` |
+| 第3周 | 数据预处理 Python 脚本 | `../src/w2_data_preprocessing_audit.py`; `../src/w2_data_preprocessing_pipeline.py` |
 | 第3周 | 预处理 KPI CSV | 本地 `data/processed/kpi_timeseries.csv`（压缩包中核对） |
 | 第3周 | 数据集统计分析报告 | `reports/week3_data_analysis.md` |
-| 第4周 | 传统 ML 预测模型代码 | `src/build_ml_features.py`; `src/train_ml_models.py` |
+| 第4周 | 传统 ML 预测模型代码 | `../src/w2_traditional_ml_kpi_prediction_features.py`; `../src/w2_traditional_ml_kpi_prediction_training.py` |
 | 第4周 | 模型性能评估报告 | `reports/week4_model_evaluation.md`、`reports/model_metrics.csv` |
 | 第4周 | 预测可视化 | `figures/*_predictions.png` 与 `figures/model_comparison_*.png` |
 
