@@ -1,0 +1,22 @@
+{
+  "target": "DLPRB",
+  "model": "RandomForest",
+  "method": "Optuna TPE",
+  "fold_starts": [
+    384,
+    480,
+    576
+  ],
+  "fold_hours": 96,
+  "selection_data": "Chronological training data before hour 672",
+  "sampled_beams_limit": 256,
+  "trials": 12,
+  "best_cv_rmse": 0.4736997307168738,
+  "best_params": {
+    "n_estimators": 137,
+    "max_depth": 13,
+    "min_samples_leaf": 9,
+    "max_features": "sqrt",
+    "max_samples": 0.6980707640445081
+  }
+}

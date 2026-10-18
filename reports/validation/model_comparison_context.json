@@ -1,0 +1,73 @@
+{
+  "ranking_rule": "Within-KPI ranks of MAE, RMSE and R2; equal weighting across metrics and KPIs",
+  "baseline": "Persistence",
+  "best_by_metric": {
+    "MAE": [
+      {
+        "target": "DLPRB",
+        "model": "XGBoost",
+        "MAE": 0.2618174
+      },
+      {
+        "target": "DLThpTime",
+        "model": "XGBoost",
+        "MAE": 0.24357612
+      },
+      {
+        "target": "DLThpVol",
+        "model": "RandomForest",
+        "MAE": 0.2076153
+      },
+      {
+        "target": "MR_number",
+        "model": "XGBoost",
+        "MAE": 0.22476652
+      }
+    ],
+    "RMSE": [
+      {
+        "target": "DLPRB",
+        "model": "RandomForest",
+        "RMSE": 0.49370542
+      },
+      {
+        "target": "DLThpTime",
+        "model": "RandomForest",
+        "RMSE": 0.52446737
+      },
+      {
+        "target": "DLThpVol",
+        "model": "RandomForest",
+        "RMSE": 0.46016235
+      },
+      {
+        "target": "MR_number",
+        "model": "RandomForest",
+        "RMSE": 0.39564689
+      }
+    ],
+    "R2": [
+      {
+        "target": "DLPRB",
+        "model": "RandomForest",
+        "R2": 0.78713268
+      },
+      {
+        "target": "DLThpTime",
+        "model": "RandomForest",
+        "R2": 0.70239097
+      },
+      {
+        "target": "DLThpVol",
+        "model": "RandomForest",
+        "R2": 0.61532277
+      },
+      {
+        "target": "MR_number",
+        "model": "RandomForest",
+        "R2": 0.86718231
+      }
+    ]
+  },
+  "caveat": "Descriptive comparison on one held-out period; not a significance test"
+}
