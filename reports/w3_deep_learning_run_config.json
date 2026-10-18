@@ -1,0 +1,124 @@
+{
+  "dataset": "data\\processed\\kpi_timeseries.csv",
+  "seed": 42,
+  "device": "cpu",
+  "seq_len": 24,
+  "seasonal_lag": 168,
+  "target": "t+1; four per-beam original-scale KPI targets (z normalized for training)",
+  "metric_units": "raw KPI units (same as earlier traditional ML)",
+  "train_scale_mean": [
+    0.5368389103193224,
+    0.3226165273002524,
+    0.42270301795999016,
+    0.5974222608539015
+  ],
+  "train_scale_std": [
+    1.0362658750826463,
+    1.0963622398445287,
+    1.0293915500993536,
+    1.0390709081703138
+  ],
+  "train_scaler_consistency_max_error": 1.4779471797510269e-06,
+  "training": [
+    169,
+    587
+  ],
+  "validation": [
+    588,
+    671
+  ],
+  "test": [
+    672,
+    839
+  ],
+  "train_samples": 60000,
+  "validation_samples": 12000,
+  "test_samples": 483840,
+  "full_test": true,
+  "comparison_note": "Same prediction target/test hours/raw target scale as earlier ML, but DL uses sampled training windows and separate validation.",
+  "validation_scaler_note": "Previous scaler was fitted on hours 0..671, including the internal validation partition.",
+  "runs": {
+    "lstm": {
+      "best_epoch": 4,
+      "best_val_mse": 0.2928300786018372,
+      "num_parameters": 6180,
+      "epochs_run": 7,
+      "loss_history": {
+        "train": [
+          0.6517247032483419,
+          0.5002292979399363,
+          0.4666071418444316,
+          0.4350085811336835,
+          0.40989054741064707,
+          0.3949667957464854,
+          0.3742879638989766
+        ],
+        "val": [
+          0.3320707724889119,
+          0.3356870767275492,
+          0.3109558010101318,
+          0.2928300786018372,
+          0.3054482223192851,
+          0.29635070530573526,
+          0.30788486369450885
+        ]
+      }
+    },
+    "gru": {
+      "best_epoch": 9,
+      "best_val_mse": 0.2957428242365519,
+      "num_parameters": 4964,
+      "epochs_run": 12,
+      "loss_history": {
+        "train": [
+          0.6654764708360036,
+          0.5003147886594137,
+          0.4643570109128952,
+          0.4314329612334569,
+          0.4061267340342204,
+          0.3776352921287219,
+          0.35923640141487123,
+          0.36207774928410846,
+          0.3419450165748596,
+          0.3341359606941541,
+          0.3217668354670207,
+          0.32060494569937387
+        ],
+        "val": [
+          0.3183979674975077,
+          0.30648719517389933,
+          0.3035562884012858,
+          0.3113706806500753,
+          0.30355080191294354,
+          0.2977354731559753,
+          0.3075010282198588,
+          0.3002994588216146,
+          0.2957428242365519,
+          0.30103000164031984,
+          0.3087442019780477,
+          0.31557477966944375
+        ]
+      }
+    },
+    "transformer": {
+      "best_epoch": 1,
+      "best_val_mse": 0.3150274354616801,
+      "num_parameters": 10788,
+      "epochs_run": 4,
+      "loss_history": {
+        "train": [
+          0.5985762912511825,
+          0.49340914590358737,
+          0.46498049709796907,
+          0.4412949996868769
+        ],
+        "val": [
+          0.3150274354616801,
+          0.322958931128184,
+          0.3313240375518799,
+          0.3450566790898641
+        ]
+      }
+    }
+  }
+}

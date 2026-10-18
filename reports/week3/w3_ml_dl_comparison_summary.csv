@@ -1,0 +1,13 @@
+KPI,metric,ML_best_model,ML_best_score,DL_best_model,DL_best_score,DL_improvement,improvement_unit
+DLPRB,MAE,XGBoost,0.2618174,GRU,0.2456175888192261,6.187446357947897,error reduction % (positive = DL better)
+DLPRB,RMSE,RandomForest,0.49370542,GRU,0.4688605577217322,5.032325202803692,error reduction % (positive = DL better)
+DLPRB,R2,RandomForest,0.78713268,GRU,0.8080179710228392,0.020885291022839203,R2 difference (DL - ML)
+DLThpVol,MAE,RandomForest,0.2076153,GRU,0.2045739742832024,1.4648851586552651,error reduction % (positive = DL better)
+DLThpVol,RMSE,RandomForest,0.46016235,LSTM,0.4843841297418975,-5.263746532478698,error reduction % (positive = DL better)
+DLThpVol,R2,RandomForest,0.61532277,LSTM,0.5737599905206212,-0.04156277947937881,R2 difference (DL - ML)
+DLThpTime,MAE,XGBoost,0.24357612,GRU,0.2297813858399868,5.66341813803964,error reduction % (positive = DL better)
+DLThpTime,RMSE,RandomForest,0.52446737,GRU,0.5133518893071897,2.119384604005073,error reduction % (positive = DL better)
+DLThpTime,R2,RandomForest,0.70239097,GRU,0.71487224802849,0.012481278028490084,R2 difference (DL - ML)
+MR_number,MAE,XGBoost,0.22476652,GRU,0.2096929121706755,6.706340352346286,error reduction % (positive = DL better)
+MR_number,RMSE,RandomForest,0.39564689,GRU,0.3668876422708854,7.268917930610952,error reduction % (positive = DL better)
+MR_number,R2,RandomForest,0.86718231,GRU,0.8857893641071136,0.018607054107113608,R2 difference (DL - ML)

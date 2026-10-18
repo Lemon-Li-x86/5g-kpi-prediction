@@ -1,10 +1,83 @@
-.venv/
-.idea/
-__pycache__/
-*.pyc
 
+# ============================================================
+# Python
+# ============================================================
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ============================================================
+# Virtual environments
+# ============================================================
+
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# ============================================================
+# IDE
+# ============================================================
+
+.idea/
+.vscode/
+
+# ============================================================
+# OS files
+# ============================================================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================================
+# 5G KPI datasets
+# ============================================================
+
+# Raw downloaded datasets
 data/raw/
-data/processed/*.csv
-data/processed/*.pkl
+
+# Large preprocessed datasets and feature caches
+data/processed/
+
+# ============================================================
+# Deep learning model artifacts
+# ============================================================
+
+# Model weights and checkpoints
+models/
+checkpoints/
+
+*.pt
+*.pth
+*.ckpt
+
+# TensorBoard / training logs
+runs/
+events.out.tfevents.*
+
+# ============================================================
+# Temporary files
+# ============================================================
 
 *.log
+*.tmp
+*.bak
+*.swp
+
+# ============================================================
+# IMPORTANT: Keep project deliverables tracked
+# ============================================================
+
+# Keep source code in src/
+# Keep experimental reports in reports/
+# Keep evaluation figures in figures/
+# Keep requirements.txt and project documentation
