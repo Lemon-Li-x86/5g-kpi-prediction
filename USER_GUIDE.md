@@ -15,10 +15,11 @@
 ├── app.py
 ├── requirements.txt
 ├── src/
+│   ├── __init__.py
 │   ├── dashboard_data.py
-│   ├── w2_data_preprocessing_pipeline.py
-│   ├── w3_dl_prediction.py
-│   └── w3_anomaly_detection.py
+│   ├── preprocess_kpi_data.py
+│   ├── train_deep_learning_models.py
+│   └── detect_kpi_anomalies.py
 ├── reports/
 │   ├── model_metrics.csv
 │   ├── prediction_timeseries.csv
@@ -35,6 +36,8 @@
 ```
 
 部分结果文件缺失时，对应页面可能显示提示或不显示相关图表。
+
+注意：所有训练与分析脚本从项目根目录使用 `python -m src.<模块名>` 执行；完整流程见 [README.md](README.md)。
 
 ## 3. 安装与启动
 
@@ -103,6 +106,8 @@ python -m streamlit run app.py
 相关性不等于因果关系。由于相关性是在异常检测筛选出的候选样本上计算的，结果只能作为探索性分析线索。
 
 ## 5. 更新实验结果
+
+在项目根目录运行 `python -m src.detect_kpi_anomalies` 和 `python -m src.analyze_anomaly_statistics` 可以重新产生异常检测与显著性文件。预测训练入口分别为 `python -m src.train_traditional_models` 和 `python -m src.train_deep_learning_models`。完整重训并非启动 Web 所需。
 
 当前 Web 应用读取已保存的 CSV/JSON，不会自动重训模型。若重新运行模型或异常检测脚本，请确认结果已写入 `reports/` 目录，再刷新或重启 Streamlit 页面。
 
