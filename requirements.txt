@@ -1,5 +1,4 @@
-# Python 3.10+; core runtime dependencies.
-# Version ranges are compatibility targets, not a record of the original run's installed versions.
+# Existing project dependencies
 numpy>=1.24,<3
 pandas>=2.0,<3
 scipy>=1.10,<2
@@ -8,3 +7,7 @@ matplotlib>=3.7,<4
 xgboost>=2.0,<4
 lightgbm>=4.0,<5
 huggingface-hub>=0.20,<2
+
+# W7 Streamlit dashboard
+streamlit>=1.35,<2
+plotly>=5.20,<7
