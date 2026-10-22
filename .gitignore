@@ -81,3 +81,5 @@ events.out.tfevents.*
 # Keep experimental reports in reports/
 # Keep evaluation figures in figures/
 # Keep requirements.txt and project documentation
+.test-deps/
+*.pkl

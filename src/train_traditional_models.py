@@ -902,6 +902,9 @@ def run_experiment(
                 y_train,
             )
 
+            from src.inference import save_ml
+            save_ml(model, model_name, kpi, feature_columns)
+
             fit_seconds = (
                 time.perf_counter()
                 - fit_start

@@ -89,3 +89,5 @@ python -m src.review_model_results
 - 不同模型的训练样本量/结构与训练策略不完全相同，跨模型比较应依据报告限定条件。
 
 使用说明见 [USER_GUIDE.md](USER_GUIDE.md)。
+
+第七周本地模型生成与统一预测接口说明见 [USER_GUIDE.md](USER_GUIDE.md#第七周部署接口本地生成模型)。Web 目前仍使用历史报告，尚未接入实时推理。部署接口仍需补齐异常元数据校验和完整集成验证。
