@@ -6,7 +6,7 @@ Run from the repository root:
     python -m src.analysis.analyze_anomaly_statistics
 
 Required:
-    src/detect_kpi_anomalies.py
+    src/models/detect_kpi_anomalies.py
     data/processed/kpi_timeseries.csv
 
 Outputs:
@@ -31,6 +31,8 @@ import pandas as pd
 
 from scipy.stats import kurtosis, pearsonr, skew, t
 from sklearn.ensemble import IsolationForest
+
+from src.core.config import DATASET_TEST_START_HOUR
 
 from src.models.detect_kpi_anomalies import (
     KPIS,
@@ -203,7 +205,7 @@ def main():
         default=Path("data/processed/kpi_timeseries.csv"),
     )
     parser.add_argument("--out", type=Path, default=Path("."))
-    parser.add_argument("--test-start", type=int, default=672)
+    parser.add_argument("--test-start", type=int, default=DATASET_TEST_START_HOUR)
     parser.add_argument("--if-train-sample", type=int, default=80000)
     parser.add_argument("--if-contamination", type=float, default=0.02)
     parser.add_argument("--seed", type=int, default=42)
