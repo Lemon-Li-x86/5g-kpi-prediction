@@ -17,7 +17,7 @@
 
 - **数据管理与预处理**：识别固定 gotsf-ds 四 KPI 文件；下载、审计、预处理及传统 ML 特征工程。
 - **模型训练**：在 Web 表单直接调整 LSTM/GRU/Transformer 的 Epoch、Batch Size、学习率、隐藏维度、时间窗口、早停、抽样上限、随机种子及计算设备；异常检测可设置污染率和抽样参数。后台按白名单校验，再由独立进程执行。WebSocket 实时展示输出，日志同时写入 `resources/jobs/current.log`。传统 ML 尚无独立的超参数 CLI，Web 保留固定的正式训练配置。
-- **模型管理与推理**：从本机 `models/` 和 `resources/models/` 枚举模型版本，选择可信本地权重，对符合字段要求的历史 CSV 执行下一小时预测并导出。
+- **模型管理与推理**：从本机 `models/` 和 `resources/models/` 枚举模型版本，选择可信本地权重，对符合字段要求的历史 CSV 执行下一小时预测，或选择保存的异常模型执行候选标记，并导出 CSV；本轮新增的异常 Web 推理仍须本机实测。
 - **结果展示**：总览、KPI 预测曲线、模型评估、异常候选统计、KPI 关联分析。**这些历史图表读取 `reports/` 中的已有实验结果，不一定对应当前下拉框选中的模型版本。**
 
 固定支持 KPI：`DLPRB`、`DLThpVol`、`DLThpTime`、`MR_number`。异常标记是未经故障标签验证的候选事件，不应宣称真实故障检测 precision / recall / F1。
@@ -80,3 +80,10 @@ python -m compileall -q src app.py
 
 详细操作、模型版本、实时日志和问题排查： [USER_GUIDE.md](USER_GUIDE.md)。
 技术结构和迁移准则： [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+
+## 第七、八周交付资料
+
+- [项目技术报告](docs/TECHNICAL_REPORT.md)：基于已保存的历史实验数据，标注最新集成尚待验收的内容。
+- [收尾验收记录](docs/FINAL_ACCEPTANCE.md)：逐项测试步骤、性能记录、仍需填写的本机验证结果。
+- [项目架构](docs/ARCHITECTURE.md)：目录职责和依赖边界。
+- 演示 PPT 与 Word 报告另行导出，交付前需随最终测试截图核对。
