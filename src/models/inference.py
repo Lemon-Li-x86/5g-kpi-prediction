@@ -5,7 +5,7 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from src.core.config import ROOT, KPIS, KEYS
+from src.core.config import ROOT, KPIS, KEYS, ML_LAGS, ML_HISTORY_HOURS
 
 
 def save_ml(model, name, target, columns, output_dir=None):
@@ -50,9 +50,9 @@ def predict_kpi(history, artifact):
             features = {}
             for j, k in enumerate(KPIS):
                 features[f'{k}_z_t'] = z[-1, j]
-                for lag in (1, 2, 24, 168):
+                for lag in ML_LAGS:
                     if len(z) <= lag:
-                        raise ValueError('ML requires 169 observed hours')
+                        raise ValueError(f'ML requires {ML_HISTORY_HOURS} observed hours')
                     features[f'{k}_z_lag{lag}'] = z[-lag-1, j]
             row[meta['target']] = float(meta['model'].predict(np.array([[features[c] for c in meta['columns']]], dtype=np.float32))[0])
         else:
