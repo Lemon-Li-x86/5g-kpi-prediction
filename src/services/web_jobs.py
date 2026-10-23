@@ -15,6 +15,7 @@ from uuid import uuid4
 
 from src.services.model_registry import ROOT, archive_models
 from src.services.process_env import python_job_env
+from src.core.training_config import normalize_params, params_to_cli
 
 TASKS = {
     "download": [["src.data.download_kpi_data"]],
@@ -31,22 +32,32 @@ def _stamp() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def run(task: str, model: str = "") -> int:
+def run(task: str, model: str = "", params: dict | None = None) -> int:
+    params = normalize_params(task, params, model)
     state_path = ROOT / "resources" / "jobs" / "current.json"
     state_path.parent.mkdir(parents=True, exist_ok=True)
 
     run_dir: Path | None = None
     run_id: str | None = None
 
-    if task == "train_dl":
-        if model not in DL_MODELS:
-            raise ValueError("Unsupported deep learning model")
-        run_id = f"{model}_{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}_{uuid4().hex[:6]}"
+    if task in ("train_dl", "train_anomaly"):
+        if task == "train_dl":
+            if model not in DL_MODELS:
+                raise ValueError("Unsupported deep learning model")
+            prefix = model
+        elif model:
+            raise ValueError("Anomaly training does not accept a model name")
+        else:
+            prefix = "anomaly"
+        run_id = f"{prefix}_{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}_{uuid4().hex[:6]}"
         run_dir = ROOT / "resources" / "experiments" / run_id
-        commands = [[
-            "src.models.train_deep_learning_models", "--models", model,
-            "--out", str(run_dir),
-        ]]
+        if task == "train_dl":
+            commands = [[
+                "src.models.train_deep_learning_models", "--models", model,
+                "--out", str(run_dir),
+            ]]
+        else:
+            commands = [["src.models.detect_kpi_anomalies", "--out", str(run_dir)]]
     elif task in TASKS and not model:
         commands = TASKS[task]
     else:
@@ -55,6 +66,7 @@ def run(task: str, model: str = "") -> int:
     state = {
         "task": task,
         "model": model,
+        "parameters": params,
         "status": "running",
         "started": _stamp(),
     }
@@ -65,12 +77,18 @@ def run(task: str, model: str = "") -> int:
     )
 
     try:
-        # Legacy ML/anomaly trainers still write to fixed names, so protect them.
-        if task in ("train_ml", "train_anomaly"):
+        if run_dir is not None:
+            run_dir.mkdir(parents=True, exist_ok=False)
+            (run_dir / "requested_parameters.json").write_text(
+                json.dumps({"task": task, "model": model, "parameters": params},
+                           ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+        elif task == "train_ml":
+            # Traditional ML currently writes to fixed report names.
             archive_models(ROOT, reason="before_" + task)
 
         for args in commands:
-            cmd = [sys.executable, "-u", "-m", *args]
+            cmd = [sys.executable, "-u", "-m", *args, *params_to_cli(task, params, model)]
             print("Running:", " ".join(cmd), flush=True)
             subprocess.run(cmd, cwd=ROOT, check=True, env=python_job_env())
 
@@ -96,7 +114,19 @@ def run(task: str, model: str = "") -> int:
             )
             print("Published model:", saved_checkpoint, flush=True)
             print("New experiment results:", state["metrics_path"], flush=True)
-        elif task in ("train_ml", "train_anomaly"):
+        elif task == "train_anomaly":
+            assert run_dir is not None and run_id is not None
+            artifact = run_dir / "models" / "anomalies.pkl"
+            if not artifact.is_file():
+                raise FileNotFoundError(f"Anomaly training produced no model: {artifact}")
+            version_dir = ROOT / "resources" / "models" / run_id
+            version_dir.mkdir(parents=True, exist_ok=False)
+            published = version_dir / artifact.name
+            shutil.copy2(artifact, published)
+            state["models_archived"] = 1
+            state["model_path"] = str(published)
+            print("Published anomaly model:", published, flush=True)
+        elif task == "train_ml":
             saved = archive_models(ROOT, reason="after_" + task)
             state["models_archived"] = len(saved)
 
@@ -121,5 +151,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("task", choices=[*TASKS, "train_dl"])
     parser.add_argument("model", nargs="?", default="")
+    parser.add_argument("--params-json", default="{}")
     args = parser.parse_args()
-    raise SystemExit(run(args.task, args.model))
+    try:
+        params = json.loads(args.params_json)
+    except json.JSONDecodeError as exc:
+        parser.error(f"Invalid training parameters JSON: {exc}")
+    raise SystemExit(run(args.task, args.model, params))
