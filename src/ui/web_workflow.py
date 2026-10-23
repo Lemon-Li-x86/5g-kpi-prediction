@@ -464,10 +464,14 @@ def render_model_page() -> None:
     st.write({"类型": selected.family, "模型": selected.model,
               "目标": selected.target, "版本": selected.version, "路径": selected.path})
     if selected.family == "anomaly":
-        st.info("异常模型的推理接口需要完整波束顺序和前一小时上下文；当前 UI 暂不直接开放此入口。")
-        return
-    st.warning("仅加载本机生成的可信权重；推理要求历史输入具有与训练一致的四项 KPI 和波束 ID。")
-    uploaded = st.file_uploader("上传待预测历史 CSV（不保存到磁盘）", type=["csv"])
+        st.info(
+            "异常检测要求输入与训练时相同的全部波束 ID、相互对齐的连续小时序列，"
+            "并且首小时作为差分上下文，不参与异常标记。"
+            "候选异常不等于真实网络故障。"
+        )
+    else:
+        st.warning("仅加载本机生成的可信权重；预测要求各波束的连续 KPI 历史序列。")
+    uploaded = st.file_uploader("上传 KPI 历史 CSV（不保存到磁盘）", type=["csv"])
     if uploaded is None:
         return
     if uploaded.size > 50 * 1024 * 1024:
@@ -481,7 +485,26 @@ def render_model_page() -> None:
             st.error(f"缺少必要字段：{sorted(missing)}")
             return
         st.write(f"输入样本：{len(data):,} 行")
-        if st.button("运行下一小时预测"):
+        if selected.family == "anomaly":
+            if st.button("运行异常检测"):
+                from src.models.inference import detect_anomalies
+                with st.spinner("正在执行异常检测"):
+                    result = detect_anomalies(data, selected.path)
+                flags = ["sigma", "iqr", "isolation_forest", "one_class_svm", "consensus"]
+                summary = pd.DataFrame({
+                    "检测方法": flags,
+                    "候选数量": [int(result[k].sum()) for k in flags],
+                    "标记比例": [float(result[k].mean()) for k in flags],
+                })
+                st.write("本次输入数据的异常候选统计")
+                st.dataframe(summary, hide_index=True, use_container_width=True)
+                st.dataframe(result.head(200), hide_index=True, use_container_width=True)
+                st.download_button(
+                    "导出异常标记 CSV",
+                    result.to_csv(index=False).encode("utf-8-sig"),
+                    "kpi_anomaly_candidates.csv", "text/csv",
+                )
+        elif st.button("运行下一小时预测"):
             from src.models.inference import predict_kpi
             with st.spinner("正在执行推理"):
                 result = predict_kpi(data, selected.path)
