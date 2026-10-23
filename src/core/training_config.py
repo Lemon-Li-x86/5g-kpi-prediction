@@ -19,7 +19,7 @@ ANOMALY_DEFAULTS = {
     "svm_train_sample": 2500, "svm_test_sample": 12000,
     "max_events": 2000, "seed": 42,
 }
-ML_DEFAULTS = {"quick": False}
+ML_DEFAULTS = {"quick": False, "max_train": 200000, "max_test": 0}
 
 SPECS = {
     "train_dl": {
@@ -44,7 +44,11 @@ SPECS = {
         "max_events": (int, 1, 1000000),
         "seed": (int, 0, 2147483647),
     },
-    "train_ml": {"quick": (bool,)},
+    "train_ml": {
+        "quick": (bool,),
+        "max_train": (int, 1, 1000000),
+        "max_test": (int, 0, 1000000),
+    },
 }
 DEFAULTS = {
     "train_dl": DL_DEFAULTS,
@@ -66,7 +70,9 @@ FLAGS = {
         "svm_test_sample": "--svm-test-sample",
         "max_events": "--max-events", "seed": "--seed",
     },
-    "train_ml": {"quick": "--quick"},
+    "train_ml": {
+        "quick": "--quick", "max_train": "--max-train", "max_test": "--max-test",
+    },
 }
 
 
@@ -111,6 +117,10 @@ def normalize_params(task: str, supplied: dict | None = None, model: str = "") -
             raise ValueError("Early-stopping patience cannot exceed epochs")
         # The raw dataset is hourly; inference needs its selected history window.
         # Keep split hours fixed at validation=588 and test=672 in this UI.
+    if task == "train_ml" and not values["quick"] and (
+        values["max_train"] != ML_DEFAULTS["max_train"] or values["max_test"] != 0
+    ):
+        raise ValueError("Traditional ML sampling limits require quick mode")
     return values
 
 
