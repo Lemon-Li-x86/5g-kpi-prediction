@@ -1364,11 +1364,11 @@ def main(quick=False, output_dir=None, max_train=200000, max_test=0):
     )
 
     print(
-        f"  {METRICS_FILE}"
+        f"  {metrics_file}"
     )
 
     print(
-        f"  {PREDICTION_SUMMARY_FILE}"
+        f"  {prediction_file}"
     )
 
     print(
