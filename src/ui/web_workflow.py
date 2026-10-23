@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import html
 import json
-import os
 import re
 import secrets
 import socket
@@ -15,6 +14,7 @@ import pandas as pd
 import streamlit as st
 
 from src.services.model_registry import ROOT, KPIS, archive_models, list_models
+from src.services.process_env import python_job_env
 
 JOBS = ROOT / "resources" / "jobs"
 STATE = JOBS / "current.json"
@@ -83,8 +83,7 @@ def _launch(task: str, model: str = "") -> None:
         encoding="utf-8",
     )
 
-    env = os.environ.copy()
-    env["PYTHONUNBUFFERED"] = "1"
+    env = python_job_env()
     try:
         with (JOBS / "stream_errors.log").open("w", encoding="utf-8") as diagnostics:
             subprocess.Popen(

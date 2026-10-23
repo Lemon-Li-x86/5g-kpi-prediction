@@ -9,7 +9,6 @@ import argparse
 import asyncio
 import codecs
 import json
-import os
 import sys
 import traceback
 from collections import deque
@@ -20,6 +19,7 @@ from urllib.parse import parse_qs, urlsplit
 from websockets.asyncio.server import serve
 
 from src.services.model_registry import ROOT
+from src.services.process_env import python_job_env
 
 JOBS = ROOT / "resources" / "jobs"
 LOG = JOBS / "current.log"
@@ -90,8 +90,7 @@ class StreamHub:
 
 
 async def _execute(task: str, model: str, hub: StreamHub) -> None:
-    env = os.environ.copy()
-    env["PYTHONUNBUFFERED"] = "1"
+    env = python_job_env()
     cmd = [sys.executable, "-u", "-m", "src.services.web_jobs", task]
     if model:
         cmd.append(model)

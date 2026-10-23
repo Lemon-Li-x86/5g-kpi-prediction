@@ -14,6 +14,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from src.services.model_registry import ROOT, archive_models
+from src.services.process_env import python_job_env
 
 TASKS = {
     "download": [["src.data.download_kpi_data"]],
@@ -71,7 +72,7 @@ def run(task: str, model: str = "") -> int:
         for args in commands:
             cmd = [sys.executable, "-u", "-m", *args]
             print("Running:", " ".join(cmd), flush=True)
-            subprocess.run(cmd, cwd=ROOT, check=True)
+            subprocess.run(cmd, cwd=ROOT, check=True, env=python_job_env())
 
         if task == "train_dl":
             assert run_dir is not None and run_id is not None
