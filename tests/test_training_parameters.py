@@ -38,6 +38,65 @@ class ParameterContractTests(unittest.TestCase):
             with self.subTest(task=task, params=params), self.assertRaises(ValueError):
                 normalize_params(task, params, model)
 
+    def test_traditional_ml_quick_cli_and_validation(self):
+        args = params_to_cli(
+            "train_ml", {"quick": True, "max_train": 512, "max_test": 512}
+        )
+        self.assertIn("--quick", args)
+        self.assertEqual(args[args.index("--max-train") + 1], "512")
+        self.assertEqual(args[args.index("--max-test") + 1], "512")
+        with self.assertRaises(ValueError):
+            normalize_params("train_ml", {"quick": False, "max_train": 512})
+        with self.assertRaises(ValueError):
+            normalize_params("train_ml", {"quick": True, "max_test": -1})
+
+    def test_traditional_ml_web_output_isolation(self):
+        from src.services import web_jobs
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            legacy_reports = root / "reports"
+            legacy_reports.mkdir()
+            legacy_metrics = legacy_reports / "model_metrics.csv"
+            legacy_metrics.write_text("previous-official-results", encoding="utf-8")
+            legacy_models = root / "models"
+            legacy_models.mkdir()
+            old_weight = legacy_models / "RandomForest_DLPRB.pkl"
+            old_weight.write_bytes(b"previous-model")
+
+            def fake_training(command, **kwargs):
+                self.assertIn("src.models.train_traditional_models", command)
+                self.assertIn("--quick", command)
+                output = Path(command[command.index("--out") + 1])
+                self.assertTrue(str(output).startswith(str(root / "resources")))
+                self.assertEqual(command[command.index("--max-train") + 1], "512")
+                weights = output / "models"
+                weights.mkdir(parents=True)
+                (weights / "RandomForest_DLPRB.pkl").write_bytes(b"new-model")
+                reports = output / "reports"
+                reports.mkdir(parents=True)
+                (reports / "model_metrics.csv").write_text("new-results", encoding="utf-8")
+
+            with patch.object(web_jobs, "ROOT", root), patch.object(
+                web_jobs.subprocess, "run", side_effect=fake_training
+            ):
+                status = web_jobs.run(
+                    "train_ml", params={"quick": True, "max_train": 512, "max_test": 512}
+                )
+            self.assertEqual(status, 0)
+            self.assertEqual(legacy_metrics.read_text(encoding="utf-8"),
+                             "previous-official-results")
+            self.assertEqual(old_weight.read_bytes(), b"previous-model")
+            state = json.loads(
+                (root / "resources/jobs/current.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(state["status"], "completed")
+            self.assertEqual(state["models_archived"], 1)
+            self.assertEqual(
+                (Path(state["model_path"]) / "RandomForest_DLPRB.pkl").read_bytes(),
+                b"new-model",
+            )
+            self.assertTrue(Path(state["metrics_path"]).is_file())
+
     def test_anomaly_cli_parameters(self):
         args = params_to_cli("train_anomaly", {"if_contamination": 0.05, "svm_train_sample": 500})
         self.assertEqual(args[args.index("--if-contamination") + 1], "0.05")
