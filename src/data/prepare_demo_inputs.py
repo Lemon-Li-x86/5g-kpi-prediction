@@ -11,18 +11,18 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.core.config import ROOT, KPIS, KEYS
+from src.core.config import ROOT, KPIS, KEYS, ML_HISTORY_HOURS
 
 COLUMNS = ["Time", *KEYS, *KPIS]
 
 
-def prepare_demo_frames(frame: pd.DataFrame, *, forecast_hours: int = 169,
+def prepare_demo_frames(frame: pd.DataFrame, *, forecast_hours: int = ML_HISTORY_HOURS,
                         anomaly_hours: int = 3) -> tuple[pd.DataFrame, pd.DataFrame]:
     missing = set(COLUMNS) - set(frame.columns)
     if missing:
         raise ValueError(f"Missing KPI columns: {sorted(missing)}")
-    if forecast_hours < 169:
-        raise ValueError("Traditional ML needs 169 consecutive history hours")
+    if forecast_hours < ML_HISTORY_HOURS:
+        raise ValueError(f"Traditional ML needs {ML_HISTORY_HOURS} consecutive history hours")
     if anomaly_hours < 2:
         raise ValueError("Anomaly detection needs a context hour and at least one test hour")
 
@@ -62,7 +62,7 @@ def main() -> None:
     parser.add_argument(
         "--out", type=Path, default=ROOT / "resources" / "demo_inputs"
     )
-    parser.add_argument("--forecast-hours", type=int, default=169)
+    parser.add_argument("--forecast-hours", type=int, default=ML_HISTORY_HOURS)
     parser.add_argument("--anomaly-hours", type=int, default=3)
     args = parser.parse_args()
 
