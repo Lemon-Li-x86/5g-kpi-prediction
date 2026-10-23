@@ -15,7 +15,7 @@
 
 主要有两条独立任务：一是用传统 ML 或 LSTM/GRU/Transformer 预测**下一小时 KPI**；二是用 3σ、IQR、Isolation Forest、One-Class SVM 标记**异常候选**，再做 KPI 关联的探索性分析。两条流程都通过 Streamlit 操作。异常候选没有故障真值标签，不能等同于已确诊的网络故障。
 
-界面包含**历史实验结果页面**与**本地模型训练/推理页面**。历史图表读取的是 GitHub `reports/` 内已有数据，选择新的权重版本后，不会自动改成对应版本的新评估分数。
+界面同时提供**历史正式实验、按版本选择的新实验结果和当前会话的模型推理**。结果页的侧栏「结果数据来源 / 实验版本」可显式选择对应 `run_id`。测试集曲线和评估指标来自该次训练保存的 `reports/` 子目录；单次上传 CSV 的推理没有后续真实值，因此不应显示 MAE、RMSE 或 R²。页面不会把不同版本的指标、曲线和相关性文件混在一起。新版结果来源切换功能需本机回归验证。
 
 ## 2. 运行环境与启动
 
@@ -58,7 +58,7 @@ python -c "import torch; print('PyTorch:',torch.__version__); print('CUDA:',torc
 ├── data/processed/                预处理 CSV、特征缓存，Git 忽略
 ├── models/                        未版本化权重，Git 忽略
 ├── resources/
-│   ├── experiments/<run_id>/      本次 DL/异常检测的独立实验结果
+│   ├── experiments/<run_id>/      ML、DL、异常检测的独立实验结果
 │   ├── models/<run_id>/           已发布的权重及元数据
 │   ├── jobs/                      任务状态、日志、WebSocket 信息
 │   └── demo_inputs/              Web 验收输入 CSV
@@ -104,7 +104,7 @@ python -m src.data.build_ml_features
 
 ## 5. 传统机器学习 KPI 预测
 
-在「模型训练」选择「传统 ML」，确认 `data/processed/ml_features.pkl` 存在后开始训练。脚本包含 Persistence 基线、LinearRegression、DecisionTree、RandomForest、XGBoost、LightGBM。Web 默认勾选**快速验收模式**，可设置训练/测试抽样上限；取消勾选则执行完整训练和测试。它尚未开放每个算法独立的树深度、树数量等超参数界面。新版入口需要在本机重新验收。
+在「模型训练」选择「传统 ML」，确认 `data/processed/ml_features.pkl` 存在后开始训练。脚本包含 Persistence 基线、LinearRegression、DecisionTree、RandomForest、XGBoost、LightGBM。Web 默认勾选**快速验收模式**，可设置训练/测试抽样上限；取消勾选则执行完整训练和测试。它尚未开放每个算法独立的树深度、树数量等超参数界面。新版传统 ML 快速训练、模型发布和 Web 预测 CSV 导出已经本机验收通过。
 
 命令行：
 
@@ -176,12 +176,12 @@ Web 的异常训练也会创建 `resources/experiments/<run_id>/` 并保存 `ano
 | 数据管理与预处理 | 下载、审计、预处理和特征任务 |
 | 模型训练 | 传统 ML、DL、异常训练参数和实时日志 |
 | 模型管理与推理 | 本机模型版本、上传历史 CSV、下一小时预测或异常候选推理 |
-| KPI 预测 | 历史 KPI 预测曲线 |
-| 模型评估 | 历史 MAE、RMSE、R² 与算法比较 |
-| 异常检测 | 已保存历史异常候选统计与图表 |
-| KPI 关联分析 | 已保存的相关矩阵、统计检验和初步调查方向 |
+| KPI 预测 | 选定实验的测试集预测曲线，或当前会话的下一小时预测结果 |
+| 模型评估 | 按训练版本读取 MAE、RMSE、R²；不对缺少真值的单次推理计算指标 |
+| 异常检测 | 选定异常实验的标记率与候选事件，或当前会话的异常推理结果 |
+| KPI 关联分析 | 选定异常实验的候选 KPI 相关矩阵；仅当该版本存在显著性文件时显示检验结论 |
 
-这里有两个名称相近、但作用不同的入口：「模型管理与推理」可调用本机**实际权重**；「KPI 预测」「模型评估」「异常检测」等历史展示页读取 `reports/`，不会自动随选择的权重版本更新。
+**版本切换操作：**先进入「模型训练」完成一个新实验；再进入后四个结果页面，在侧栏「结果数据来源 / 实验版本」选择该实验的 `run_id`。KPI 预测和模型评估可选 ML/DL 实验；异常检测和 KPI 关联分析可选异常实验。选择「历史正式实验」时读取仓库顶层 `reports/`。在「模型管理与推理」完成上传 CSV 的实际预测/异常检测后，切到「KPI 预测」/「异常检测」，可选择「当前会话推理」查看这一次输入的结果，且不会误用历史测试集的精度指标。**选择模型权重不等于选择训练指标版本**，各结果页以侧栏明确选中的来源为准。
 
 ## 9. 实际调用推理与下载 CSV
 
@@ -227,7 +227,7 @@ Web 目前限制上传约 50 MB。模型的 `.pkl` 采用 Python pickle 格式�
 - **`ModuleNotFoundError: src.train_...`**：旧平铺式脚本已删除。改用 `python -m src.models.train_...`。
 - **模型下拉框为空**：GitHub 报告 CSV 不等于可加载权重；检查本机 `models/` 或 `resources/models/`。DL checkpoint 必须有同名 JSON 元数据。
 - **CUDA 不可用**：核对 `torch.cuda.is_available()` 与 PyTorch/CUDA 安装，不要仅凭 RTX 显卡存在推断训练正在使用 GPU。
-- **历史图表未更新**：这些页面读取旧 `reports/`，不表示模型训练失败。
+- **结果仍显示旧图表**：检查后四个结果页侧栏「结果数据来源 / 实验版本」是否仍选择「历史正式实验」，切到本次 `run_id` 即可。新实验未完成或缺少对应报告文件时不会作为可选版本。
 - **WebSocket 断连**：先看 `stream_errors.log` 和 `current.log`，不要反复启动相同训练任务。
 - **无法导出结果**：确认先点击过对应模型的推理/异常检测按钮，下载结果必须与当前模型和上传文件匹配。
 
