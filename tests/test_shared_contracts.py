@@ -7,7 +7,7 @@ import unittest
 
 from src.core.config import (
     KPIS, KEYS, ML_LAGS, ML_HISTORY_HOURS, ML_FORECAST_HORIZON,
-    DATASET_TEST_START_HOUR,
+    DATASET_TEST_START_HOUR, DATASET_FILES, DATASET_REPO_ID,
 )
 from src.core.training_config import normalize_params, params_to_cli
 
@@ -16,6 +16,13 @@ class SharedConfigContracts(unittest.TestCase):
     def test_four_kpis_and_beam_keys_have_canonical_order(self):
         self.assertEqual(KPIS, ["DLPRB", "DLThpVol", "DLThpTime", "MR_number"])
         self.assertEqual(KEYS, ["base_station", "cell", "beam"])
+
+    def test_dataset_manifest_has_one_file_per_kpi(self):
+        self.assertEqual(DATASET_REPO_ID, "netop/gotsf-ds")
+        self.assertEqual(list(DATASET_FILES), KPIS)
+        self.assertEqual(len(set(DATASET_FILES.values())), len(KPIS))
+        self.assertTrue(all(filename.endswith("_train_0w-5w.csv")
+                            for filename in DATASET_FILES.values()))
 
     def test_forecast_history_is_derived_from_lag_contract(self):
         self.assertEqual(ML_LAGS, (1, 2, 24, 168))
