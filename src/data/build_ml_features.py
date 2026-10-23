@@ -5,12 +5,14 @@ import json
 import numpy as np
 import pandas as pd
 
+from src.core.config import (
+    ROOT as PROJECT_ROOT, KPIS, KEYS, ML_LAGS, ML_FORECAST_HORIZON,
+)
+
 
 # ============================================================
 # Project paths
 # ============================================================
-
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 REPORT_DIR = PROJECT_ROOT / "reports"
@@ -25,30 +27,10 @@ SUMMARY_FILE = REPORT_DIR / "ml_feature_summary.json"
 # Configuration
 # ============================================================
 
-KPI_COLUMNS = [
-    "DLPRB",
-    "DLThpVol",
-    "DLThpTime",
-    "MR_number",
-]
-
-ID_COLUMNS = [
-    "base_station",
-    "cell",
-    "beam",
-]
-
-# Historical lags:
-# 1 hour, 2 hours, 24 hours, 1 week
-LAGS = [
-    1,
-    2,
-    24,
-    168,
-]
-
-# Predict the next hour
-FORECAST_HORIZON = 1
+KPI_COLUMNS = KPIS
+ID_COLUMNS = KEYS
+LAGS = list(ML_LAGS)
+FORECAST_HORIZON = ML_FORECAST_HORIZON
 
 # W3 split:
 # target Time < 672 -> train
