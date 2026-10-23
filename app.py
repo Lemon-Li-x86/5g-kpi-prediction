@@ -36,6 +36,8 @@ from src.ui.dashboard_data import (  # noqa: E402
     load_model_metrics,
     load_prediction_series,
     load_preprocessing_summary,
+    list_experiment_runs,
+    run_report_dir,
 )
 
 
@@ -52,38 +54,38 @@ st.set_page_config(
 # ============================================================
 
 @st.cache_data(show_spinner=False)
-def get_model_metrics() -> pd.DataFrame:
-    return load_model_metrics()
+def get_model_metrics(report_dir: str = "") -> pd.DataFrame:
+    return load_model_metrics(Path(report_dir) if report_dir else None)
 
 
 @st.cache_data(show_spinner=False)
-def get_prediction_series(model: str, kpi: str) -> pd.DataFrame:
-    return load_prediction_series(model, kpi)
+def get_prediction_series(model: str, kpi: str, report_dir: str = "") -> pd.DataFrame:
+    return load_prediction_series(model, kpi, Path(report_dir) if report_dir else None)
 
 
 @st.cache_data(show_spinner=False)
-def get_anomaly_summary() -> pd.DataFrame:
-    return load_anomaly_summary()
+def get_anomaly_summary(report_dir: str = "") -> pd.DataFrame:
+    return load_anomaly_summary(Path(report_dir) if report_dir else None)
 
 
 @st.cache_data(show_spinner=False)
-def get_hourly_rates() -> pd.DataFrame:
-    return load_anomaly_hourly_rates()
+def get_hourly_rates(report_dir: str = "") -> pd.DataFrame:
+    return load_anomaly_hourly_rates(Path(report_dir) if report_dir else None)
 
 
 @st.cache_data(show_spinner=False)
-def get_events() -> pd.DataFrame:
-    return load_anomaly_events()
+def get_events(report_dir: str = "") -> pd.DataFrame:
+    return load_anomaly_events(Path(report_dir) if report_dir else None)
 
 
 @st.cache_data(show_spinner=False)
-def get_corr_matrix():
-    return load_correlation_matrix()
+def get_corr_matrix(report_dir: str = ""):
+    return load_correlation_matrix(Path(report_dir) if report_dir else None)
 
 
 @st.cache_data(show_spinner=False)
-def get_corr_tests() -> pd.DataFrame:
-    return load_correlation_tests()
+def get_corr_tests(report_dir: str = "") -> pd.DataFrame:
+    return load_correlation_tests(Path(report_dir) if report_dir else None)
 
 
 @st.cache_data(show_spinner=False)
@@ -160,8 +162,30 @@ page = st.sidebar.radio(
 )
 
 st.sidebar.divider()
-st.sidebar.caption("历史图表读取 reports/；训练与推理在本机执行。")
+st.sidebar.caption("可查看历史正式实验、每次独立训练的结果，也可查看当前会话推理。")
 st.sidebar.caption("当前版本不连接实时 free5GC/UERANSIM 网络。")
+
+# Select one explicit data provenance per results page. Never silently merge a
+# newly trained run with unrelated historical plots or metrics.
+result_source = "历史正式实验"
+result_report_dir = ""
+if page in ("KPI 预测", "模型评估", "异常检测", "KPI 关联分析"):
+    category = "forecast" if page in ("KPI 预测", "模型评估") else "anomaly"
+    runs = list_experiment_runs(category)
+    options = [f"新实验：{run_id}" for run_id in runs]
+    current_result = st.session_state.get("kpi_inference_result")
+    if page == "KPI 预测" and current_result and current_result.get("family") in ("ml", "dl"):
+        options.insert(0, "当前会话推理")
+    if page == "异常检测" and current_result and current_result.get("family") == "anomaly":
+        options.insert(0, "当前会话推理")
+    options.append("历史正式实验")
+    result_source = st.sidebar.selectbox(
+        "结果数据来源 / 实验版本", options, index=0,
+        key=f"result_source_{page}",
+    )
+    if result_source.startswith("新实验："):
+        result_report_dir = str(run_report_dir(result_source.split("：", 1)[1]))
+    st.sidebar.caption(f"正在查看：{result_source}")
 
 
 # ============================================================
@@ -239,8 +263,32 @@ elif page == "KPI 预测":
         "曲线展示测试集内按小时聚合的 KPI 平均值；下方 MAE、RMSE 和 R² 来自模型保存的测试集评估指标。"
     )
 
-    models = available_prediction_models()
-    metrics = get_model_metrics()
+    if result_source == "当前会话推理":
+        last = st.session_state["kpi_inference_result"]
+        frame = last["frame"]
+        model_file = Path(last["signature"][0])
+        st.caption(f"实际推理结果 · 权重版本：{model_file.parent.name} / {model_file.name}")
+        st.info("这里是上传历史 CSV 后对下一小时的预测，没有下一小时真值，不能计算 MAE、RMSE 或 R²。")
+        targets = [k for k in KPIS if k in frame.columns]
+        if not targets:
+            st.warning("本次推理没有可展示的 KPI 预测字段。")
+            st.stop()
+        chosen = st.selectbox("KPI 指标", targets, key="session_forecast_kpi")
+        st.dataframe(frame, use_container_width=True, hide_index=True)
+        view = frame.copy()
+        view["波束"] = view[["base_station", "cell", "beam"]].astype(str).agg("/".join, axis=1)
+        fig = px.bar(
+            view, x="波束", y=chosen,
+            title=f"Time {int(view['Time'].iloc[0])}：{chosen} 下一小时预测",
+        )
+        fig.update_layout(xaxis_title="基站/小区/波束", yaxis_title=f"{chosen}（原始数据尺度）")
+        st.plotly_chart(fig, use_container_width=True)
+        add_download_button(frame, "导出本次预测 CSV", "session_kpi_predictions.csv")
+        st.stop()
+
+    st.caption(f"当前曲线和指标来源：{result_source}。所有结果均取自选定版本的测试集产物。")
+    models = available_prediction_models(Path(result_report_dir) if result_report_dir else None)
+    metrics = get_model_metrics(result_report_dir)
 
     if not models:
         st.error("未找到预测结果文件。请先运行相应的传统 ML / 深度学习实验脚本。")
@@ -253,7 +301,7 @@ elif page == "KPI 预测":
         default_model = "GRU" if "GRU" in models else models[0]
         model = st.selectbox("预测模型", models, index=models.index(default_model))
 
-    series = get_prediction_series(model, kpi)
+    series = get_prediction_series(model, kpi, result_report_dir)
     row = metric_row(metrics, kpi, model)
     render_metric_cards(row)
 
@@ -305,7 +353,8 @@ elif page == "KPI 预测":
 
 elif page == "模型评估":
     st.title("模型性能比较")
-    metrics = get_model_metrics()
+    st.caption(f"当前评估来源：{result_source}；不会将不同实验版本的测试指标混合。")
+    metrics = get_model_metrics(result_report_dir)
 
     if metrics.empty:
         st.error("未找到可用的模型评估指标 CSV。")
@@ -354,9 +403,33 @@ elif page == "模型评估":
 
 elif page == "异常检测":
     st.title("异常检测结果")
-    summary = get_anomaly_summary()
-    hourly = get_hourly_rates()
-    events = get_events()
+    if result_source == "当前会话推理":
+        last = st.session_state["kpi_inference_result"]
+        frame = last["frame"]
+        model_file = Path(last["signature"][0])
+        st.caption(f"实际异常推理结果 · 权重版本：{model_file.parent.name} / {model_file.name}")
+        flags = ["sigma", "iqr", "isolation_forest", "one_class_svm", "consensus"]
+        summary = pd.DataFrame({
+            "检测方法": flags,
+            "候选数": [int(frame[key].sum()) for key in flags],
+            "标记比例": [float(frame[key].mean()) for key in flags],
+        })
+        st.dataframe(summary, hide_index=True, use_container_width=True)
+        fig = px.bar(summary, x="检测方法", y="标记比例", title="当前输入数据的异常候选标记率")
+        st.plotly_chart(fig, use_container_width=True)
+        if "Time" in frame.columns:
+            hourly = frame.groupby("Time", as_index=False)[flags].mean()
+            st.subheader("本次输入逐小时标记率")
+            st.line_chart(hourly.set_index("Time"))
+        st.dataframe(frame, hide_index=True, use_container_width=True)
+        add_download_button(frame, "导出本次异常检测 CSV", "session_anomaly_candidates.csv")
+        st.caption("本次输出是候选标记，不是已确认故障。")
+        st.stop()
+
+    st.caption(f"当前异常检测数据来源：{result_source}")
+    summary = get_anomaly_summary(result_report_dir)
+    hourly = get_hourly_rates(result_report_dir)
+    events = get_events(result_report_dir)
 
     if summary.empty:
         st.error("未找到异常检测方法汇总文件。")
@@ -422,8 +495,8 @@ elif page == "异常检测":
     if not events.empty:
         st.subheader("异常候选事件")
         st.caption(
-            "当前 CSV 只保存了按 Isolation Forest 分数排序的最多 2,000 条联合候选事件，"
-            "不是全部候选事件。"
+            "候选事件 CSV 只保存了按 Isolation Forest 分数排序的部分联合候选事件，"
+            "不一定包含全部候选；保存上限由该实验的 max_events 参数决定。"
         )
 
         filtered = events.copy()
@@ -474,8 +547,9 @@ elif page == "异常检测":
 
 elif page == "KPI 关联分析":
     st.title("KPI 关联分析")
-    corr, source_label = get_corr_matrix()
-    tests = get_corr_tests()
+    st.caption(f"当前关联分析来源：{result_source}。仅分析该实验产生的候选数据。")
+    corr, source_label = get_corr_matrix(result_report_dir)
+    tests = get_corr_tests(result_report_dir)
 
     if corr.empty:
         st.info("未找到 KPI 相关性矩阵。")
@@ -541,8 +615,8 @@ elif page == "KPI 关联分析":
 
     if tests.empty:
         st.warning(
-            "当前仓库还没有 W4 相关性显著性检验结果。上图仅展示 W3 的探索性相关系数，"
-            "不会显示或推断 p 值。运行 W4 统计诊断脚本后，刷新页面即可读取检验结果。"
+            "选定实验没有对应的显著性检验文件；这里只展示探索性相关系数，"
+            "不会引用别的实验版本的 p 值。"运行 W4 统计诊断脚本后，刷新页面即可读取检验结果。"
         )
     else:
         st.markdown(
