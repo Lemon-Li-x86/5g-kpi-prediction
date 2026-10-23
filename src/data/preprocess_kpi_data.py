@@ -5,17 +5,16 @@ import json
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from src.core.config import ROOT as PROJECT_ROOT, KPIS, RAW_DATA, PROCESSED_DATA, REPORTS
 
 
 # ============================================================
 # Project paths
 # ============================================================
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-
-RAW_DIR = PROJECT_ROOT / "data" / "raw"
-PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
-REPORT_DIR = PROJECT_ROOT / "reports"
+RAW_DIR = RAW_DATA
+PROCESSED_DIR = PROCESSED_DATA
+REPORT_DIR = REPORTS
 
 OUTPUT_FILE = PROCESSED_DIR / "kpi_timeseries.csv"
 SUMMARY_FILE = REPORT_DIR / "preprocessing_summary.json"
@@ -32,12 +31,7 @@ FILES = {
     "MR_number": "MR_number_train_0w-5w.csv",
 }
 
-KPI_COLUMNS = [
-    "DLPRB",
-    "DLThpVol",
-    "DLThpTime",
-    "MR_number",
-]
+KPI_COLUMNS = KPIS
 
 # First four weeks for training:
 # 4 weeks × 7 days × 24 hours = 672 hours
