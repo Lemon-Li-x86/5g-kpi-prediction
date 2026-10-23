@@ -140,6 +140,17 @@ def render_forecast_inference_result(saved: dict) -> None:
         a, b = st.columns(2)
         a.metric("预测目标小时 Time", str(values["Time"].iloc[0]))
         b.metric(chosen, f"{float(values[chosen].iloc[0]):.4f}")
+        st.plotly_chart(
+            px.bar(
+                pd.DataFrame({
+                    "KPI": targets,
+                    "预测值": [float(values[k].iloc[0]) for k in targets],
+                }),
+                x="KPI", y="预测值",
+                title="下一小时 KPI 预测值（单波束）",
+            ),
+            use_container_width=True,
+        )
     else:
         values["波束"] = values[["base_station", "cell", "beam"]].astype(str).agg("/".join, axis=1)
         fig = px.bar(values, x="波束", y=chosen, title=f"下一小时 {chosen} 波束预测结果")
