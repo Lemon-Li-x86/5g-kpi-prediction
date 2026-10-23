@@ -37,7 +37,7 @@ from sklearn.metrics import (
     r2_score,
 )
 
-from src.core.config import KPIS, KEYS
+from src.core.config import KPIS, KEYS, DATASET_TEST_START_HOUR
 
 try:
     import torch
@@ -486,7 +486,7 @@ def main():
     parser.add_argument(
         "--test-start",
         type=int,
-        default=672,
+        default=DATASET_TEST_START_HOUR,
     )
 
     parser.add_argument(
