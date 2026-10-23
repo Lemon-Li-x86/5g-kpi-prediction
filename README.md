@@ -16,7 +16,7 @@
 ## 当前功能
 
 - **数据管理与预处理**：识别固定 gotsf-ds 四 KPI 文件；下载、审计、预处理及传统 ML 特征工程。
-- **模型训练**：在独立进程中运行传统 ML、LSTM、GRU、Transformer 或异常检测。WebSocket 终端展示新增输出；日志同时缓存写入 `resources/jobs/current.log`。
+- **模型训练**：在 Web 表单直接调整 LSTM/GRU/Transformer 的 Epoch、Batch Size、学习率、隐藏维度、时间窗口、早停、抽样上限、随机种子及计算设备；异常检测可设置污染率和抽样参数。后台按白名单校验，再由独立进程执行。WebSocket 实时展示输出，日志同时写入 `resources/jobs/current.log`。传统 ML 尚无独立的超参数 CLI，Web 保留固定的正式训练配置。
 - **模型管理与推理**：从本机 `models/` 和 `resources/models/` 枚举模型版本，选择可信本地权重，对符合字段要求的历史 CSV 执行下一小时预测并导出。
 - **结果展示**：总览、KPI 预测曲线、模型评估、异常候选统计、KPI 关联分析。**这些历史图表读取 `reports/` 中的已有实验结果，不一定对应当前下拉框选中的模型版本。**
 
@@ -64,7 +64,7 @@ python -m src.models.detect_kpi_anomalies
 python -m src.analysis.analyze_anomaly_statistics
 ```
 
-注意：深度学习实验推荐给每次运行指定全新的 `--out` 目录，避免不同标准化参数的报告合并产生 `train_scale_mean` 冲突。Web 的深度学习训练入口已自动分配独立目录。传统 ML/异常检测脚本目前仍有固定输出路径，存在进一步工程化空间。
+注意：每次 Web 深度学习和异常检测训练都会自动分配唯一的 `resources/experiments/<run_id>/` 输出目录，并保存 `requested_parameters.json`；成功后将可用模型发布到 `resources/models/<run_id>/`。同类历史实验不会被新调参覆盖。命令行复现实验时同样建议指定新的 `--out` 目录。传统 ML 的报告仍沿用固定输出路径，尚未做到完整版本隔离。
 
 ## 检查
 
