@@ -37,7 +37,8 @@ free5GC / UERANSIM 仿真及协议分析（独立实验支线）
             指标及真实值对比                             ├─ 下一小时 KPI 预测
                                                         └─ 异常标记 → KPI 关联分析
                                           │
-                             Streamlit 展示与 CSV 导出```
+                             Streamlit 展示与 CSV 导出
+```
 
 具体职责分别位于 `src/core/`（通用配置）、`src/data/`（数据处理）、`src/models/`（算法、训练、推理）、`src/analysis/`（统计分析）、`src/services/`（训练任务与模型版本）、`src/ui/`（Web 页面）。`app.py` 是应用启动入口。神经网络定义统一保存在 `src/models/architectures.py`，可供训练与推理复用。更多结构细节见 `docs/ARCHITECTURE.md`。
 
@@ -86,7 +87,7 @@ free5GC / UERANSIM 仿真及协议分析（独立实验支线）
 
 ### 4.3 实验图表及模型比较
 
-历史传统 ML 的逐小时预测汇总保存在 `reports/prediction_timeseries.csv`；深度学习有 `reports/w3_lstm_hourly_predictions.csv`、`w3_gru_hourly_predictions.csv`、`w3_transformer_hourly_predictions.csv`，对应预测图在 `figures/`。第 5 周的跨系列比较由 `src/analysis/compare_model_performance.py` 读取保存的模型指标并形成报告。
+历史传统 ML 的逐小时预测汇总保存在 `reports/prediction_timeseries.csv`；深度学习有 `reports/w3_lstm_hourly_predictions.csv`、`w3_gru_hourly_predictions.csv`、`w3_transformer_hourly_predictions.csv`，对应预测图在 `figures/`。跨系列比较由 `src/analysis/compare_model_performance.py` 读取保存的模型指标并形成报告。
 
 ![历史模型 R² 对比](../figures/model_comparison_R2.png)
 
@@ -180,7 +181,7 @@ python -m unittest test_inference test_model_registry -v
 
 ### 7.1 2026-10-23 本机交互验收记录
 
-以下记录来自本机 PowerShell 测试输出、Web 操作反馈与异常推理页面截图，**与第 4～6 周保存的完整正式训练成绩区分**。
+以下记录来自本机 PowerShell 测试输出、Web 操作反馈与异常推理页面截图。
 
 | 验收内容 | 观察与结果 | 结论 |
 |---|---|---|
