@@ -89,11 +89,12 @@ class StreamHub:
             self.clients.discard(queue)
 
 
-async def _execute(task: str, model: str, hub: StreamHub) -> None:
+async def _execute(task: str, model: str, hub: StreamHub, params_json: str = "{}") -> None:
     env = python_job_env()
     cmd = [sys.executable, "-u", "-m", "src.services.web_jobs", task]
     if model:
         cmd.append(model)
+    cmd.extend(("--params-json", params_json))
 
     JOBS.mkdir(parents=True, exist_ok=True)
     decoder = codecs.getincrementaldecoder("utf-8")("replace")
@@ -165,11 +166,11 @@ async def _execute(task: str, model: str, hub: StreamHub) -> None:
     hub.finish(final_status, return_code)
 
 
-async def _main(port: int, token: str, task: str, model: str) -> None:
+async def _main(port: int, token: str, task: str, model: str, params_json: str = "{}") -> None:
     hub = StreamHub(token)
     # The server runs for the whole job and a short grace period afterwards.
     async with serve(hub.handle, "127.0.0.1", port, max_size=1024 * 1024):
-        await _execute(task, model, hub)
+        await _execute(task, model, hub, params_json)
         await asyncio.sleep(90)
 
 
@@ -179,9 +180,10 @@ if __name__ == "__main__":
     parser.add_argument("model", nargs="?", default="")
     parser.add_argument("--port", type=int, required=True)
     parser.add_argument("--token", required=True)
+    parser.add_argument("--params-json", default="{}")
     args = parser.parse_args()
     try:
-        asyncio.run(_main(args.port, args.token, args.task, args.model))
+        asyncio.run(_main(args.port, args.token, args.task, args.model, args.params_json))
     except Exception:
         error = traceback.format_exc()
         JOBS.mkdir(parents=True, exist_ok=True)
