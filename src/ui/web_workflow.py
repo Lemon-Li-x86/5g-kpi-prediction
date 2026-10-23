@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import hashlib
 import json
 import re
 import secrets
@@ -449,6 +450,7 @@ def render_training_page() -> None:
 
 
 def render_model_page() -> None:
+    """Select a trusted local checkpoint, run inference, and retain CSV exports."""
     st.title("模型版本管理与推理")
     st.caption("只扫描 resources/models/ 与 models/ 中的本地可信模型；不接受外部上传的 pickle。")
     if st.button("归档现有未版本化模型", disabled=_busy()):
@@ -458,19 +460,17 @@ def render_model_page() -> None:
     if not models:
         st.info("尚未发现本地权重。GitHub 中的历史指标 CSV 并不是模型权重，请先在本机运行训练。")
         return
+
     options = {f"{idx}: {item.label}": item for idx, item in enumerate(models)}
     selected_label = st.selectbox("选择本地权重版本", list(options))
     selected = options[selected_label]
     st.write({"类型": selected.family, "模型": selected.model,
               "目标": selected.target, "版本": selected.version, "路径": selected.path})
     if selected.family == "anomaly":
-        st.info(
-            "异常检测要求输入与训练时相同的全部波束 ID、相互对齐的连续小时序列，"
-            "并且首小时作为差分上下文，不参与异常标记。"
-            "候选异常不等于真实网络故障。"
-        )
+        st.info("异常检测必须使用和训练时相同的全部波束 ID、连续且对齐的小时轴；首小时只作差分上下文。检测结果是候选异常，不是已确认故障。")
     else:
-        st.warning("仅加载本机生成的可信权重；预测要求各波束的连续 KPI 历史序列。")
+        st.warning("仅加载本机可信权重；预测要求各波束的连续 KPI 历史序列。")
+
     uploaded = st.file_uploader("上传 KPI 历史 CSV（不保存到磁盘）", type=["csv"])
     if uploaded is None:
         return
@@ -478,6 +478,9 @@ def render_model_page() -> None:
         st.error("文件超过 50 MB 限制。")
         return
     try:
+        # Bind the remembered result to BOTH the model and precise CSV bytes.
+        payload = uploaded.getvalue()
+        signature = (selected.path, hashlib.sha256(payload).hexdigest())
         data = pd.read_csv(uploaded)
         required = {"Time", "base_station", "cell", "beam", *KPIS}
         missing = required - set(data.columns)
@@ -485,33 +488,45 @@ def render_model_page() -> None:
             st.error(f"缺少必要字段：{sorted(missing)}")
             return
         st.write(f"输入样本：{len(data):,} 行")
+
         if selected.family == "anomaly":
-            if st.button("运行异常检测"):
-                from src.models.inference import detect_anomalies
-                with st.spinner("正在执行异常检测"):
-                    result = detect_anomalies(data, selected.path)
+            label = "运行异常检测"
+        else:
+            label = "运行下一小时预测"
+        if st.button(label):
+            from src.models.inference import detect_anomalies, predict_kpi
+            with st.spinner("正在执行推理"):
+                result = (detect_anomalies(data, selected.path)
+                          if selected.family == "anomaly"
+                          else predict_kpi(data, selected.path))
+            st.session_state["kpi_inference_result"] = {
+                "signature": signature,
+                "family": selected.family,
+                "frame": result,
+            }
+
+        saved = st.session_state.get("kpi_inference_result")
+        if saved and saved["signature"] == signature and saved["family"] == selected.family:
+            result = saved["frame"]
+            if selected.family == "anomaly":
                 flags = ["sigma", "iqr", "isolation_forest", "one_class_svm", "consensus"]
                 summary = pd.DataFrame({
                     "检测方法": flags,
                     "候选数量": [int(result[k].sum()) for k in flags],
                     "标记比例": [float(result[k].mean()) for k in flags],
                 })
-                st.write("本次输入数据的异常候选统计")
+                st.subheader("本次输入数据的异常候选统计")
                 st.dataframe(summary, hide_index=True, use_container_width=True)
-                st.dataframe(result.head(200), hide_index=True, use_container_width=True)
-                st.download_button(
-                    "导出异常标记 CSV",
-                    result.to_csv(index=False).encode("utf-8-sig"),
-                    "kpi_anomaly_candidates.csv", "text/csv",
-                )
-        elif st.button("运行下一小时预测"):
-            from src.models.inference import predict_kpi
-            with st.spinner("正在执行推理"):
-                result = predict_kpi(data, selected.path)
-            st.dataframe(result.head(200), use_container_width=True, hide_index=True)
+                filename = "kpi_anomaly_candidates.csv"
+                download_label = "导出异常标记 CSV"
+            else:
+                filename = "kpi_inference.csv"
+                download_label = "导出预测结果 CSV"
+            st.dataframe(result.head(200), hide_index=True, use_container_width=True)
             st.download_button(
-                "导出预测结果 CSV", result.to_csv(index=False).encode("utf-8-sig"),
-                "kpi_inference.csv", "text/csv",
+                download_label, data=result.to_csv(index=False).encode("utf-8-sig"),
+                file_name=filename, mime="text/csv",
             )
+            st.caption("结果保存在当前浏览器会话中；下载或页面刷新不会清空结果。切换模型或上传文件后需重新运行推理。")
     except Exception as exc:
         st.error(f"无法执行推理：{exc}")
