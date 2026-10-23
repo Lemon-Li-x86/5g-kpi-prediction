@@ -62,19 +62,45 @@ Transformer               One-Class SVM
 
 历史正式比较位于仓库顶层 `reports/` 和 `figures/`；新训练结果以 `run_id` 隔离归档。本次异常的 KPI 关联根据 `base_station`、`cell`、`beam`、`Time` 将检测输出与输入数据一对一匹配，再计算共识候选中的 Pearson 相关系数。样本不足时显示提示。
 
-## 4. 参数与共享约定
+## 4. 参数登记与配置管理
 
-| 参数 / 字段 | 唯一来源与传递方式 |
-|---|---|
-| 四项 KPI、波束标识及根目录 | `src/core/config.py` 中的 `KPIS`、`KEYS`、`ROOT` |
-| Web 可配置的训练参数、默认值和 CLI 映射 | `src/core/training_config.py` 中的 `DL_DEFAULTS`、`ANOMALY_DEFAULTS`、`ML_DEFAULTS` 及校验函数 |
-| Web 单次训练提交的实际参数 | `resources/experiments/<run_id>/requested_parameters.json` |
-| ML 模型特征、归一化元数据 | 模型 `.pkl` bundle 中的列顺序、目标与标准化参数 |
-| DL 序列长度、季节滞后和归一化参数 | 与 `.pt` 同名的 `.json` 元数据 |
-| 异常模型的训练波束集合、缩放与检测器 | `anomalies.pkl` 模型 bundle |
-| UI 运行中的预测/异常结果 | 当前 Streamlit 会话状态，按权重路径和输入 CSV 哈希匹配 |
+参数统一原则：**数据契约共用、运行参数按任务保存、模型专属结构独立管理、派生值通过计算获得**。同名参数先判断语义、单位、所属模型和作用阶段，再决定是否共享。下表是最终代码审查的参数登记簿，记录定义位置、引用位置与归属。
 
-历史脚本中的局部实验常量保持原有计算语义。新增功能优先引用 `src.core` 的共享定义，业务逻辑及页面代码分别保留在所属模块内。
+| 参数或配置 | 语义／单位／作用范围 | 定义位置 | 主要引用位置 | 分类与处理 |
+|---|---|---|---|---|
+| `KPIS` | 四个 KPI 字段，保持公开数据集字段顺序 | `src/core/config.py` | 预处理、ML/DL/异常训练、推理、分析和 UI | **共享单一来源**；各训练脚本直接引用 |
+| `KEYS` | 波束身份字段 `base_station/cell/beam`，不带物理单位 | `src/core/config.py` | 特征工程、DL/异常数据整形、推理、会话关联 | **共享单一来源**；表格关联包含 `Time` |
+| `ROOT` 与目录常量 | 仓库根路径和 `data/`、`reports/`、`resources/` 等 | `src/core/config.py` | 数据、训练、模型归档、Web | **共享路径契约**；各实验输出目录由 `run_id` 派生 |
+| `DATASET_TEST_START_HOUR` | 历史数据集测试区间起点，小时索引，默认 672 | `src/core/config.py` | 预处理、ML 特征、DL/异常训练与诊断的 CLI 默认值 | **共享默认边界**；研究脚本仍可显式指定 CLI 切分 |
+| `ML_LAGS` | 传统 ML 输入滞后 1/2/24/168 小时 | `src/core/config.py` | `build_ml_features.py`、`inference.py` | **共享训练／推理特征契约**，顺序和含义必须一致 |
+| `ML_FORECAST_HORIZON` | 传统 ML 预测目标间隔：1 小时 | `src/core/config.py` | `build_ml_features.py` | **固定任务语义**，与训练目标一致 |
+| `ML_HISTORY_HOURS` | 演示输入最少连续历史小时数：`max(ML_LAGS)+1=169` | `src/core/config.py` 派生 | `prepare_demo_inputs.py`、`web_workflow.py`、`inference.py` | **派生值**，无需另存同义常量 |
+| `seed` 与 `DEFAULT_RANDOM_SEED` | 随机初始化／抽样种子，无单位 | `training_config.py` 分任务；共享建议默认 42 见 `config.py` | 各模型训练和诊断 | **每个任务、每次运行独立配置**；同名不等于共享随机状态 |
+| `epochs`、`batch_size`、`lr`、`patience` | DL 训练轮次、批量条数、学习率、早停轮次 | `src/core/training_config.py` 的 `DL_DEFAULTS` | Web 表单、`web_jobs.py`、DL 训练 CLI | **各模型实验独立运行参数**，与实际 `run_id` 共同保存 |
+| `hidden`（LSTM/GRU） | 循环隐藏状态宽度，单位：特征维 | 每次 DL 运行参数；结构解释见 `architectures.py` | `ForecastNet` 的 RNN 层和输出头 | **模型专属语义**，同名值在 LSTM/GRU 各自独立 |
+| `hidden`（Transformer） | 表示向量宽度／`d_model`，单位：特征维 | 每次 DL 运行参数；结构解释见 `architectures.py` | Transformer 输入投影、注意力层和输出头 | **模型专属语义**；需可被 4 个注意力头整除 |
+| Transformer `nhead=4` | 注意力头数，模型结构超参数 | `src/models/architectures.py` | `src/core/training_config.py` 的合法性校验 | **架构常量**；本版本固定为 4，不作为统一 DL 超参数 |
+| `seq_len` | 输入历史窗口，小时 | 各次 DL 运行参数，默认 24 | DL Dataset、`ForecastNet`、checkpoint 侧车元数据、推理 | **DL 实验参数**，各模型可不同 |
+| `seasonal_lag` | 季节参考滞后，小时，默认 168 | 各次 DL 运行参数 | DL Dataset、checkpoint 元数据、推理 | **DL 专属特征参数**；不与传统 ML 的 168 小时滞后混同 |
+| `validation_start=588` | DL 训练／验证边界（小时索引） | `train_deep_learning_models.py` CLI 默认 | DL 时间划分及 scaler 拟合 | **DL 评估协议**，独立于历史测试起点 672 |
+| `max_train/max_val/max_test` | 训练、验证、测试抽样上限，样本条数 | `training_config.py` 的任务专属默认值 | ML/DL Web 训练及各自 CLI | **按任务区分**；ML `quick` 与 DL 抽样策略各自处理 |
+| `device` | DL 使用 `auto/cpu/cuda`，无单位 | `DL_DEFAULTS` | DL Web 表单、训练命令 | **每次训练配置**，日志记录实际运行设备 |
+| `if_contamination` | IF 预期异常比例，无量纲 | `ANOMALY_DEFAULTS` | 异常 Web 表单、训练脚本 | **异常检测专属参数** |
+| `if_train_sample`、`svm_train_sample`、`svm_test_sample` | IF/SVM 抽样量，单位：记录条数 | `ANOMALY_DEFAULTS` | 异常训练及保存的运行配置 | **分算法独立样本数**；SVM 测试分母单独说明 |
+| `max_events` | 最多存储的异常候选记录数，单位：条 | `ANOMALY_DEFAULTS` | 异常训练报告导出 | **存储上限**，不参与候选判定逻辑 |
+| 标准化 `mean/scale`、波束顺序 | 各模型实际训练拟合的变换参数及输入排列 | ML `.pkl` bundle、DL `.pt.json`、异常 `anomalies.pkl` | 各自模型的 `inference.py` | **随模型保存的状态**；不同实验不可用同名参数互相覆盖 |
+| `run_id` 与 `requested_parameters.json` | 一轮独立训练的身份、用户配置和归档来源 | `src/services/web_jobs.py` | 模型版本登记、训练评估与 Web | **每轮唯一标识**，历史指标保持独立 |
+
+**重复定义检查结果：**四项 KPI、波束标识、传统 ML 滞后与最短历史长度、数据集测试起点已统一。各 CLI 保留与 Web 相匹配的默认参数作为独立命令行接口；Web 运行会显式传入经校验的全部参数。LSTM、GRU、Transformer 保留各自的 `hidden` 语义与模型权重，SVM/IF 的抽样分母分别记录。固定的 Transformer 注意力头数属于模型结构，若未来开放调整，应同步调整结构定义、参数校验、checkpoint 元数据及测试。
+
+## 4.1 注释及代码维护规范
+
+- 每个可执行脚本应有模块级说明：用途、数据入口、关键输出和运行方式；公开 API/非显然函数说明输入、输出、尺度及失败条件。
+- **解释原因和约束**：时间切分、scaler 拟合范围、特征窗口、波束对齐、候选标记规则及输出隔离。简单赋值、循环和列表构造使用清晰命名即可，不逐行翻译代码。
+- Python 类型与数据结构要明确：时间列 `Time` 为小时索引，KPI 为原始数据尺度或 `_z` 标准化尺度，关联键为 `KEYS + ["Time"]`；相关矩阵来自本次候选样本。
+- UI 负责交互和展示，算法留在 `src.models`，纯数据计算和统计留在 `src.analysis`。保留历史脚本的业务计算约定，减少大面积格式性重排。
+- 模型训练、推理和实验展示中的“同名”参数先按所属模型、单位、应用阶段识别；新增参数同时维护默认值、校验规则、CLI 传递、保存元数据和测试。
+- 单元测试使用合成输入；完整 Web 点击与实际模型权重回载在目标 Windows 环境验收。新增算法输出应有独立路径并保持正式历史实验文件可复核。
 
 ## 5. 后台训练及数据归档
 
