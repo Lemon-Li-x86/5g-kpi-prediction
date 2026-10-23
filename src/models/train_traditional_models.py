@@ -1,3 +1,9 @@
+"""Train and evaluate traditional ML on prepared next-hour KPI features.
+
+Web runs pass --out to archive each experiment separately. Legacy CLI output
+paths remain available for reproducing previously saved results.
+"""
+
 from pathlib import Path
 import argparse
 import gc
@@ -15,6 +21,11 @@ from sklearn.metrics import (
     mean_absolute_error,
     mean_squared_error,
     r2_score,
+)
+
+from src.core.config import (
+    ROOT as PROJECT_ROOT, KPIS, DEFAULT_RANDOM_SEED,
+    PROCESSED_DATA, REPORTS, FIGURES,
 )
 
 
@@ -37,11 +48,9 @@ except ImportError:
 # Project paths
 # ============================================================
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-
-PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
-REPORT_DIR = PROJECT_ROOT / "reports"
-FIGURE_DIR = PROJECT_ROOT / "figures"
+PROCESSED_DIR = PROCESSED_DATA
+REPORT_DIR = REPORTS
+FIGURE_DIR = FIGURES
 
 FEATURE_FILE = PROCESSED_DIR / "ml_features.pkl"
 FEATURE_SUMMARY_FILE = REPORT_DIR / "ml_feature_summary.json"
@@ -55,14 +64,8 @@ RUN_CONFIG_FILE = REPORT_DIR / "model_run_config.json"
 # KPI configuration
 # ============================================================
 
-KPI_COLUMNS = [
-    "DLPRB",
-    "DLThpVol",
-    "DLThpTime",
-    "MR_number",
-]
-
-RANDOM_STATE = 42
+KPI_COLUMNS = KPIS
+RANDOM_STATE = DEFAULT_RANDOM_SEED
 
 
 # ============================================================
