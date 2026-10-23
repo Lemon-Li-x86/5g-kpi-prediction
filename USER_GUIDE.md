@@ -104,7 +104,7 @@ python -m src.data.build_ml_features
 
 ## 5. 传统机器学习 KPI 预测
 
-在「模型训练」选择「传统 ML」，确认 `data/processed/ml_features.pkl` 存在后开始训练。算法脚本包含 Persistence 基线、LinearRegression、DecisionTree、RandomForest、XGBoost、LightGBM。当前 Web 使用脚本的正式训练配置；它**没有**开放每个传统 ML 算法独立的学习率、树深度等超参数界面。
+在「模型训练」选择「传统 ML」，确认 `data/processed/ml_features.pkl` 存在后开始训练。脚本包含 Persistence 基线、LinearRegression、DecisionTree、RandomForest、XGBoost、LightGBM。Web 默认勾选**快速验收模式**，可设置训练/测试抽样上限；取消勾选则执行完整训练和测试。它尚未开放每个算法独立的树深度、树数量等超参数界面。新版入口需要在本机重新验收。
 
 命令行：
 
@@ -112,9 +112,15 @@ python -m src.data.build_ml_features
 python -m src.models.train_traditional_models
 ```
 
-训练会将本机可信模型保存到 `models/`，更新 `reports/model_metrics.csv`、`reports/prediction_timeseries.csv` 和相关图表。**注意：传统 ML 仍有固定输出路径，重新训练可能更新仓库原有历史报告文件。** 如果需要保留原始对比成绩，先检查 `git status` 并保存已跟踪文件的版本。
+**Web 启动的传统 ML 训练**会把模型、指标、预测汇总和图表分别写入 `resources/experiments/<run_id>/models/`、`reports/` 与 `figures/`，再将成功模型发布到 `resources/models/<run_id>/`。因此不需要覆盖仓库已跟踪的正式历史报告。**旧命令行调用（不带 `--out`）仍采用固定的 `models/`、`reports/`、`figures/` 路径**；若自行从终端训练，请明确指定独立 `--out`。
 
-脚本另有 `--quick`，仅适合快速调试，**不能把 quick 模式指标放进最终正式报告**。正式指标使用仓库已保存的完整历史实验数据。
+传统 ML 本机快速验收命令示例（每次使用新目录）：
+
+```powershell
+python -m src.models.train_traditional_models --quick --max-train 512 --max-test 512 --out resources/experiments/manual_ml_smoke
+```
+
+Web 测试推荐默认 512 条训练/测试抽样。**quick 模式指标不能写入正式模型效果结论**；正式指标仍采用仓库保存的完整历史实验数据。
 
 ## 6. 深度学习 KPI 预测
 
