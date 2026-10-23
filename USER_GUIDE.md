@@ -1,8 +1,6 @@
 # 5G KPI 预测与异常检测系统使用手册
 
-**适用分支：**`w4/local-integration-2026-10-23`  
-**任务范围：**对应原八周任务书的第 3–7 周代码（第 8 周技术报告另见 `docs/TECHNICAL_REPORT.md`）  
-**运行方式：**Windows/VS Code 本机的 Python + Streamlit；不是连接实时 5G 核心网的生产平台。
+**运行方式：**Windows/VS Code 本机的 Python + Streamlit。
 
 ## 1. 这套系统能做什么
 
@@ -31,7 +29,7 @@
 
 在终端给出的 Local URL 打开页面，通常是 `http://localhost:8501`。Streamlit 端口被占用时，以实际显示为准。
 
-项目声明支持 Python 3.10+，但具体 PyTorch、XGBoost、LightGBM、Plotly、websockets 的可用性仍取决于本机版本；用户在 Python 3.14/Windows 上应优先使用已验证的 `.venv`，不必为阅读历史报告重建环境。
+项目声明支持 Python 3.10+，但具体 PyTorch、XGBoost、LightGBM、Plotly、websockets 的可用性仍取决于本机版本。
 
 GPU 检查：
 
@@ -70,9 +68,9 @@ python -c "import torch; print('PyTorch:',torch.__version__); print('CUDA:',torc
 └── requirements.txt
 ```
 
-**新 Clone 仓库后有代码和历史统计，却没有原始数据与模型权重，是正常现象**。它们被 `.gitignore` 排除，并非遗失。新机器需要自行下载公开数据并重训，或安全地使用本机已有可信权重。不要将 `.venv`、数 GB 的数据或不可信 `.pkl` 文件提交到 GitHub。
+**新 Clone 仓库后有代码和历史统计，却没有原始数据与模型权重，是正常现象**。它们被 `.gitignore` 排除，并非遗失。新机器需要自行下载公开数据并重训，或安全地使用本机已有可信权重。
 
-## 4. 第 3 周：数据获取、审计、预处理
+## 4. 数据获取、审计、预处理
 
 ### 4.1 Web 方式
 
@@ -104,7 +102,7 @@ python -m src.data.build_ml_features
 
 特征工程使用标准化 KPI 的时刻 `t` 与滞后 1、2、24、168 小时值，目标是 `t+1` 的 KPI 原始尺度值。不要把原始时间序列 CSV 与 ML 特征缓存混成一个文件。
 
-## 5. 第 4 周：传统机器学习 KPI 预测
+## 5. 传统机器学习 KPI 预测
 
 在「模型训练」选择「传统 ML」，确认 `data/processed/ml_features.pkl` 存在后开始训练。算法脚本包含 Persistence 基线、LinearRegression、DecisionTree、RandomForest、XGBoost、LightGBM。当前 Web 使用脚本的正式训练配置；它**没有**开放每个传统 ML 算法独立的学习率、树深度等超参数界面。
 
@@ -118,7 +116,7 @@ python -m src.models.train_traditional_models
 
 脚本另有 `--quick`，仅适合快速调试，**不能把 quick 模式指标放进最终正式报告**。正式指标使用仓库已保存的完整历史实验数据。
 
-## 6. 第 5 周：深度学习 KPI 预测
+## 6. 深度学习 KPI 预测
 
 在「模型训练」选 LSTM、GRU 或 Transformer。Web 可配置：
 
@@ -148,7 +146,7 @@ Web 启动的每次 DL 训练会自动分配 `resources/experiments/<run_id>/`�
 
 历史深度学习指标在 `reports/w3_deep_learning_metrics.csv`，传统 ML/DL 汇总在 `reports/week3/w3_ml_dl_all_metrics.csv`、`w3_ml_dl_comparison_report.md`。训练日志若显示 Early stopping 是正常早停，需再看最终任务状态是否 completed。
 
-## 7. 第 6 周：异常检测与初步关联分析
+## 7. 异常检测与初步关联分析
 
 在「模型训练」选择「异常检测」，可配置 Isolation Forest 污染率、训练抽样量、One-Class SVM 抽样、最大事件保存数量和随机种子。
 
@@ -164,7 +162,7 @@ Web 的异常训练也会创建 `resources/experiments/<run_id>/` 并保存 `ano
 
 **没有真实故障标签**，因此不能报告故障 Precision、Recall、F1，更不能把 KPI 相关性称为已确认的故障根因。
 
-## 8. 第 7 周：Streamlit 八个菜单
+## 8. Streamlit 八个菜单
 
 | 菜单 | 实际功能 |
 |---|---|
@@ -227,21 +225,3 @@ Web 目前限制上传约 50 MB。模型的 `.pkl` 采用 Python pickle 格式�
 - **WebSocket 断连**：先看 `stream_errors.log` 和 `current.log`，不要反复启动相同训练任务。
 - **无法导出结果**：确认先点击过对应模型的推理/异常检测按钮，下载结果必须与当前模型和上传文件匹配。
 
-## 11. 第 3–7 周验收与技术报告
-
-从项目根目录运行：
-
-```powershell
-python -m pip check
-python -m compileall -q src app.py
-python -m unittest discover -s tests -v
-python -m unittest test_inference test_model_registry -v
-python -m src.data.prepare_demo_inputs
-python -m streamlit run app.py
-```
-
-然后根据 `docs/FINAL_ACCEPTANCE.md` 逐项检查八个菜单、训练参数传递、模型加载、预测/异常推理及 CSV 导出，实际记录性能耗时和失败信息。不要把仓库的历史指标当成本轮重训成绩，也不要把“单元测试文件存在”写成“本机全部通过”。
-
-原任务书第 3–7 周的代码和报告对应关系：`docs/WEEK3_7_AUDIT.md`。技术报告：`docs/TECHNICAL_REPORT.md`；参数重复定义审查：`docs/PARAMETER_REGISTER.md`；目录架构：`docs/ARCHITECTURE.md`。
-
-**本手册说明的功能已在代码中提供，但新增的参数面板、异常 Web 推理和会话持久化下载仍需在用户 Windows 上完成最终点击验收。**
