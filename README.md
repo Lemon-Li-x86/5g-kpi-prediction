@@ -56,7 +56,7 @@ python -m src.data.download_kpi_data
 python -m src.data.audit_kpi_data
 python -m src.data.preprocess_kpi_data
 python -m src.data.build_ml_features
-python -m src.models.train_traditional_models
+python -m src.models.train_traditional_models --out resources/experiments/manual_ml_full
 python -m src.models.train_deep_learning_models --models gru --out resources/experiments/manual_gru
 python -m src.analysis.compare_model_performance
 python -m src.models.detect_kpi_anomalies
