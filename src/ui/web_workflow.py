@@ -15,6 +15,7 @@ import streamlit as st
 
 from src.services.model_registry import ROOT, KPIS, archive_models, list_models
 from src.services.process_env import python_job_env
+from src.core.training_config import normalize_params, DL_DEFAULTS, ANOMALY_DEFAULTS
 
 JOBS = ROOT / "resources" / "jobs"
 STATE = JOBS / "current.json"
@@ -62,9 +63,15 @@ def _read_session() -> dict:
         return {}
 
 
-def _launch(task: str, model: str = "") -> None:
+def _launch(task: str, model: str = "", params: dict | None = None) -> None:
     if _busy():
         st.warning("已有任务正在执行，请勿重复启动。")
+        return
+
+    try:
+        params = normalize_params(task, params, model)
+    except ValueError as exc:
+        st.error(f"训练参数无效：{exc}")
         return
 
     JOBS.mkdir(parents=True, exist_ok=True)
@@ -79,7 +86,7 @@ def _launch(task: str, model: str = "") -> None:
         encoding="utf-8",
     )
     STATE.write_text(
-        json.dumps({"task": task, "model": model, "status": "running"}, ensure_ascii=False),
+        json.dumps({"task": task, "model": model, "parameters": params, "status": "running"}, ensure_ascii=False),
         encoding="utf-8",
     )
 
@@ -88,7 +95,8 @@ def _launch(task: str, model: str = "") -> None:
         with (JOBS / "stream_errors.log").open("w", encoding="utf-8") as diagnostics:
             subprocess.Popen(
                 [sys.executable, "-u", "-m", "src.services.web_stream_worker", task,
-                 *([model] if model else []), "--port", str(port), "--token", token],
+                 *([model] if model else []), "--port", str(port), "--token", token,
+                 "--params-json", json.dumps(params, ensure_ascii=False)],
                 cwd=ROOT,
                 stdout=diagnostics,
                 stderr=subprocess.STDOUT,
@@ -291,8 +299,14 @@ def render_data_page() -> None:
 
 def render_training_page() -> None:
     st.title("模型训练")
-    st.caption("训练在独立进程中执行；训练前保存旧版本，成功后归档新版本。")
-    choice = st.selectbox("训练任务", ["传统 ML", "LSTM", "GRU", "Transformer", "异常检测"])
+    st.caption(
+        "在 Web 中设置训练参数；保存本次配置并交给后台进程执行。"
+        "已运行的任务不受输入框后续修改影响。"
+    )
+    choice = st.selectbox(
+        "选择训练任务",
+        ["传统 ML", "LSTM", "GRU", "Transformer", "异常检测"],
+    )
     task, model = {
         "传统 ML": ("train_ml", ""),
         "LSTM": ("train_dl", "lstm"),
@@ -300,13 +314,132 @@ def render_training_page() -> None:
         "Transformer": ("train_dl", "transformer"),
         "异常检测": ("train_anomaly", ""),
     }[choice]
+
     processed = ROOT / "data" / "processed" / "kpi_timeseries.csv"
     feats = ROOT / "data" / "processed" / "ml_features.pkl"
     ready = processed.is_file() and (task != "train_ml" or feats.is_file())
     if not ready:
-        st.warning("请先完成数据预处理" + ("及传统 ML 特征构建。" if task == "train_ml" else "。"))
-    if st.button("开始训练", disabled=_busy() or not ready):
-        _launch(task, model)
+        st.warning(
+            "请先完成数据预处理"
+            + ("及传统 ML 特征构建。" if task == "train_ml" else "。")
+        )
+
+    with st.form("training_parameters"):
+        params = {}
+        if task == "train_dl":
+            d = DL_DEFAULTS
+            st.subheader("训练参数")
+            c1, c2, c3 = st.columns(3)
+            params["epochs"] = int(c1.number_input(
+                "最大训练轮次 (Epochs)", min_value=1, max_value=500,
+                value=d["epochs"], step=1,
+            ))
+            params["batch_size"] = int(c2.number_input(
+                "批量大小 (Batch Size)", min_value=1, max_value=4096,
+                value=d["batch_size"], step=32,
+            ))
+            params["lr"] = float(c3.number_input(
+                "学习率 (Learning Rate)", min_value=0.000001, max_value=0.1,
+                value=d["lr"], step=0.0001, format="%.6f",
+            ))
+            c4, c5, c6 = st.columns(3)
+            params["hidden"] = int(c4.number_input(
+                "隐藏层维度 (Hidden Size)", min_value=4, max_value=1024,
+                value=d["hidden"], step=4 if model == "transformer" else 4,
+            ))
+            params["patience"] = int(c5.number_input(
+                "早停耐心 (Patience)", min_value=1, max_value=100,
+                value=d["patience"], step=1,
+            ))
+            params["device"] = c6.selectbox(
+                "计算设备", ["auto", "cpu", "cuda"], index=0,
+                help="auto 优先选择可用的 CUDA；CUDA 不可用时选择 cuda 会报错。",
+            )
+            with st.expander("高级选项：时间窗口、样本量与随机种子"):
+                a1, a2, a3 = st.columns(3)
+                params["seq_len"] = int(a1.number_input(
+                    "输入窗口（小时）", min_value=1, max_value=168,
+                    value=d["seq_len"], step=1,
+                ))
+                params["seasonal_lag"] = int(a2.number_input(
+                    "季节参考间隔（小时）", min_value=0, max_value=336,
+                    value=d["seasonal_lag"], step=1,
+                ))
+                params["seed"] = int(a3.number_input(
+                    "随机种子", min_value=0, max_value=2147483647,
+                    value=d["seed"], step=1,
+                ))
+                a4, a5, a6 = st.columns(3)
+                params["max_train"] = int(a4.number_input(
+                    "训练样本上限", min_value=1, max_value=1000000,
+                    value=d["max_train"], step=1000,
+                ))
+                params["max_val"] = int(a5.number_input(
+                    "验证样本上限", min_value=1, max_value=1000000,
+                    value=d["max_val"], step=1000,
+                ))
+                params["max_test"] = int(a6.number_input(
+                    "测试样本上限（0=全部）", min_value=0, max_value=1000000,
+                    value=d["max_test"], step=1000,
+                ))
+                st.caption(
+                    "训练/验证/测试时间边界固定，不通过 Web 修改。"
+                    "截取测试集可能使指标与完整测试集结果不可直接比较。"
+                )
+            if model == "transformer":
+                st.caption("Transformer 的隐藏层维度必须能被 4 个注意力头整除。")
+        elif task == "train_anomaly":
+            d = ANOMALY_DEFAULTS
+            st.subheader("异常检测参数")
+            left, mid = st.columns(2)
+            params["if_contamination"] = float(left.number_input(
+                "Isolation Forest 预期异常占比", min_value=0.00001,
+                max_value=0.5, value=d["if_contamination"],
+                step=0.005, format="%.5f",
+            ))
+            params["if_train_sample"] = int(mid.number_input(
+                "Isolation Forest 训练样本", min_value=100, max_value=1000000,
+                value=d["if_train_sample"], step=1000,
+            ))
+            with st.expander("高级选项：SVM 抽样与报告"):
+                a1, a2, a3 = st.columns(3)
+                params["svm_train_sample"] = int(a1.number_input(
+                    "SVM 训练样本", min_value=100, max_value=100000,
+                    value=d["svm_train_sample"], step=100,
+                ))
+                params["svm_test_sample"] = int(a2.number_input(
+                    "SVM 测试样本", min_value=100, max_value=1000000,
+                    value=d["svm_test_sample"], step=1000,
+                ))
+                params["max_events"] = int(a3.number_input(
+                    "最多保存异常事件", min_value=1, max_value=1000000,
+                    value=d["max_events"], step=100,
+                ))
+                params["seed"] = int(st.number_input(
+                    "随机种子", min_value=0, max_value=2147483647,
+                    value=d["seed"], step=1,
+                ))
+            st.caption(
+                "结果写入新的实验目录，历史异常检测图表不会自动切换到本次版本。"
+            )
+        else:
+            st.info(
+                "传统 ML 当前使用脚本内的正式训练配置。"
+                "具体算法超参数尚未开放 CLI 接口，因此这里不提供无效输入框；"
+                "它仍会写入原来的 reports/ 结果路径。"
+            )
+        submitted = st.form_submit_button(
+            "开始训练并保存配置", disabled=_busy() or not ready,
+        )
+
+    if submitted:
+        try:
+            checked = normalize_params(task, params, model)
+        except ValueError as exc:
+            st.error(f"参数检查失败：{exc}")
+        else:
+            _launch(task, model, checked)
+    st.caption("训练期间保持配置不可更改；下次训练可以使用新的设置。")
     _status()
 
 
