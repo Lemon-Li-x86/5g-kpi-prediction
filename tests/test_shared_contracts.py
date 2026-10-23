@@ -39,6 +39,19 @@ class SharedConfigContracts(unittest.TestCase):
             ], "17"
         )
 
+    def test_dl_architectures_keep_four_kpi_output_shape(self):
+        import torch
+        from src.models.architectures import ForecastNet
+
+        for model, hidden in [("lstm", 17), ("gru", 19), ("transformer", 20)]:
+            with self.subTest(model=model):
+                net = ForecastNet(model, seq_len=24, hidden=hidden)
+                net.eval()
+                with torch.no_grad():
+                    result = net(torch.randn(2, 24, len(KPIS)),
+                                 torch.randn(2, len(KPIS)))
+                self.assertEqual(tuple(result.shape), (2, len(KPIS)))
+
     def test_anomaly_and_regression_settings_are_scoped(self):
         anomaly = normalize_params("train_anomaly", {"seed": 9})
         gru = normalize_params("train_dl", {"seed": 7}, "gru")
