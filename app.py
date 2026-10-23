@@ -22,7 +22,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.dashboard_data import (  # noqa: E402
+from src.ui.dashboard_data import (  # noqa: E402
     FIGURE_DIR,
     KPIS,
     REPORT_DIR,
@@ -567,7 +567,7 @@ elif page == "KPI 关联分析":
 # 8. Interactive workflow modules
 # ============================================================
 if page in ("数据管理与预处理", "模型训练", "模型管理与推理"):
-    from src.web_workflow import (
+    from src.ui.web_workflow import (
         render_data_page, render_training_page, render_model_page,
     )
     if page == "数据管理与预处理":
