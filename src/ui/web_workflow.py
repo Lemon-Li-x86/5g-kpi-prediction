@@ -17,6 +17,7 @@ import pandas as pd
 import streamlit as st
 
 from src.services.model_registry import ROOT, KPIS, archive_models, list_models
+from src.core.config import ML_HISTORY_HOURS
 from src.services.process_env import python_job_env
 from src.core.training_config import normalize_params, DL_DEFAULTS, ANOMALY_DEFAULTS
 from src.ui.dashboard_data import list_experiment_runs, run_report_dir
@@ -606,7 +607,7 @@ def render_model_page() -> None:
         render_forecast_evaluation(None, "历史正式实验")
 
 
-def _generate_demo_files(forecast_hours: int = 169) -> None:
+def _generate_demo_files(forecast_hours: int = ML_HISTORY_HOURS) -> None:
     """Reuse the same validated data preparation as the CLI demo generator."""
     from src.data.prepare_demo_inputs import COLUMNS, prepare_demo_frames
     source = ROOT / "data" / "processed" / "kpi_timeseries.csv"
@@ -651,11 +652,11 @@ def render_inference_page(kind: str) -> None:
     if input_mode == "系统演示数据":
         demo_dir = ROOT / "resources" / "demo_inputs"
         target = demo_dir / ("anomaly_history.csv" if is_anomaly else "forecast_history.csv")
-        hours = 169
+        hours = ML_HISTORY_HOURS
         if not is_anomaly:
             hours = int(st.number_input(
                 "生成预测历史的小时数（传统 ML 至少 169）",
-                min_value=169, max_value=1000, value=169,
+                min_value=ML_HISTORY_HOURS, max_value=1000, value=ML_HISTORY_HOURS,
                 key="forecast_demo_hours",
             ))
         if st.button("从本机预处理数据生成演示 CSV", key=f"{kind}_generate_demo"):
