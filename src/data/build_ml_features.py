@@ -62,9 +62,11 @@ def outputs_are_up_to_date():
         SUMMARY_FILE.stat().st_mtime,
     )
 
+    # The feature cache also depends on canonical lag/horizon constants.
     source_files = [
         INPUT_FILE,
         Path(__file__),
+        PROJECT_ROOT / "src/core/config.py",
     ]
 
     for source_file in source_files:
