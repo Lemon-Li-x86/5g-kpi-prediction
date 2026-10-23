@@ -17,8 +17,8 @@
 
 - **数据管理与预处理**：识别固定 gotsf-ds 四 KPI 文件；下载、审计、预处理及传统 ML 特征工程。
 - **模型训练**：在 Web 表单直接调整 LSTM/GRU/Transformer 的 Epoch、Batch Size、学习率、隐藏维度、时间窗口、早停、抽样上限、随机种子及计算设备；异常检测可设置污染率和抽样参数。后台按白名单校验，再由独立进程执行。WebSocket 实时展示输出，日志同时写入 `resources/jobs/current.log`。传统 ML 可在 Web 选择快速抽样验收或完整训练，自动隔离实验目录与权重；尚不开放各算法独立的树深度等超参数。
-- **模型管理与推理**：从本机 `models/` 和 `resources/models/` 枚举模型版本，选择可信本地权重，对符合字段要求的历史 CSV 执行下一小时预测，或选择保存的异常模型执行候选标记，并导出 CSV；本轮新增的异常 Web 推理仍须本机实测。
-- **结果展示**：总览、KPI 预测曲线、模型评估、异常候选统计、KPI 关联分析。**这些历史图表读取 `reports/` 中的已有实验结果，不一定对应当前下拉框选中的模型版本。**
+- **模型管理与推理**：从本机 `models/` 和 `resources/models/` 枚举可信模型版本，使用历史 CSV 执行下一小时预测或异常候选标记并导出 CSV；传统 ML、GRU 与异常模型已完成各自本机推理及导出验收。
+- **结果展示**：总览、KPI 预测曲线、模型评估、异常候选统计、KPI 关联分析。**后四个结果页面可明确选择历史正式实验或某个新训练的 `run_id`，按版本读取指标、曲线、异常率和相关矩阵；预测、异常页面也能选择当前会话的实际推理结果。新版版本切换功能仍待本机回归测试。**
 
 固定支持 KPI：`DLPRB`、`DLThpVol`、`DLThpTime`、`MR_number`。异常标记是未经故障标签验证的候选事件，不应宣称真实故障检测 precision / recall / F1。
 
@@ -63,7 +63,7 @@ python -m src.models.detect_kpi_anomalies
 python -m src.analysis.analyze_anomaly_statistics
 ```
 
-注意：每次 Web 传统 ML、深度学习和异常检测训练都会自动分配唯一的 `resources/experiments/<run_id>/` 输出目录，并保存 `requested_parameters.json`；成功后将可用模型发布到 `resources/models/<run_id>/`。命令行复现实验也建议指定新的 `--out` 目录。**直接运行未带 `--out` 的传统 ML 命令仍沿用历史固定输出路径**，可能覆盖已跟踪报告。传统 ML 新版 Web 快速模式尚待本机验收。
+注意：每次 Web 传统 ML、深度学习和异常检测训练都会自动分配唯一的 `resources/experiments/<run_id>/` 输出目录，并保存 `requested_parameters.json`；成功后将可用模型发布到 `resources/models/<run_id>/`。命令行复现实验也建议指定新的 `--out` 目录。**直接运行未带 `--out` 的传统 ML 命令仍沿用历史固定输出路径**，可能覆盖已跟踪报告。传统 ML Web 快速模式已于 2026-10-23 完成训练、20 个模型发布及推理导出验收。
 
 ## 检查
 
