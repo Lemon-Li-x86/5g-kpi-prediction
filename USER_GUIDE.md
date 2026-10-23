@@ -109,7 +109,7 @@ python -m src.data.build_ml_features
 命令行：
 
 ```powershell
-python -m src.models.train_traditional_models
+python -m src.models.train_traditional_models --out resources/experiments/manual_ml_full
 ```
 
 **Web 启动的传统 ML 训练**会把模型、指标、预测汇总和图表分别写入 `resources/experiments/<run_id>/models/`、`reports/` 与 `figures/`，再将成功模型发布到 `resources/models/<run_id>/`。因此不需要覆盖仓库已跟踪的正式历史报告。**旧命令行调用（不带 `--out`）仍采用固定的 `models/`、`reports/`、`figures/` 路径**；若自行从终端训练，请明确指定独立 `--out`。
