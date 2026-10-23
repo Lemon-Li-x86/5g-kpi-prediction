@@ -16,7 +16,7 @@
 4. **模型推理**：从本地资源目录枚举权重版本，支持下一小时 KPI 预测；新增异常模型的 Web 候选标记与结果导出入口。
 5. **训练日志**：以本机 WebSocket 将后台 stdout/stderr 实时送至页面，日志按容量或时间缓冲写入 current.log。
 6. **修复问题**：处理重复实验标准化均值导致的报告合并冲突；修复 Windows GBK 日志不能打印 R² 的 UnicodeEncodeError。
-7. **文档交付**：更新 README、USER_GUIDE、ARCHITECTURE；新增参数登记簿、收尾验收记录及技术报告，准备项目演示 PPT。
+7. **文档交付**：更新 `README.md`、`USER_GUIDE.md`、`docs/ARCHITECTURE.md` 和 `docs/TECHNICAL_REPORT.md`。项目演示 PPT 单独安排；仓库仅保留最终需要的文档。
 
 ## 三、关键历史实验结果
 
@@ -33,7 +33,7 @@
 
 **已观察到的本机事实：**Streamlit 曾成功启动；已有一轮模型注册/推理相关测试通过；在实际 LSTM 与传统 ML 训练中发现报错并作了代码层修复。
 
-**尚需最终确认：**本轮最新分支的全部单元测试、Windows Web 完整点击流、权重加载后的真实数据预测、异常候选导出、性能计时、资源峰值和 GPU 状态。详见 `docs/FINAL_ACCEPTANCE.md`。缺失测试结果不得写为通过。
+**尚需最终确认：**本轮最新分支的全部单元测试、Windows Web 完整点击流、权重加载后的真实数据预测、异常候选导出、性能计时、资源峰值和 GPU 状态。运行与测试命令见 `README.md` 和 `USER_GUIDE.md`；实际结果以本机日志、截图和导出的文件为准。缺失测试结果不得写为通过。
 
 ## 五、结果分析与讨论
 
@@ -47,9 +47,9 @@
 - 完整源代码和运行文档：`w4/local-integration-2026-10-23`
 - 项目使用手册：`USER_GUIDE.md`
 - 技术报告：`docs/TECHNICAL_REPORT.md`；Word 版另行交付
-- 系统结构和参数登记：`docs/ARCHITECTURE.md`、`docs/PARAMETER_REGISTER.md`
-- 测试与性能验收记录：`docs/FINAL_ACCEPTANCE.md`
-- 演示 PPT：另行作为二进制演示材料交付
+- 系统架构说明：`docs/ARCHITECTURE.md`
+- 测试入口：`tests/`、`test_inference.py`、`test_model_registry.py`（运行结果需要本机另行确认）
+- 演示 PPT：本轮暂缓，按最终汇报安排另行处理
 
 ## 七、最终验收备注
 
