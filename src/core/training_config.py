@@ -72,7 +72,7 @@ FLAGS = {
 
 def normalize_params(task: str, supplied: dict | None = None, model: str = "") -> dict:
     """Validate everything at the worker boundary, even if UI is bypassed."""
-    supplied = supplied or {}
+    supplied = {} if supplied is None else supplied
     if not isinstance(supplied, dict):
         raise ValueError("Training parameters must be a JSON object")
     if task not in DEFAULTS:
