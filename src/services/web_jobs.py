@@ -107,6 +107,7 @@ def run(task: str, model: str = "", params: dict | None = None) -> int:
             saved_checkpoint = version_dir / checkpoint.name
             shutil.copy2(checkpoint, saved_checkpoint)
             shutil.copy2(metadata, saved_checkpoint.with_suffix(".json"))
+            shutil.copy2(run_dir / "requested_parameters.json", version_dir / "requested_parameters.json")
             state["models_archived"] = 1
             state["model_path"] = str(saved_checkpoint)
             state["metrics_path"] = str(
@@ -123,6 +124,7 @@ def run(task: str, model: str = "", params: dict | None = None) -> int:
             version_dir.mkdir(parents=True, exist_ok=False)
             published = version_dir / artifact.name
             shutil.copy2(artifact, published)
+            shutil.copy2(run_dir / "requested_parameters.json", version_dir / "requested_parameters.json")
             state["models_archived"] = 1
             state["model_path"] = str(published)
             print("Published anomaly model:", published, flush=True)
