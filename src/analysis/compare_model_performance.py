@@ -2,7 +2,7 @@
 """W3: compare existing traditional ML and deep learning KPI forecasts.
 
 Usage (from any working directory):
-    python -m src.compare_model_performance
+    python -m src.analysis.compare_model_performance
 
 Reads earlier model metrics without retraining either family. Reports use the
 original KPI scale and the per-beam test metric, not hourly-mean curves.

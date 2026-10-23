@@ -11,7 +11,7 @@
 | `src.services` | 本地权重枚举归档、后台任务、WebSocket 日志 | 预测算法本身 |
 | `src.ui` | Streamlit 交互、历史图表适配 | 模型参数更新和训练算法 |
 
-`app.py` 是 UI 总入口。保留原 `src/*.py` 薄包装层支持旧模块名，包括 `python -m src.train_deep_learning_models` 和 `from src.inference import predict_kpi`。**这些兼容文件不是另一个业务实现**，新功能请在分层目录内修改。
+`app.py` 是 UI 总入口。`src/` 根目录只保留 `__init__.py` 和六个功能子包，所有调用统一使用完整模块路径，不再维护旧的平铺式脚本入口。
 
 ## 边界和文件
 
@@ -27,8 +27,8 @@
 
 ## 修改和测试规则
 
-- 修改实现优先编辑 `src/<对应分层>/xxx.py`，不要在薄包装层重写逻辑。
-- 保持兼容入口直到 CLI、Streamlit、推理、测试都经过真实数据回归。
+- 新增或修改代码只编辑 `src/<对应分层>/xxx.py`，不要在 `src/` 根目录重新建立旧入口。
+- CLI、Streamlit、模型训练与测试统一使用 `src.data.*`、`src.models.*`、`src.analysis.*`、`src.services.*`、`src.ui.*`。
 - 修改模型结构时，必须测试旧 checkpoint 加载及推理输出维度；修改标准化时，不得将不同协议的指标合并。
 - 修改后台任务时，测试断开浏览器、失败处理、训练结果独立归档，以及日志持续写入。
 - 运行：`python -m unittest discover -s tests -v`、`python -m unittest test_inference test_model_registry -v`、`python -m compileall -q src app.py`。

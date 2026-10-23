@@ -1,6 +1,6 @@
 """Run fixed 5G KPI tasks without overwriting previous DL experiments.
 
-Install by replacing <project>/src/web_jobs.py with this complete file.
+Run using `python -m src.services.web_jobs`.
 """
 from __future__ import annotations
 
@@ -16,12 +16,12 @@ from uuid import uuid4
 from src.services.model_registry import ROOT, archive_models
 
 TASKS = {
-    "download": [["src.download_kpi_data"]],
-    "preprocess": [["src.audit_kpi_data"], ["src.preprocess_kpi_data"]],
-    "features": [["src.build_ml_features"]],
-    "train_ml": [["src.train_traditional_models"]],
-    "train_anomaly": [["src.detect_kpi_anomalies"]],
-    "diagnostics": [["src.analyze_anomaly_statistics"]],
+    "download": [["src.data.download_kpi_data"]],
+    "preprocess": [["src.data.audit_kpi_data"], ["src.data.preprocess_kpi_data"]],
+    "features": [["src.data.build_ml_features"]],
+    "train_ml": [["src.models.train_traditional_models"]],
+    "train_anomaly": [["src.models.detect_kpi_anomalies"]],
+    "diagnostics": [["src.analysis.analyze_anomaly_statistics"]],
 }
 DL_MODELS = {"lstm", "gru", "transformer"}
 
@@ -43,7 +43,7 @@ def run(task: str, model: str = "") -> int:
         run_id = f"{model}_{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}_{uuid4().hex[:6]}"
         run_dir = ROOT / "resources" / "experiments" / run_id
         commands = [[
-            "src.train_deep_learning_models", "--models", model,
+            "src.models.train_deep_learning_models", "--models", model,
             "--out", str(run_dir),
         ]]
     elif task in TASKS and not model:

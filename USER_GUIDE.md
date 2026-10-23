@@ -22,7 +22,7 @@
 │   ├── analysis/                模型比较、异常统计、稳健性验证
 │   ├── services/                模型权重、后台任务、流式日志
 │   ├── ui/                      界面和历史结果读取
-│   └── *.py                     兼容旧版 python -m src.xxx 的薄入口
+│   └── __init__.py              Python 包标记
 ├── data/raw/                    原始数据（本地）
 ├── data/processed/              处理后数据（本地）
 ├── models/                      历史权重（本地）
@@ -92,20 +92,20 @@ Time,base_station,cell,beam,DLPRB,DLThpVol,DLThpTime,MR_number
 
 这些页面仍是离线历史实验展示，不会自动采用所选权重重新运行对应评估。
 
-## 8. 命令行接口（旧命令保持兼容）
+## 8. 命令行接口（新模块路径）
 
 ```bash
-python -m src.download_kpi_data
-python -m src.audit_kpi_data
-python -m src.preprocess_kpi_data
-python -m src.build_ml_features
-python -m src.train_traditional_models
-python -m src.train_deep_learning_models --models lstm --out resources/experiments/manual_lstm_01
-python -m src.detect_kpi_anomalies
-python -m src.analyze_anomaly_statistics
+python -m src.data.download_kpi_data
+python -m src.data.audit_kpi_data
+python -m src.data.preprocess_kpi_data
+python -m src.data.build_ml_features
+python -m src.models.train_traditional_models
+python -m src.models.train_deep_learning_models --models lstm --out resources/experiments/manual_lstm_01
+python -m src.models.detect_kpi_anomalies
+python -m src.analysis.analyze_anomaly_statistics
 ```
 
-实际实现已移到 `src/data/`、`src/models/`、`src/analysis/`、`src/services/`、`src/ui/`；这些旧命令只是向新模块转发。
+模块已按职责分层，不再保留 `src/` 根目录的同名 Python 脚本。以前的 `python -m src.<旧脚本名>` 不能再运行，请使用上面的完整模块路径。
 
 直接调用推理 API 示例：
 

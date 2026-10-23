@@ -88,7 +88,7 @@ def _launch(task: str, model: str = "") -> None:
     try:
         with (JOBS / "stream_errors.log").open("w", encoding="utf-8") as diagnostics:
             subprocess.Popen(
-                [sys.executable, "-u", "-m", "src.web_stream_worker", task,
+                [sys.executable, "-u", "-m", "src.services.web_stream_worker", task,
                  *([model] if model else []), "--port", str(port), "--token", token],
                 cwd=ROOT,
                 stdout=diagnostics,

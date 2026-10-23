@@ -1,6 +1,6 @@
 """One-shot local WebSocket console for a W4 background job.
 
-Usage is internal: spawned by src.web_workflow. Existing jobs are unchanged.
+Usage is internal: spawned by src.ui.web_workflow. Existing jobs are unchanged.
 Streaming is event driven; the local log is written every 2 seconds or 64 KiB.
 """
 from __future__ import annotations
@@ -92,7 +92,7 @@ class StreamHub:
 async def _execute(task: str, model: str, hub: StreamHub) -> None:
     env = os.environ.copy()
     env["PYTHONUNBUFFERED"] = "1"
-    cmd = [sys.executable, "-u", "-m", "src.web_jobs", task]
+    cmd = [sys.executable, "-u", "-m", "src.services.web_jobs", task]
     if model:
         cmd.append(model)
 

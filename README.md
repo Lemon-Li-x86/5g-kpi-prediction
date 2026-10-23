@@ -34,7 +34,6 @@
 │   ├── analysis/              # 评估/相关性/鲁棒性
 │   ├── services/              # 任务调度/WebSocket 日志/权重注册
 │   ├── ui/                    # Streamlit 工作流和结果读取器
-│   └── *.py                   # 兼容旧命令的薄入口，非重复实现
 ├── tests/                     # 结构契约测试
 ├── test_inference.py          # 原合成样本推理测试
 ├── test_model_registry.py     # 原权重归档测试
@@ -47,22 +46,22 @@
 └── USER_GUIDE.md
 ```
 
-保留 `src.<旧模块名>` 兼容入口，以免原脚本、自动化与测试在这轮迁移后失效。**新业务代码只应添加到对应子包，不要继续往 src 根目录堆大型脚本。** 参见 [架构说明](docs/ARCHITECTURE.md)。
+`src/` 根目录只保留 `__init__.py` 和六个功能子包，不再维护旧版扁平脚本入口。新功能直接添加到对应子包。参见 [架构说明](docs/ARCHITECTURE.md)。
 
 ## 命令行复现实验
 
-以下**旧命令继续有效**，内部跳转至新的分层模块：
+命令行使用新分层模块路径。旧版 `python -m src.<脚本名>` **不再支持**：
 
 ```bash
-python -m src.download_kpi_data
-python -m src.audit_kpi_data
-python -m src.preprocess_kpi_data
-python -m src.build_ml_features
-python -m src.train_traditional_models
-python -m src.train_deep_learning_models --models gru --out resources/experiments/manual_gru
-python -m src.compare_model_performance
-python -m src.detect_kpi_anomalies
-python -m src.analyze_anomaly_statistics
+python -m src.data.download_kpi_data
+python -m src.data.audit_kpi_data
+python -m src.data.preprocess_kpi_data
+python -m src.data.build_ml_features
+python -m src.models.train_traditional_models
+python -m src.models.train_deep_learning_models --models gru --out resources/experiments/manual_gru
+python -m src.analysis.compare_model_performance
+python -m src.models.detect_kpi_anomalies
+python -m src.analysis.analyze_anomaly_statistics
 ```
 
 注意：深度学习实验推荐给每次运行指定全新的 `--out` 目录，避免不同标准化参数的报告合并产生 `train_scale_mean` 冲突。Web 的深度学习训练入口已自动分配独立目录。传统 ML/异常检测脚本目前仍有固定输出路径，存在进一步工程化空间。
@@ -75,7 +74,7 @@ python -m unittest test_inference test_model_registry -v
 python -m compileall -q src app.py
 ```
 
-当前代码重构保留旧调用约定，但**仓库不包含训练数据或权重，本次结构变更尚未在用户本机完成训练及 Streamlit 端到端复测**。
+仓库不包含本地训练数据或权重。代码与文档已统一使用新模块路径，但本次删旧入口后仍需在本机重新执行单元测试和 Web 点击回归。
 
 ## 文档
 
