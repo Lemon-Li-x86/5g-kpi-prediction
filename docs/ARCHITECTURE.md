@@ -11,7 +11,7 @@
 | `src.services` | 本地权重枚举归档、后台任务、WebSocket 日志 | 预测算法本身 |
 | `src.ui` | Streamlit 交互、历史图表适配 | 模型参数更新和训练算法 |
 
-`app.py` 是 UI 总入口。`src/` 根目录只保留 `__init__.py` 和六个功能子包，所有调用统一使用完整模块路径，不再维护旧的平铺式脚本入口。
+`app.py` 是 UI 总入口。`src/` 根目录只保留 `__init__.py` 和六个功能子包，所有调用统一使用完整模块路径。
 
 ## 边界和文件
 
@@ -19,19 +19,8 @@
 2. **统一字段及根目录** 定义于 `src/core/config.py`。历史大脚本里仍有局部常量，后续可通过逐个测试改用统一定义；本次仅迁移明确可靠的引用，避免大规模行为变化。
 3. **WebSocket 服务**：`src/services/web_stream_worker.py` 读取运行进程 stdout/stderr，事件流推送本机页面，同时批量记录 `resources/jobs/current.log`；UI 在 `src/ui/web_workflow.py`。
 4. **任务执行**：`src/services/web_jobs.py` 的任务名单是固定的。`src/core/training_config.py` 是训练可配置参数、默认值和 CLI 选项映射的唯一校验来源。Web 经 WebSocket 工作者将 JSON 参数传给任务进程，任务进程再次校验并转换为安全的参数数组（不通过 Shell 解析）。DL 与异常检测训练使用唯一的 `resources/experiments/<run_id>`，保存 `requested_parameters.json`，然后发布权重到 `resources/models/<run_id>`。传统 ML 仍写到固定报告路径。
-5. **结果读取**：`src/ui/dashboard_data.py` 只读取已生成的历史 CSV/JSON；不得把它展示的旧指标标为当前选定权重的性能。
+5. **结果读取**：`src/ui/dashboard_data.py` 只读取已生成的历史 CSV/JSON。
 
 ## 输出目录及 Git
 
 `data/raw/`、`data/processed/`、`models/`、`resources/` 默认被 Git 忽略。代码迁移不得移动、覆盖这些本地目录。仓库保存 `reports/`、`figures/` 中现有结果和源代码。真正的权重与训练记录应当从本机单独备份。
-
-## 修改和测试规则
-
-- 新增或修改代码只编辑 `src/<对应分层>/xxx.py`，不要在 `src/` 根目录重新建立旧入口。
-- CLI、Streamlit、模型训练与测试统一使用 `src.data.*`、`src.models.*`、`src.analysis.*`、`src.services.*`、`src.ui.*`。
-- 修改模型结构时，必须测试旧 checkpoint 加载及推理输出维度；修改标准化时，不得将不同协议的指标合并。
-- 修改后台任务时，测试断开浏览器、失败处理、训练结果独立归档，以及日志持续写入。
-- 运行：`python -m unittest discover -s tests -v`、`python -m unittest test_inference test_model_registry -v`、`python -m compileall -q src app.py`。
-- 如果训练正在执行，不要替换它正在运行的代码或在训练结束前覆盖权重与目录；代码同步应在任务结束后进行。
-
-本次为不破坏功能的目录重构，保留历史实验方法和权重格式；尚未声称完成 Windows 端到端验收。
