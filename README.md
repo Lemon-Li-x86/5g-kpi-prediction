@@ -34,6 +34,7 @@
 │   ├── analysis/              # 评估/相关性/鲁棒性
 │   ├── services/              # 任务调度/WebSocket 日志/权重注册
 │   ├── ui/                    # Streamlit 工作流和结果读取器
+│   └── __init__.py            # Python 包标记
 ├── tests/                     # 结构契约测试
 ├── test_inference.py          # 原合成样本推理测试
 ├── test_model_registry.py     # 原权重归档测试
@@ -87,7 +88,8 @@ python -m compileall -q src app.py
 - [收尾验收记录](docs/FINAL_ACCEPTANCE.md)：逐项测试步骤、性能记录、仍需填写的本机验证结果。
 - [项目架构](docs/ARCHITECTURE.md)：目录职责和依赖边界。
 - [参数登记簿](docs/PARAMETER_REGISTER.md)：KPI、时序切分、超参数、硬编码和重复定义的来源与归属。
-- 演示 PPT 与 Word 报告另行导出，交付前需随最终测试截图核对。
+- [原第 3–7 周交付审查](docs/WEEK3_7_AUDIT.md)：逐项核查代码、历史报告、数据与权重缺失的合理性、测试待办。
+- **PPT 暂缓**。当前先以代码、技术报告、使用手册和测试验收为交付重点。
 
 ## 一键生成 Web 验收输入
 
@@ -98,3 +100,9 @@ python -m src.data.prepare_demo_inputs
 ```
 
 它将分别生成 `resources/demo_inputs/forecast_history.csv`（一个波束、169 小时，用于预测推理）和 `resources/demo_inputs/anomaly_history.csv`（所有波束、最后 3 小时，用于异常推理），不会触碰已有权重或报告。异常模型要求与训练时波束集合一致；若选择了超过 168 小时季节性滞后的 DL 权重，可通过 `--forecast-hours` 增加预测历史长度。
+
+## 当前交付说明
+
+本仓库已跟踪第 3–7 周对应的源代码、Python 单元测试、历史 `reports/` 和 `figures/`、使用手册与技术报告；大型公开源 CSV、处理中间数据及模型权重按照 `.gitignore` 留在用户本机。仓库可按文档重建处理与训练链路，但不能把“GitHub 含有源码”误说成“无需下载数据或加载权重即可运行推理”。
+
+最近更新的 Web 推理输出使用 Streamlit 会话状态保存，可在同一文件和模型下完成 CSV 下载；切换模型或输入文件后需要重新执行推理。完整 Windows 训练、推理和 Web 点击验收仍以 `docs/FINAL_ACCEPTANCE.md` 的实测记录为准。
