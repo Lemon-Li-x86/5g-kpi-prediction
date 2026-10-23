@@ -5,7 +5,7 @@ import json
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from src.core.config import ROOT as PROJECT_ROOT, KPIS, RAW_DATA, PROCESSED_DATA, REPORTS
+from src.core.config import ROOT as PROJECT_ROOT, KPIS, RAW_DATA, PROCESSED_DATA, REPORTS, DATASET_TEST_START_HOUR
 
 
 # ============================================================
@@ -35,7 +35,7 @@ KPI_COLUMNS = KPIS
 
 # First four weeks for training:
 # 4 weeks × 7 days × 24 hours = 672 hours
-TRAIN_END_TIME = 672
+TRAIN_END_TIME = DATASET_TEST_START_HOUR
 
 
 # ============================================================
