@@ -8,9 +8,10 @@ from src.core.config import ROOT, KPIS, KEYS
 MODULES = {
     "data": ("download_kpi_data", "audit_kpi_data", "preprocess_kpi_data", "build_ml_features"),
     "models": ("architectures", "train_traditional_models", "train_deep_learning_models", "detect_kpi_anomalies", "inference"),
-    "analysis": ("compare_model_performance", "analyze_anomaly_statistics", "validate_model_robustness", "review_model_results"),
+    "analysis": ("compare_model_performance", "analyze_anomaly_statistics",
+                 "validate_model_robustness", "review_model_results", "session_kpi_analysis"),
     "services": ("model_registry", "web_jobs", "web_stream_worker"),
-    "ui": ("dashboard_data", "web_workflow"),
+    "ui": ("dashboard_data", "web_workflow", "result_views"),
 }
 
 
@@ -42,6 +43,16 @@ class ProjectLayoutTests(unittest.TestCase):
         ui = (ROOT / "src/ui/web_workflow.py").read_text(encoding="utf-8")
         self.assertIn("src.services.web_jobs", stream)
         self.assertIn("src.services.web_stream_worker", ui)
+
+    def test_web_navigation_separates_training_and_inference(self):
+        source = (ROOT / "app.py").read_text(encoding="utf-8")
+        for menu in ("数据管理与预处理", "模型训练", "模型管理与实验记录",
+                     "KPI 预测", "异常检测", "KPI 关联分析"):
+            self.assertIn(f'"{menu}"', source)
+        self.assertIn('render_inference_page("forecast")', source)
+        self.assertIn('render_inference_page("anomaly")', source)
+        self.assertNotIn('"模型管理与推理"', source)
+        self.assertNotIn('"模型评估"', source)
 
     def test_shared_architecture(self):
         from src.models.architectures import ForecastNet
