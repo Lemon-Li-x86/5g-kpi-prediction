@@ -50,6 +50,55 @@ class ParameterContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             normalize_params("train_ml", {"quick": True, "max_test": -1})
 
+    def test_traditional_ml_script_keeps_reports_isolated(self):
+        import pandas as pd
+        from src.models import train_traditional_models as ml
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            old_dir = root / "reports"
+            old_dir.mkdir()
+            old_metrics = old_dir / "model_metrics.csv"
+            old_metrics.write_text("original-report", encoding="utf-8")
+            output = root / "isolated_ml"
+            frame = pd.DataFrame({
+                "target_time": [672],
+                "is_train": [False],
+                "feature": [1.0],
+                "target_DLPRB": [2.0],
+                "raw_DLPRB": [1.0],
+            })
+            metrics = pd.DataFrame([{
+                "target": "DLPRB", "model": "LinearRegression",
+                "MAE": 0.1, "RMSE": 0.1, "R2": 0.9,
+            }])
+            predictions = pd.DataFrame([{
+                "target": "DLPRB", "model": "LinearRegression",
+                "target_time": 672, "actual_mean": 2.0, "prediction_mean": 1.9,
+            }])
+            with patch.object(ml, "REPORT_DIR", old_dir), patch.object(
+                ml, "load_feature_summary",
+                return_value=({}, ["feature"], ["target_DLPRB"], ["raw_DLPRB"])
+            ), patch.object(
+                ml, "load_ml_data", return_value=frame
+            ), patch.object(
+                ml, "run_experiment", return_value=(metrics, predictions)
+            ) as fake_run, patch.object(
+                ml, "plot_prediction_curve"
+            ) as plot_pred, patch.object(
+                ml, "plot_metric_comparison"
+            ) as plot_metrics:
+                ml.main(quick=True, output_dir=output, max_train=512, max_test=512)
+            self.assertEqual(old_metrics.read_text(encoding="utf-8"), "original-report")
+            self.assertTrue((output / "reports/model_metrics.csv").is_file())
+            self.assertTrue((output / "reports/prediction_timeseries.csv").is_file())
+            self.assertTrue((output / "reports/model_run_config.json").is_file())
+            self.assertEqual(fake_run.call_args.kwargs["model_output_dir"],
+                             output / "models")
+            self.assertEqual(plot_pred.call_args.kwargs["figure_dir"],
+                             output / "figures")
+            self.assertEqual(plot_metrics.call_args.kwargs["figure_dir"],
+                             output / "figures")
+
     def test_traditional_ml_web_output_isolation(self):
         from src.services import web_jobs
         with tempfile.TemporaryDirectory() as directory:
