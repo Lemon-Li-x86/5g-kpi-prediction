@@ -7,6 +7,7 @@ import pandas as pd
 
 from src.core.config import (
     ROOT as PROJECT_ROOT, KPIS, KEYS, ML_LAGS, ML_FORECAST_HORIZON,
+    DATASET_TEST_START_HOUR,
 )
 
 
@@ -35,7 +36,7 @@ FORECAST_HORIZON = ML_FORECAST_HORIZON
 # W3 split:
 # target Time < 672 -> train
 # target Time >= 672 -> test
-TEST_START_TIME = 672
+TEST_START_TIME = DATASET_TEST_START_HOUR
 
 
 # ============================================================
