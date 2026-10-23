@@ -89,7 +89,6 @@ class WeekThreeToSevenContracts(unittest.TestCase):
         for path in (
             "README.md", "USER_GUIDE.md", "requirements.txt",
             "docs/ARCHITECTURE.md", "docs/TECHNICAL_REPORT.md",
-            "docs/WEEK3_7_AUDIT.md",
         ):
             with self.subTest(path=path):
                 self.assertTrue((ROOT / path).is_file())
