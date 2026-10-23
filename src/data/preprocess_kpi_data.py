@@ -1,3 +1,9 @@
+"""Preprocess the fixed gotsf-ds beam-level KPI time series.
+
+Preserves chronological train/test separation; saves original KPI values,
+training-fitted scaling columns and a reproducible preprocessing summary.
+"""
+
 from pathlib import Path
 import argparse
 import json
@@ -5,7 +11,7 @@ import json
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from src.core.config import ROOT as PROJECT_ROOT, KPIS, RAW_DATA, PROCESSED_DATA, REPORTS, DATASET_TEST_START_HOUR
+from src.core.config import ROOT as PROJECT_ROOT, KPIS, RAW_DATA, PROCESSED_DATA, REPORTS, DATASET_TEST_START_HOUR, DATASET_FILES
 
 
 # ============================================================
@@ -24,12 +30,7 @@ SUMMARY_FILE = REPORT_DIR / "preprocessing_summary.json"
 # Dataset configuration
 # ============================================================
 
-FILES = {
-    "DLPRB": "DLPRB_train_0w-5w.csv",
-    "DLThpVol": "DLThpVol_train_0w-5w.csv",
-    "DLThpTime": "DLThpTime_train_0w-5w.csv",
-    "MR_number": "MR_number_train_0w-5w.csv",
-}
+FILES = DATASET_FILES
 
 KPI_COLUMNS = KPIS
 
