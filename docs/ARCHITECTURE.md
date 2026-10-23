@@ -1,26 +1,109 @@
-# 项目架构与迁移约定
+# 系统架构与模块职责
 
-## 模块职责
+## 1. 总体设计
 
-| 包 | 负责 | 不应负责 |
+系统使用 Python 与 Streamlit 构建离线 5G KPI 分析应用。数据处理、训练评估、模型版本管理、预测推理、异常检测和关联分析分别由独立模块完成，`app.py` 统一组织六个 Web 页面。
+
+```text
+公开 KPI 数据 (netop/gotsf-ds)
+        │
+        ▼
+src.data：下载 → 审计 → 预处理 → 特征/演示输入
+        │
+        ├─────────────────────┐
+        ▼                     ▼
+预测模型训练               异常检测模型训练
+ML / LSTM / GRU /          3σ / IQR / IF /
+Transformer               One-Class SVM
+        │                     │
+        └──────────┬──────────┘
+                   ▼
+          src.services：实验与权重归档
+          experiments/<run_id> / models/<run_id>
+                   │
+         ┌─────────┴───────────┐
+         ▼                     ▼
+  训练后测试集评估          选择权重与输入 CSV
+  指标、曲线、统计         ├─ 下一小时 KPI 预测
+                          └─ 异常候选检测 → KPI 关联分析
+                   │
+                   ▼
+          src.ui / Streamlit：可视化与导出
+```
+
+这是基于公开数据集的本地训练与推理系统。free5GC / UERANSIM 网络连通性及协议抓包作为前期独立实验保留。
+
+## 2. 模块职责
+
+| 模块 | 职责 | 主要文件 |
 |---|---|---|
-| `src.core` | KPI 字段、项目根路径、通用契约 | 训练和网页逻辑 |
-| `src.data` | gotsf-ds 下载、审计、预处理、特征 | Web 日志终端 |
-| `src.models` | 预测模型、训练、异常检测、推理 | Streamlit 页面状态 |
-| `src.analysis` | 指标分析、统计检验、稳健性验证 | 权重注册 |
-| `src.services` | 本地权重枚举归档、后台任务、WebSocket 日志 | 预测算法本身 |
-| `src.ui` | Streamlit 工作流、模型推理及按版本选择的结果展示 | 模型参数更新和训练算法 |
+| `src.core` | 统一 KPI 字段、文件路径、训练参数默认值及校验 | `config.py`、`training_config.py` |
+| `src.data` | 数据下载、原始数据审计、预处理、传统 ML 特征、演示 CSV | `download_kpi_data.py`、`preprocess_kpi_data.py`、`build_ml_features.py`、`prepare_demo_inputs.py` |
+| `src.models` | 传统 ML 与 DL 训练、共用网络结构、预测推理、异常检测 | `train_traditional_models.py`、`train_deep_learning_models.py`、`architectures.py`、`detect_kpi_anomalies.py`、`inference.py` |
+| `src.analysis` | 模型性能比较、异常统计、稳健性检查及本次候选 KPI 关联 | `compare_model_performance.py`、`analyze_anomaly_statistics.py`、`session_kpi_analysis.py` |
+| `src.services` | 后台任务执行、模型发现与归档、WebSocket 日志推送 | `web_jobs.py`、`model_registry.py`、`web_stream_worker.py` |
+| `src.ui` | 交互表单、训练评估展示、实际推理页面、结果版本读取 | `web_workflow.py`、`dashboard_data.py`、`result_views.py` |
+| `app.py` | Streamlit 页面初始化及六个菜单分发 | `app.py` |
 
-`app.py` 是 UI 总入口。`src/` 根目录只保留 `__init__.py` 和六个功能子包，所有调用统一使用完整模块路径。
+模块间通过 CSV、模型文件和明确定义的调用接口连接。神经网络训练与推理统一复用 `ForecastNet`；模型参数和标准化元数据与权重配套保存。
 
-## 边界和文件
+## 3. 六个页面与实际数据流
 
-1. **神经网络结构** 在 `src/models/architectures.py` 的 `ForecastNet`。训练 `src/models/train_deep_learning_models.py`、推理 `src/models/inference.py` 使用同一类，以保持 PyTorch `state_dict` 兼容。
-2. **统一字段及根目录** 定义于 `src/core/config.py`。历史大脚本里仍有局部常量，后续可通过逐个测试改用统一定义；本次仅迁移明确可靠的引用，避免大规模行为变化。
-3. **WebSocket 服务**：`src/services/web_stream_worker.py` 读取运行进程 stdout/stderr，事件流推送本机页面，同时批量记录 `resources/jobs/current.log`；UI 在 `src/ui/web_workflow.py`。
-4. **任务执行**：`src/services/web_jobs.py` 的任务名单是固定的。`src/core/training_config.py` 是训练可配置参数、默认值和 CLI 选项映射的唯一校验来源。Web 经 WebSocket 工作者将 JSON 参数传给任务进程，任务进程再次校验并转换为安全的参数数组（不通过 Shell 解析）。传统 ML、DL 与异常检测的 **Web 训练**均使用唯一的 `resources/experiments/<run_id>`，保存 `requested_parameters.json`，再发布权重到 `resources/models/<run_id>`。传统 ML 不带 `--out` 的旧命令行运行保留原固定路径，确保历史复现入口兼容。
-5. **展示与版本隔离**：`app.py` 只负责六个菜单的分发；`src/ui/web_workflow.py` 负责数据处理入口、训练表单及真实模型推理；`src/ui/result_views.py` 为训练评估、推理和关联结果的纯展示模块。`src/ui/dashboard_data.py` 按 `run_id` 读取训练实验报告，固定历史对比仍读取仓库顶层 `reports/`；`src/analysis/session_kpi_analysis.py` 则将本次异常标记按波束和小时与原始 KPI 一对一匹配，计算共识候选的 Pearson 相关矩阵。没有真实标签的下一小时预测不展示 MAE/RMSE/R²；没有独立检验的本次异常关联不展示历史 p 值。本轮新 Web 界面待本机回归。
+| Web 页面 | 执行入口 | 读取的数据 | 输出或展示 |
+|---|---|---|---|
+| 数据管理与预处理 | `render_data_page` | `data/raw/`、`data/processed/` | 预处理时间序列、特征文件及处理状态 |
+| 模型训练 | `render_training_page` | 预处理数据与训练表单 | 后台日志、模型权重、按实验保存的测试指标和图表 |
+| 模型管理与实验记录 | `render_model_page` | `resources/models/`、各实验 `reports/`、历史 `reports/` | 模型版本、训练结果、正式历史模型比较 |
+| KPI 预测 | `render_inference_page("forecast")` | 实际权重 + 演示或上传的 KPI CSV | 下一小时 KPI 预测值、可视化及 CSV |
+| 异常检测 | `render_inference_page("anomaly")` | 实际异常权重 + 对齐的 KPI CSV | 本次候选标记、逐小时统计及 CSV |
+| KPI 关联分析 | `render_current_association` 或 `render_saved_association` | 本次异常检测结果及输入 KPI，或指定实验矩阵 | 候选 KPI 相关矩阵、分析样本及导出 |
 
-## 输出目录及 Git
+**训练测试评估**使用对应实验保存的测试集真实值和预测值，可计算 MAE、RMSE、R²。**实际 KPI 推理**使用已选权重预测输入数据后的下一小时，输出预测值。两类结果分别展示。
 
-`data/raw/`、`data/processed/`、`models/`、`resources/` 默认被 Git 忽略。代码迁移不得移动、覆盖这些本地目录。仓库保存 `reports/`、`figures/` 中现有结果和源代码。真正的权重与训练记录应当从本机单独备份。
+历史正式比较位于仓库顶层 `reports/` 和 `figures/`；新训练结果以 `run_id` 隔离归档。本次异常的 KPI 关联根据 `base_station`、`cell`、`beam`、`Time` 将检测输出与输入数据一对一匹配，再计算共识候选中的 Pearson 相关系数。样本不足时显示提示。
+
+## 4. 参数与共享约定
+
+| 参数 / 字段 | 唯一来源与传递方式 |
+|---|---|
+| 四项 KPI、波束标识及根目录 | `src/core/config.py` 中的 `KPIS`、`KEYS`、`ROOT` |
+| Web 可配置的训练参数、默认值和 CLI 映射 | `src/core/training_config.py` 中的 `DL_DEFAULTS`、`ANOMALY_DEFAULTS`、`ML_DEFAULTS` 及校验函数 |
+| Web 单次训练提交的实际参数 | `resources/experiments/<run_id>/requested_parameters.json` |
+| ML 模型特征、归一化元数据 | 模型 `.pkl` bundle 中的列顺序、目标与标准化参数 |
+| DL 序列长度、季节滞后和归一化参数 | 与 `.pt` 同名的 `.json` 元数据 |
+| 异常模型的训练波束集合、缩放与检测器 | `anomalies.pkl` 模型 bundle |
+| UI 运行中的预测/异常结果 | 当前 Streamlit 会话状态，按权重路径和输入 CSV 哈希匹配 |
+
+历史脚本中的局部实验常量保持原有计算语义。新增功能优先引用 `src.core` 的共享定义，业务逻辑及页面代码分别保留在所属模块内。
+
+## 5. 后台训练及数据归档
+
+1. Streamlit 表单收集参数并交由 `normalize_params` 校验。
+2. `src/services/web_stream_worker.py` 启动受控的 `web_jobs.py` 后台任务，通过本机 WebSocket 发送日志，持久化到 `resources/jobs/`。
+3. 每次训练创建独立 `resources/experiments/<run_id>/`，保存请求参数、测试结果、图表及训练模型。
+4. 训练完成后将可信权重发布至 `resources/models/<run_id>/`，供预测与异常检测页面选择。
+5. 训练界面读取刚完成的实验报告，模型管理页面支持查看已有实验及历史正式结果。
+
+典型实验目录：
+
+```text
+resources/
+├── experiments/
+│   └── <run_id>/
+│       ├── requested_parameters.json
+│       ├── models/
+│       ├── reports/
+│       └── figures/
+├── models/
+│   └── <run_id>/
+├── demo_inputs/
+└── jobs/
+```
+
+命令行训练使用独立 `--out` 目录可获得相同的产物隔离。历史传统 ML 命令省略 `--out` 时仍采用固定输出路径。
+
+## 6. 源码、实验结果与版本管理
+
+Git 跟踪源码、测试、文档，以及 `reports/`、`figures/` 中的正式历史实验成果。本地下载数据和新实验产物分别存放在 `data/`、`models/`、`resources/`，由 `.gitignore` 排除。模型权重和独立实验记录在迁移设备时应一并备份。
+
+**验收状态（2026-10-23）**：旧版 Web 的训练、权重发布、模型推理和 CSV 导出已完成本机功能验收。六模块整合与新增关联分析测试已提交工作分支，待在目标 Windows 环境执行回归测试。
