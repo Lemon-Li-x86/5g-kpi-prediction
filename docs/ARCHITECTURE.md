@@ -18,7 +18,7 @@
 1. **神经网络结构** 在 `src/models/architectures.py` 的 `ForecastNet`。训练 `src/models/train_deep_learning_models.py`、推理 `src/models/inference.py` 使用同一类，以保持 PyTorch `state_dict` 兼容。
 2. **统一字段及根目录** 定义于 `src/core/config.py`。历史大脚本里仍有局部常量，后续可通过逐个测试改用统一定义；本次仅迁移明确可靠的引用，避免大规模行为变化。
 3. **WebSocket 服务**：`src/services/web_stream_worker.py` 读取运行进程 stdout/stderr，事件流推送本机页面，同时批量记录 `resources/jobs/current.log`；UI 在 `src/ui/web_workflow.py`。
-4. **任务执行**：`src/services/web_jobs.py` 的任务名单是固定的。`src/core/training_config.py` 是训练可配置参数、默认值和 CLI 选项映射的唯一校验来源。Web 经 WebSocket 工作者将 JSON 参数传给任务进程，任务进程再次校验并转换为安全的参数数组（不通过 Shell 解析）。DL 与异常检测训练使用唯一的 `resources/experiments/<run_id>`，保存 `requested_parameters.json`，然后发布权重到 `resources/models/<run_id>`。传统 ML 仍写到固定报告路径。
+4. **任务执行**：`src/services/web_jobs.py` 的任务名单是固定的。`src/core/training_config.py` 是训练可配置参数、默认值和 CLI 选项映射的唯一校验来源。Web 经 WebSocket 工作者将 JSON 参数传给任务进程，任务进程再次校验并转换为安全的参数数组（不通过 Shell 解析）。传统 ML、DL 与异常检测的 **Web 训练**均使用唯一的 `resources/experiments/<run_id>`，保存 `requested_parameters.json`，再发布权重到 `resources/models/<run_id>`。传统 ML 不带 `--out` 的旧命令行运行保留原固定路径，确保历史复现入口兼容。
 5. **结果读取**：`src/ui/dashboard_data.py` 只读取已生成的历史 CSV/JSON。
 
 ## 输出目录及 Git
