@@ -66,7 +66,8 @@ def outputs_are_up_to_date():
         for filename in FILES.values()
     ]
 
-    source_files.append(Path(__file__))
+    # Shared schema and split definitions also affect cached output.
+    source_files.extend([Path(__file__), PROJECT_ROOT / "src/core/config.py"])
 
     for source_file in source_files:
         if not source_file.exists():
