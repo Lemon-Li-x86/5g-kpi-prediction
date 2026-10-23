@@ -28,7 +28,15 @@ python -m streamlit run app.py
 
 检查依赖：`python -m pip check`。
 
-## 三、Web 手动操作验收
+## 三、准备 Web 验收 CSV
+
+```powershell
+python -m src.data.prepare_demo_inputs
+```
+
+分别使用生成的 `resources/demo_inputs/forecast_history.csv` 和 `resources/demo_inputs/anomaly_history.csv` 验证两类推理。异常 CSV 包含训练数据全部波束在最后三个完整小时的 KPI，首小时作为差分上下文。该脚本不会重训模型或生成故障标签。
+
+## 四、Web 手动操作验收
 
 - [ ] 「数据管理与预处理」能识别本地四个原始 KPI 文件与已有预处理 CSV。不要为检验 UI 不必要地重复下载大型数据。
 - [ ] 「模型训练」可选择 LSTM/GRU/Transformer，实际提交 `epochs=3`、`batch_size=64`、`patience=2` 等测试参数。日志打印出的命令、`current.json` 与 `requested_parameters.json` 一致。
@@ -41,7 +49,7 @@ python -m streamlit run app.py
 - [ ] 断开浏览器后后台训练仍可正常结束；重新打开能查到最后状态与已保存日志。
 - [ ] 上传缺少 KPI 字段或时间不连续的数据时显示可诊断错误。
 
-## 四、性能记录模板（需本机填写，勿杜撰）
+## 五、性能记录模板（需本机填写，勿杜撰）
 
 | 操作 | 样本数 | CPU / GPU | 耗时（s） | 峰值 RSS / GPU 显存 | 成功 / 失败 | 证据路径 |
 |---|---:|---|---:|---|---|---|
@@ -60,7 +68,7 @@ python -c "import torch; print('torch:', torch.__version__, 'cuda:', torch.cuda.
 
 不要声称使用了 RTX 4060 GPU，除非输出实际显示 `cuda: True` 且训练日志确认模型使用 CUDA。
 
-## 五、当前已知缺口与风险
+## 六、当前已知缺口与风险
 
 1. 原始仿真 free5GC/UERANSIM 连通性实验与此 gotsf-ds 公开数据预测流水线**并非实时直接连接**；别把离线分析称作实时核心网告警平台。
 2. 异常候选没有真实故障标签，不能报告 Precision、Recall 或 F1，也不能把 KPI 相关性称为确定根因。
@@ -69,6 +77,6 @@ python -c "import torch; print('torch:', torch.__version__, 'cuda:', torch.cuda.
 5. 新增的 Web 异常推理入口和训练参数面板还需本机实测，不因代码已合并就默认验收通过。
 6. Python 3.14/Windows 下的第三方库兼容性、UTF-8 控制台输出及 GPU 环境必须由本机确认。
 
-## 六、完成判定与交付封版
+## 七、完成判定与交付封版
 
 通过最低验收链路后，建议固定一个 Git 标签 `w4-final-2026-10-23`，再将 **经过核实的**测试截图、日志摘要、报告、PPT 添加到交付目录。未经复测的项应写明「未测试 / 仅单元测试」而非打钩。最终将这份记录连同报告一起发送导师。
