@@ -60,13 +60,17 @@
 
 ## 5. 模型训练与实时终端
 
-「模型训练」支持：传统 ML、LSTM、GRU、Transformer 和异常检测。点击开始训练后，后台工作器启动固定的受控命令。日志通过 WebSocket 事件流传给浏览器，另外每约 2 秒或达到缓冲阈值写入 `resources/jobs/current.log`。只读终端支持滚动查看，不是可执行任意命令的 Shell。
+「模型训练」支持：传统 ML、LSTM、GRU、Transformer 和异常检测。LSTM/GRU/Transformer 的 Epoch（最多轮次）、Batch Size（一次训练更新使用的样本数）、学习率、隐藏维度、早停耐心值和 CPU/CUDA 设备均可直接在 Web 修改。高级选项包括序列长度、季节性间隔、训练/验证/测试抽样数量及随机种子。异常检测可调整 Isolation Forest 污染率及训练样本数、One-Class SVM 抽样、最大保存事件数量与种子。
+
+**重要限制：**现有传统 ML 脚本只有 `--quick` 开关，尚无可配置各算法超参数的 CLI；Web 不会显示无效的学习率/批次设置，使用固定的正式训练配置。当前页面不允许直接修改训练/验证/测试时间边界，以免混淆实验协议。
+
+点击「开始训练并保存配置」后，参数经过校验，通过受控后台进程启动模型训练。日志通过 WebSocket 事件流传给浏览器，每约 2 秒或达到缓冲阈值写入 `resources/jobs/current.log`。只读终端支持滚动查看，不是可执行任意命令的 Shell。任务状态栏可展开查看本次实际提交的参数。
 
 `resources/jobs/current.json` 记录任务状态；若 WebSocket 服务启动失败，还可检查 `resources/jobs/stream_errors.log`。不要在同一任务尚未结束时反复点击「开始训练」。
 
-**深度学习版本隔离：** 新 LSTM/GRU/Transformer 训练的原始 checkpoint、指标与图表保存于 `resources/experiments/<run_id>/`，成功后将 `.pt` + 同名 `.json` 复制至 `resources/models/<run_id>/` 供推理选择。训练时可以提前停止（Early stopping），不等于训练失败。
+**模型版本隔离：** 新的深度学习和异常检测训练均保存于 `resources/experiments/<run_id>/`，同时保留 `requested_parameters.json`（实际提交的参数）。DL 成功后复制 `.pt` + 同名 `.json` 到 `resources/models/<run_id>/`；异常检测成功后复制 `anomalies.pkl` 到版本目录。Early Stopping 是正常训练机制，不等于失败。由于每次运行可能使用不同样本量或配置，指标比较前应核对实验条件。
 
-传统 ML 和异常检测目前仍写入旧版固定路径 `models/`、`reports/`。开始前会归档现有可信旧模型，完成后将可用权重再归档。固定路径产生的传统实验指标尚未做到完整的逐版本隔离。
+传统 ML 目前仍写入旧版固定路径 `models/`、`reports/`。开始前会归档已有可信权重，完成后再归档新权重；历史报告可能被更新，尚未做到完整逐版本隔离。
 
 ## 6. 模型管理与推理
 
