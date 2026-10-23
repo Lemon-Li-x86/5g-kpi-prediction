@@ -3,8 +3,8 @@
 Run from the project root:
     streamlit run app.py
 
-The app visualises saved experiment outputs; it does not train models or connect
- to a live free5GC/UERANSIM network.
+The app provides local data jobs, training/inference pages and displays
+historical experiment outputs. It does not connect to live 5G network streams.
 """
 
 from __future__ import annotations
