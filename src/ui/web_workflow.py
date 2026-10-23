@@ -274,7 +274,7 @@ def render_data_page() -> None:
     st.write("当前流水线支持 gotsf-ds 固定格式的四项 KPI，尚不支持任意 CSV 自动适配。")
     raw = ROOT / "data" / "raw"
     processed = ROOT / "data" / "processed" / "kpi_timeseries.csv"
-    from src.preprocess_kpi_data import FILES
+    from src.data.preprocess_kpi_data import FILES
     st.dataframe(pd.DataFrame([
         {"KPI": kpi, "文件": filename, "是否存在": (raw / filename).exists()}
         for kpi, filename in FILES.items()
@@ -345,7 +345,7 @@ def render_model_page() -> None:
             return
         st.write(f"输入样本：{len(data):,} 行")
         if st.button("运行下一小时预测"):
-            from src.inference import predict_kpi
+            from src.models.inference import predict_kpi
             with st.spinner("正在执行推理"):
                 result = predict_kpi(data, selected.path)
             st.dataframe(result.head(200), use_container_width=True, hide_index=True)
