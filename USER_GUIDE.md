@@ -84,7 +84,7 @@ Time,base_station,cell,beam,DLPRB,DLThpVol,DLThpTime,MR_number
 
 同一 beam 的时间必须唯一且连续。ML 推理使用多个滞后特征，通常需要至少 **169 个连续小时**历史值；深度学习所需历史长度由相应 `.json` 中的 `seq_len` 与 `seasonal_lag` 决定。结果可导出 CSV。界面上传大小限制为 50 MB。
 
-传统 ML 的 `.pkl` 只能加载本人信任的本机模型文件。DL 的 `.pt` 必须保留同名 JSON 元数据；缺失元数据的文件不会出现在列表。异常模型的完整交互式推理页面目前尚未开放，虽已有 `src.models.inference.detect_anomalies` 接口。
+传统 ML 的 `.pkl` 只能加载本人信任的本机模型文件。DL 的 `.pt` 必须保留同名 JSON 元数据；缺失元数据的文件不会出现在列表。选择异常模型 `anomalies.pkl` 时，需要上传与训练工况相同的完整波束集合，所有波束有统一的连续时间轴，且首小时用作差分上下文。界面可输出 3σ、IQR、Isolation Forest、One-Class SVM 及共识异常候选标记并导出 CSV；**此项新入口仍须本机实际测试**。
 
 ## 7. 历史结果页面
 
