@@ -19,13 +19,13 @@ from sklearn.metrics import (
 )
 from sklearn.preprocessing import StandardScaler
 
-from src.train_traditional_models import (
+from src.models.train_traditional_models import (
     build_models,
     KPI_COLUMNS,
 )
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 FEATURES_FILE = ROOT / "data" / "processed" / "ml_features.pkl"
 FEATURE_META = ROOT / "reports" / "ml_feature_summary.json"

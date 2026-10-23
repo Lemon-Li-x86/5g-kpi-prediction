@@ -18,7 +18,7 @@ FILES = [
     "data/train/MR_number_train_0w-5w.csv",
 ]
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RAW_DIR = PROJECT_ROOT / "data" / "raw"
 
 

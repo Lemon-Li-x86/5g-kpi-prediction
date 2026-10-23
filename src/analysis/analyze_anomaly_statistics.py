@@ -3,7 +3,7 @@
 """W4: Statistical diagnostics for 5G KPI anomaly detection.
 
 Run from the repository root:
-    python -m src.analyze_anomaly_statistics
+    python -m src.analysis.analyze_anomaly_statistics
 
 Required:
     src/detect_kpi_anomalies.py
@@ -32,7 +32,7 @@ import pandas as pd
 from scipy.stats import kurtosis, pearsonr, skew, t
 from sklearn.ensemble import IsolationForest
 
-from src.detect_kpi_anomalies import (
+from src.models.detect_kpi_anomalies import (
     KPIS,
     detection_thresholds,
     features,

@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.model_registry import archive_models, list_models
+from src.services.model_registry import archive_models, list_models
 
 
 class RegistryTests(unittest.TestCase):

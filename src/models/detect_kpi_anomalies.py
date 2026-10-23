@@ -524,7 +524,7 @@ def main():
     with (artifact_dir / 'anomalies.pkl').open('wb') as file:
         pickle.dump(dict(version=1, train=train, forest=forest, svm=svm,
                          keys=keys, timeline=timeline[train_cols],
-                         scaling=json.loads((Path(__file__).resolve().parents[1] / 'reports/preprocessing_summary.json').read_text(encoding='utf-8'))['standardisation']), file)
+                         scaling=json.loads((Path(__file__).resolve().parents[2] / 'reports/preprocessing_summary.json').read_text(encoding='utf-8'))['standardisation']), file)
 
     svm_flag = (
         svm.predict(

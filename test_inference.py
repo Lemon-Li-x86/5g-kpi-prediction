@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 import numpy as np
 import pandas as pd
-from src.inference import predict_kpi, KPIS, KEYS
+from src.models.inference import predict_kpi, KPIS, KEYS
 
 class DeploymentTests(unittest.TestCase):
     def history(self, n=169):
@@ -37,7 +37,7 @@ class DeploymentTests(unittest.TestCase):
 
     def test_deep_trained_roundtrip(self):
         import torch
-        from src.train_deep_learning_models import ForecastNet
+        from src.models.train_deep_learning_models import ForecastNet
         torch.set_num_threads(1)
         for mode in ['lstm', 'gru', 'transformer']:
             with self.subTest(mode=mode), tempfile.TemporaryDirectory() as d:
@@ -65,8 +65,8 @@ class AnomalyTests(unittest.TestCase):
     def test_original_algorithms_roundtrip(self):
         from sklearn.ensemble import IsolationForest
         from sklearn.svm import OneClassSVM
-        from src.detect_kpi_anomalies import features, detection_thresholds
-        from src.inference import detect_anomalies
+        from src.models.detect_kpi_anomalies import features, detection_thresholds
+        from src.models.inference import detect_anomalies
         rng = np.random.default_rng(42)
         train = rng.normal(size=(2,20,4)).astype(np.float32)
         values = rng.normal(size=(2,4,4)).astype(np.float32)

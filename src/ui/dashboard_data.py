@@ -10,11 +10,9 @@ from pathlib import Path
 
 import pandas as pd
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+from src.core.config import ROOT as PROJECT_ROOT, KPIS
 REPORT_DIR = PROJECT_ROOT / "reports"
 FIGURE_DIR = PROJECT_ROOT / "figures"
-
-KPIS = ["DLPRB", "DLThpVol", "DLThpTime", "MR_number"]
 DEEP_LEARNING_MODELS = {"LSTM", "GRU", "TRANSFORMER"}
 
 

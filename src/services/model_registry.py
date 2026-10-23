@@ -6,15 +6,13 @@ unpickle or execute anything while scanning. Loading happens in inference.py.
 from __future__ import annotations
 
 import json
-import re
 import shutil
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
-ROOT = Path(__file__).resolve().parents[1]
-KPIS = ("DLPRB", "DLThpVol", "DLThpTime", "MR_number")
+from src.core.config import ROOT, KPIS
 
 
 @dataclass(frozen=True)

@@ -37,7 +37,7 @@ except ImportError:
 # Project paths
 # ============================================================
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 REPORT_DIR = PROJECT_ROOT / "reports"
@@ -902,7 +902,7 @@ def run_experiment(
                 y_train,
             )
 
-            from src.inference import save_ml
+            from src.models.inference import save_ml
             save_ml(model, model_name, kpi, feature_columns)
 
             fit_seconds = (

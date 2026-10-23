@@ -22,7 +22,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.dashboard_data import (  # noqa: E402
+from src.ui.dashboard_data import (  # noqa: E402
     FIGURE_DIR,
     KPIS,
     REPORT_DIR,
@@ -144,7 +144,7 @@ def add_download_button(frame: pd.DataFrame, label: str, filename: str) -> None:
 # ============================================================
 
 st.sidebar.title("📡 5G KPI 分析系统")
-st.sidebar.caption("离线实验结果交互式展示")
+st.sidebar.caption("离线 KPI 数据处理、模型训练、推理与分析")
 page = st.sidebar.radio(
     "功能模块",
     [
@@ -160,7 +160,7 @@ page = st.sidebar.radio(
 )
 
 st.sidebar.divider()
-st.sidebar.caption("数据来源：仓库内已保存的实验结果文件")
+st.sidebar.caption("历史图表读取 reports/；训练与推理在本机执行。")
 st.sidebar.caption("当前版本不连接实时 free5GC/UERANSIM 网络。")
 
 
@@ -567,7 +567,7 @@ elif page == "KPI 关联分析":
 # 8. Interactive workflow modules
 # ============================================================
 if page in ("数据管理与预处理", "模型训练", "模型管理与推理"):
-    from src.web_workflow import (
+    from src.ui.web_workflow import (
         render_data_page, render_training_page, render_model_page,
     )
     if page == "数据管理与预处理":
@@ -583,5 +583,5 @@ if page in ("数据管理与预处理", "模型训练", "模型管理与推理")
 # ============================================================
 
 st.sidebar.divider()
-st.sidebar.caption("W7 system integration prototype")
+st.sidebar.caption("第四阶段 · 系统集成原型")
 st.sidebar.caption("结果文件更新后，可使用页面菜单刷新缓存或重新启动应用。")

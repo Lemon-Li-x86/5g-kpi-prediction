@@ -5,12 +5,11 @@ import pickle
 import numpy as np
 import pandas as pd
 
-KPIS = ['DLPRB', 'DLThpVol', 'DLThpTime', 'MR_number']
-KEYS = ['base_station', 'cell', 'beam']
+from src.core.config import ROOT, KPIS, KEYS
 
 
 def save_ml(model, name, target, columns):
-    root = Path(__file__).resolve().parents[1]
+    root = ROOT
     scaling = json.loads((root / 'reports/preprocessing_summary.json').read_text(encoding='utf-8'))['standardisation']
     bundle = dict(version=1, family='ml', model=model, target=target,
                   columns=columns, mean=[scaling['mean'][k] for k in KPIS],
@@ -55,7 +54,7 @@ def predict_kpi(history, artifact):
             row[meta['target']] = float(meta['model'].predict(np.array([[features[c] for c in meta['columns']]], dtype=np.float32))[0])
         else:
             import torch
-            from src.train_deep_learning_models import ForecastNet
+            from src.models.architectures import ForecastNet
             if len(z) < max(meta['seq_len'], meta['seasonal_lag'] + 1):
                 raise ValueError('Insufficient sequence/seasonal history')
             model = ForecastNet(meta['mode'], meta['seq_len'], meta['hidden'])
@@ -76,7 +75,7 @@ def detect_anomalies(values, artifact):
     Include preceding context as the first hour; it is excluded from results.
     No estimator is fitted during detection. Candidates are not confirmed faults.
     """
-    from src.detect_kpi_anomalies import detection_thresholds, features
+    from src.models.detect_kpi_anomalies import detection_thresholds, features
     with Path(artifact).open('rb') as f:
         bundle = pickle.load(f)
     labels = None
