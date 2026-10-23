@@ -1,3 +1,9 @@
+"""Build the traditional-ML lag feature cache and one-hour-ahead targets.
+
+Uses chronological KPI history and shared lag/horizon definitions. Records
+feature columns in ml_feature_summary.json for training and inference.
+"""
+
 from pathlib import Path
 import argparse
 import json
