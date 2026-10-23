@@ -8,16 +8,19 @@ import pandas as pd
 from src.core.config import ROOT, KPIS, KEYS
 
 
-def save_ml(model, name, target, columns):
+def save_ml(model, name, target, columns, output_dir=None):
+    """Save a trusted model bundle; Web runs can isolate each experiment."""
     root = ROOT
     scaling = json.loads((root / 'reports/preprocessing_summary.json').read_text(encoding='utf-8'))['standardisation']
     bundle = dict(version=1, family='ml', model=model, target=target,
                   columns=columns, mean=[scaling['mean'][k] for k in KPIS],
                   scale=[scaling['scale'][k] for k in KPIS])
-    path = root / 'models' / f'{name}_{target}.pkl'
-    path.parent.mkdir(exist_ok=True)
+    directory = Path(output_dir) if output_dir is not None else root / 'models'
+    path = directory / f'{name}_{target}.pkl'
+    path.parent.mkdir(parents=True, exist_ok=True)
     with path.open('wb') as f:
         pickle.dump(bundle, f)
+    return path
 
 
 def predict_kpi(history, artifact):
