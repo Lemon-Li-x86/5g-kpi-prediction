@@ -51,16 +51,16 @@ python -m streamlit run app.py
 **所有脚本从仓库根目录以 Python 模块方式启动**，避免导入路径受当前工作目录影响。
 
 ```bash
-# 原始数据获取、检查、预处理
-python -m src.download_kpi_data
-python -m src.audit_kpi_data
-python -m src.preprocess_kpi_data
+
+python -m src.download_kpi_data   # 原始数据获取
+python -m src.audit_kpi_data      # 检查
+python -m src.preprocess_kpi_data # 预处理
 
 # 预测
 python -m src.build_ml_features
-python -m src.train_traditional_models
-python -m src.train_deep_learning_models
-python -m src.compare_model_performance
+python -m src.train_traditional_models    # 传统模型
+python -m src.train_deep_learning_models  # 深度学习
+python -m src.compare_model_performance   # 模型对比
 
 # 异常检测
 python -m src.detect_kpi_anomalies
