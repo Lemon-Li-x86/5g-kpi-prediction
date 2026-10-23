@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """
 Condensed W3 (original Week 5):
@@ -38,6 +37,8 @@ from sklearn.metrics import (
     r2_score,
 )
 
+from src.core.config import KPIS, KEYS, DATASET_TEST_START_HOUR
+
 try:
     import torch
     from torch import nn
@@ -52,20 +53,8 @@ except ImportError as exc:
 # 1. Project configuration
 # ============================================================
 
-KPIS = [
-    "DLPRB",
-    "DLThpVol",
-    "DLThpTime",
-    "MR_number",
-]
-
+# Shared dataset schema; model-specific dimensions and settings remain local.
 Z_COLS = [f"{k}_z" for k in KPIS]
-
-KEYS = [
-    "base_station",
-    "cell",
-    "beam",
-]
 
 
 # ============================================================
@@ -497,7 +486,7 @@ def main():
     parser.add_argument(
         "--test-start",
         type=int,
-        default=672,
+        default=DATASET_TEST_START_HOUR,
     )
 
     parser.add_argument(

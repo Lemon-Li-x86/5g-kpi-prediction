@@ -9,7 +9,6 @@ import argparse
 import asyncio
 import codecs
 import json
-import os
 import sys
 import traceback
 from collections import deque
@@ -20,6 +19,7 @@ from urllib.parse import parse_qs, urlsplit
 from websockets.asyncio.server import serve
 
 from src.services.model_registry import ROOT
+from src.services.process_env import python_job_env
 
 JOBS = ROOT / "resources" / "jobs"
 LOG = JOBS / "current.log"
@@ -89,12 +89,12 @@ class StreamHub:
             self.clients.discard(queue)
 
 
-async def _execute(task: str, model: str, hub: StreamHub) -> None:
-    env = os.environ.copy()
-    env["PYTHONUNBUFFERED"] = "1"
+async def _execute(task: str, model: str, hub: StreamHub, params_json: str = "{}") -> None:
+    env = python_job_env()
     cmd = [sys.executable, "-u", "-m", "src.services.web_jobs", task]
     if model:
         cmd.append(model)
+    cmd.extend(("--params-json", params_json))
 
     JOBS.mkdir(parents=True, exist_ok=True)
     decoder = codecs.getincrementaldecoder("utf-8")("replace")
@@ -166,11 +166,11 @@ async def _execute(task: str, model: str, hub: StreamHub) -> None:
     hub.finish(final_status, return_code)
 
 
-async def _main(port: int, token: str, task: str, model: str) -> None:
+async def _main(port: int, token: str, task: str, model: str, params_json: str = "{}") -> None:
     hub = StreamHub(token)
     # The server runs for the whole job and a short grace period afterwards.
     async with serve(hub.handle, "127.0.0.1", port, max_size=1024 * 1024):
-        await _execute(task, model, hub)
+        await _execute(task, model, hub, params_json)
         await asyncio.sleep(90)
 
 
@@ -180,9 +180,26 @@ if __name__ == "__main__":
     parser.add_argument("model", nargs="?", default="")
     parser.add_argument("--port", type=int, required=True)
     parser.add_argument("--token", required=True)
+    parser.add_argument("--params-json", default="{}")
     args = parser.parse_args()
     try:
-        asyncio.run(_main(args.port, args.token, args.task, args.model))
+        asyncio.run(_main(args.port, args.token, args.task, args.model, args.params_json))
+    except KeyboardInterrupt:
+        # asyncio.run() cancels pending reader tasks on Ctrl+C. Treat this as
+        # a controlled interruption rather than printing a misleading full
+        # CancelledError/KeyboardInterrupt traceback to the startup log.
+        JOBS.mkdir(parents=True, exist_ok=True)
+        try:
+            state = json.loads(STATE.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            state = {}
+        if state.get("status") == "running":
+            state.update(status="interrupted", finished=_now(),
+                         error="实时日志工作器收到中断信号；请核对训练子进程与日志。")
+            STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+            with LOG.open("ab") as f:
+                f.write(b"\n[Live log supervisor interrupted; verify the child job status.]\n")
+        raise SystemExit(130)
     except Exception:
         error = traceback.format_exc()
         JOBS.mkdir(parents=True, exist_ok=True)

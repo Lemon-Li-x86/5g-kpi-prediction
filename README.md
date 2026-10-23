@@ -1,82 +1,129 @@
-# 5G KPI 预测与异常检测系统
+# 基于 AI 的 5G KPI 预测与异常检测系统
 
-基于 gotsf-ds 公开 KPI 数据的离线实验系统，支持数据下载/预处理、传统 ML 与深度学习预测、异常候选检测、实验分析，以及本机 Streamlit 交互操作。Web 训练支持本地 WebSocket 日志流；**不等于对接实时 5G 网络**。
+本项目使用公开的 `netop/gotsf-ds` 波束级 KPI 数据，实现数据处理、模型训练与评估、下一小时 KPI 预测、异常候选检测及 KPI 关联分析，提供基于 Streamlit 的本地 Web 应用。
 
-## 快速运行（从项目根目录执行）
+系统处理四项指标：`DLPRB`、`DLThpVol`、`DLThpTime`、`MR_number`。原始字段单位与数值尺度按照数据集保留。
 
-在已有虚拟环境内安装缺少的依赖，无需每次重新建环境：
+## 1. 安装与启动
+
+在仓库根目录运行（Windows PowerShell）：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip check
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-也可激活虚拟环境后使用 `python -m streamlit run app.py`。程序需要 Python 3.10+，使用 PyTorch 训练时须安装与本机 CPU/CUDA 平台兼容的版本。
+若已激活虚拟环境，可使用 `python -m streamlit run app.py`。推荐 Python 3.10+，并根据本机 CPU/CUDA 环境安装兼容的 PyTorch。打开终端中显示的 Streamlit Local URL，通常为 `http://localhost:8501`。
 
-## 当前功能
+## 2. Web 功能模块
 
-- **数据管理与预处理**：识别固定 gotsf-ds 四 KPI 文件；下载、审计、预处理及传统 ML 特征工程。
-- **模型训练**：在独立进程中运行传统 ML、LSTM、GRU、Transformer 或异常检测。WebSocket 终端展示新增输出；日志同时缓存写入 `resources/jobs/current.log`。
-- **模型管理与推理**：从本机 `models/` 和 `resources/models/` 枚举模型版本，选择可信本地权重，对符合字段要求的历史 CSV 执行下一小时预测并导出。
-- **结果展示**：总览、KPI 预测曲线、模型评估、异常候选统计、KPI 关联分析。**这些历史图表读取 `reports/` 中的已有实验结果，不一定对应当前下拉框选中的模型版本。**
+| 页面 | 功能 |
+|---|---|
+| **数据管理与预处理** | 下载四项原始 KPI、审计与预处理、保存时间序列、构建传统 ML 特征 |
+| **模型训练** | 选择预测或异常检测算法，调整训练参数，查看 WebSocket 实时日志；完成后直接查看该实验的测试指标、曲线或异常统计 |
+| **模型管理与实验记录** | 管理本地模型权重，按 `run_id` 查询训练实验，查看固定的历史正式模型性能对比 |
+| **KPI 预测** | 从预处理数据生成演示 CSV 或上传 CSV，选择 ML/DL 权重，计算下一小时 KPI 并可视化、导出 |
+| **异常检测** | 生成或上传符合模型要求的 KPI CSV，选择异常检测权重，展示异常候选标记率、逐小时统计并导出 |
+| **KPI 关联分析** | 根据本次异常检测的候选标记与输入 KPI 计算相关矩阵，也可查看某次实验保存的关联结果 |
 
-固定支持 KPI：`DLPRB`、`DLThpVol`、`DLThpTime`、`MR_number`。异常标记是未经故障标签验证的候选事件，不应宣称真实故障检测 precision / recall / F1。
+传统预测算法包括 LinearRegression、DecisionTree、RandomForest、XGBoost、LightGBM，深度学习算法包括 LSTM、GRU、Transformer，并提供 Persistence 基线。异常检测综合使用 3σ、IQR、Isolation Forest 和 One-Class SVM。
 
-## 目录结构
+训练评估基于测试集，展示 MAE、RMSE、R²，以及真实值和预测值的对比曲线。KPI 预测页面对实际输入执行下一小时推理，显示预测值与图表。异常检测结果用于筛选后续分析的候选记录。
+
+## 3. 数据与模型的运行流程
+
+```text
+公开 gotsf-ds 数据
+      │ 下载、审计、预处理、特征构建
+      ▼
+本地数据集与特征
+      │
+      ├── 选择算法、配置参数、训练及测试
+      │        ├── resources/experiments/<run_id>/  测试指标、曲线、训练配置
+      │        └── resources/models/<run_id>/       已发布模型权重
+      │
+      ├── KPI 预测：演示/上传 CSV + 选择权重 → 下一小时预测 → 图表/CSV
+      │
+      └── 异常检测：演示/上传 CSV + 选择权重 → 异常标记 → 图表/CSV
+                                                       │
+                                                       └── 本次候选 KPI 关联分析
+```
+
+每轮 Web 训练使用独立 `run_id` 保存参数、报告、图表及权重。此前完成的正式模型比较保存在仓库顶层 `reports/`、`figures/`；新实验保存到 `resources/experiments/<run_id>/`，两者各自独立。
+
+传统 ML Web 提供抽样快速验收模式和完整训练模式。快速模式用于功能测试，正式预测性能比较采用对应完整实验的测试集结果。异常检测数据暂无经过验证的故障标签，当前系统展示候选标记率和探索性 KPI 关联。
+
+## 4. 项目结构
 
 ```text
 5g-kpi-prediction/
-├── app.py                     # Streamlit 入口
+├── app.py                            Streamlit 六模块入口
 ├── src/
-│   ├── core/                  # 统一路径及 KPI 字段
-│   ├── data/                  # 下载/审计/预处理/特征
-│   ├── models/                # 预测训练/异常检测/推理/神经网络结构
-│   ├── analysis/              # 评估/相关性/鲁棒性
-│   ├── services/              # 任务调度/WebSocket 日志/权重注册
-│   ├── ui/                    # Streamlit 工作流和结果读取器
-├── tests/                     # 结构契约测试
-├── test_inference.py          # 原合成样本推理测试
-├── test_model_registry.py     # 原权重归档测试
-├── data/                      # 本地下载数据（Git 忽略）
-├── models/                    # 旧版本地模型权重（Git 忽略）
-├── resources/                 # 本地模型版本/实验/任务日志（Git 忽略）
-├── reports/                   # 历史已保存的实验指标
-├── figures/                   # 历史已保存的实验图
-├── docs/ARCHITECTURE.md
-└── USER_GUIDE.md
+│   ├── core/                         KPI 字段、路径及训练参数
+│   ├── data/                         数据下载、审计、预处理、特征与演示 CSV
+│   ├── models/                       ML/DL 训练、模型结构与异常/预测推理
+│   ├── analysis/                     指标比较、统计分析与本次候选 KPI 关联
+│   ├── services/                     模型注册、后台训练与 WebSocket 日志
+│   └── ui/
+│       ├── web_workflow.py           训练表单、模型管理和实际推理
+│       ├── dashboard_data.py         按实验版本读取保存结果
+│       └── result_views.py           训练评估、推理与关联结果可视化
+├── tests/                            单元测试与结构/数据契约测试
+├── test_inference.py                 模型推理合成数据测试
+├── test_model_registry.py            模型发现和归档测试
+├── data/                             本地原始与处理后 KPI 数据
+├── models/                           历史未版本化本地权重
+├── resources/
+│   ├── experiments/<run_id>/         每次训练的配置、报告、图表、模型
+│   ├── models/<run_id>/              发布给推理页面的模型版本
+│   ├── demo_inputs/                  Web 演示输入
+│   └── jobs/                         后台任务状态和日志
+├── reports/                          保存的正式历史实验结果
+├── figures/                          保存的正式历史实验图表
+├── USER_GUIDE.md                     系统使用手册
+└── docs/
+    ├── ARCHITECTURE.md               系统架构和模块职责
+    └── TECHNICAL_REPORT.md           项目技术报告
 ```
 
-`src/` 根目录只保留 `__init__.py` 和六个功能子包，不再维护旧版扁平脚本入口。新功能直接添加到对应子包。参见 [架构说明](docs/ARCHITECTURE.md)。
+`data/`、`models/` 和 `resources/` 为本地运行目录，默认受 `.gitignore` 保护。新机器部署时需要准备数据和可信权重；训练数据可通过 Web 下载并重新处理。
 
-## 命令行复现实验
+## 5. 命令行执行
 
-命令行使用新分层模块路径。旧版 `python -m src.<脚本名>` **不再支持**：
-
-```bash
+```powershell
 python -m src.data.download_kpi_data
 python -m src.data.audit_kpi_data
 python -m src.data.preprocess_kpi_data
 python -m src.data.build_ml_features
-python -m src.models.train_traditional_models
+
+python -m src.models.train_traditional_models --out resources/experiments/manual_ml
 python -m src.models.train_deep_learning_models --models gru --out resources/experiments/manual_gru
-python -m src.analysis.compare_model_performance
-python -m src.models.detect_kpi_anomalies
-python -m src.analysis.analyze_anomaly_statistics
+python -m src.models.detect_kpi_anomalies --out resources/experiments/manual_anomaly
 ```
 
-注意：深度学习实验推荐给每次运行指定全新的 `--out` 目录，避免不同标准化参数的报告合并产生 `train_scale_mean` 冲突。Web 的深度学习训练入口已自动分配独立目录。传统 ML/异常检测脚本目前仍有固定输出路径，存在进一步工程化空间。
+命令行训练应为每次实验指定新的 `--out` 目录。传统 ML 的旧命令行入口在省略 `--out` 时仍使用固定的历史输出路径。
 
-## 检查
+完成预处理后，也可通过命令行生成 Web 演示输入：
 
-```bash
+```powershell
+python -m src.data.prepare_demo_inputs
+```
+
+该命令生成 `resources/demo_inputs/forecast_history.csv`（单波束连续 169 小时）和 `resources/demo_inputs/anomaly_history.csv`（全波束连续 3 小时）。新版 Web 的 KPI 预测、异常检测页面也可直接生成这两份输入。
+
+## 6. 测试与交付状态
+
+```powershell
+python -m compileall -q src app.py
 python -m unittest discover -s tests -v
 python -m unittest test_inference test_model_registry -v
-python -m compileall -q src app.py
 ```
 
-仓库不包含本地训练数据或权重。代码与文档已统一使用新模块路径，但本次删旧入口后仍需在本机重新执行单元测试和 Web 点击回归。
+2026-10-23 已完成原版 Web 中传统 ML、GRU 和异常模型的本机训练、权重发布、推理及 CSV 导出验收。随后完成六模块界面整理，将训练评估与实际推理分离，并新增按模型实验版本读取报告、当前异常候选关联和对应测试。**六模块新版界面的本机回归测试仍待执行。**
 
-## 文档
+## 7. 相关文档
 
-详细操作、模型版本、实时日志和问题排查： [USER_GUIDE.md](USER_GUIDE.md)。
-技术结构和迁移准则： [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+- [系统使用手册](USER_GUIDE.md)：逐步操作、演示数据及常见问题
+- [系统架构](docs/ARCHITECTURE.md)：模块职责、参数归属、数据流及产物管理
+- [技术报告](docs/TECHNICAL_REPORT.md)：实验方法、正式结果、Web 集成和验收记录

@@ -1,3 +1,9 @@
+"""Download the four fixed gotsf-ds KPI source CSVs to data/raw/.
+
+Uses the public Hugging Face dataset; HF_ENDPOINT is set only as a default
+and can be overridden by the user's environment.
+"""
+
 import os
 
 # Hugging Face mirror for environments where huggingface.co is slow/unreachable
@@ -8,18 +14,12 @@ from shutil import copy2
 
 from huggingface_hub import hf_hub_download
 
-REPO_ID = "netop/gotsf-ds"
+from src.core.config import RAW_DATA, DATASET_REPO_ID, DATASET_FILE_DIRECTORY, DATASET_FILES
+
+REPO_ID = DATASET_REPO_ID
 REPO_TYPE = "dataset"
-
-FILES = [
-    "data/train/DLPRB_train_0w-5w.csv",
-    "data/train/DLThpVol_train_0w-5w.csv",
-    "data/train/DLThpTime_train_0w-5w.csv",
-    "data/train/MR_number_train_0w-5w.csv",
-]
-
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-RAW_DIR = PROJECT_ROOT / "data" / "raw"
+FILES = [f"{DATASET_FILE_DIRECTORY}/{filename}" for filename in DATASET_FILES.values()]
+RAW_DIR = RAW_DATA
 
 
 def main():

@@ -2,6 +2,10 @@
 import torch
 from torch import nn
 
+from src.core.config import KPIS
+
+KPI_FEATURES = len(KPIS)  # input and output channels; checkpoint shapes stay the same
+
 class ForecastNet(nn.Module):
 
     def __init__(
@@ -18,7 +22,7 @@ class ForecastNet(nn.Module):
         if mode == "lstm":
 
             self.sequence = nn.LSTM(
-                input_size=4,
+                input_size=KPI_FEATURES,
                 hidden_size=hidden,
                 batch_first=True,
             )
@@ -33,7 +37,7 @@ class ForecastNet(nn.Module):
 
         elif mode == "transformer":
 
-            self.project = nn.Linear(4, hidden)
+            self.project = nn.Linear(KPI_FEATURES, hidden)
 
             self.position = nn.Parameter(
                 torch.zeros(1, seq_len, hidden)
@@ -62,9 +66,9 @@ class ForecastNet(nn.Module):
         # Four KPI outputs.
         # Add seasonal information to the final prediction head.
         self.head = nn.Sequential(
-            nn.Linear(hidden + 4, hidden),
+            nn.Linear(hidden + KPI_FEATURES, hidden),
             nn.ReLU(),
-            nn.Linear(hidden, 4),
+            nn.Linear(hidden, KPI_FEATURES),
         )
 
     def forward(self, seq, seasonal):

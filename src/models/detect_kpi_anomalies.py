@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """
 Condensed W3 / Original Week 6:
@@ -31,25 +30,15 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 from sklearn.svm import OneClassSVM
 
+from src.core.config import KPIS, KEYS, DATASET_TEST_START_HOUR
+
 
 # ============================================================
 # 1. Configuration
 # ============================================================
 
-KPIS = [
-    "DLPRB",
-    "DLThpVol",
-    "DLThpTime",
-    "MR_number",
-]
-
+# Shared dataset schema; anomaly detector parameters remain local to this task.
 Z = [f"{k}_z" for k in KPIS]
-
-KEYS = [
-    "base_station",
-    "cell",
-    "beam",
-]
 
 
 # ============================================================
@@ -279,7 +268,7 @@ def main():
     p.add_argument(
         "--test-start",
         type=int,
-        default=672,
+        default=DATASET_TEST_START_HOUR,
     )
 
     p.add_argument(

@@ -1,3 +1,9 @@
+"""Audit raw gotsf-ds KPI CSVs and save the observed data-quality report.
+
+Reports describe source structure, time coverage, missing values and beam IDs.
+This command reads raw inputs without changing them.
+"""
+
 from pathlib import Path
 import json
 
@@ -5,16 +11,11 @@ import numpy as np
 import pandas as pd
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-RAW_DIR = PROJECT_ROOT / "data" / "raw"
-REPORT_DIR = PROJECT_ROOT / "reports"
+from src.core.config import RAW_DATA, REPORTS, DATASET_FILES
 
-FILES = {
-    "DLPRB": "DLPRB_train_0w-5w.csv",
-    "DLThpVol": "DLThpVol_train_0w-5w.csv",
-    "DLThpTime": "DLThpTime_train_0w-5w.csv",
-    "MR_number": "MR_number_train_0w-5w.csv",
-}
+RAW_DIR = RAW_DATA
+REPORT_DIR = REPORTS
+FILES = DATASET_FILES
 
 
 def audit_file(kpi_name: str, file_path: Path):

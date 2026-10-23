@@ -1,3 +1,9 @@
+"""Preprocess the fixed gotsf-ds beam-level KPI time series.
+
+Preserves chronological train/test separation; saves original KPI values,
+training-fitted scaling columns and a reproducible preprocessing summary.
+"""
+
 from pathlib import Path
 import argparse
 import json
@@ -5,17 +11,16 @@ import json
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from src.core.config import ROOT as PROJECT_ROOT, KPIS, RAW_DATA, PROCESSED_DATA, REPORTS, DATASET_TEST_START_HOUR, DATASET_FILES
 
 
 # ============================================================
 # Project paths
 # ============================================================
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-
-RAW_DIR = PROJECT_ROOT / "data" / "raw"
-PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
-REPORT_DIR = PROJECT_ROOT / "reports"
+RAW_DIR = RAW_DATA
+PROCESSED_DIR = PROCESSED_DATA
+REPORT_DIR = REPORTS
 
 OUTPUT_FILE = PROCESSED_DIR / "kpi_timeseries.csv"
 SUMMARY_FILE = REPORT_DIR / "preprocessing_summary.json"
@@ -25,23 +30,13 @@ SUMMARY_FILE = REPORT_DIR / "preprocessing_summary.json"
 # Dataset configuration
 # ============================================================
 
-FILES = {
-    "DLPRB": "DLPRB_train_0w-5w.csv",
-    "DLThpVol": "DLThpVol_train_0w-5w.csv",
-    "DLThpTime": "DLThpTime_train_0w-5w.csv",
-    "MR_number": "MR_number_train_0w-5w.csv",
-}
+FILES = DATASET_FILES
 
-KPI_COLUMNS = [
-    "DLPRB",
-    "DLThpVol",
-    "DLThpTime",
-    "MR_number",
-]
+KPI_COLUMNS = KPIS
 
 # First four weeks for training:
 # 4 weeks × 7 days × 24 hours = 672 hours
-TRAIN_END_TIME = 672
+TRAIN_END_TIME = DATASET_TEST_START_HOUR
 
 
 # ============================================================
@@ -72,7 +67,8 @@ def outputs_are_up_to_date():
         for filename in FILES.values()
     ]
 
-    source_files.append(Path(__file__))
+    # Shared schema and split definitions also affect cached output.
+    source_files.extend([Path(__file__), PROJECT_ROOT / "src/core/config.py"])
 
     for source_file in source_files:
         if not source_file.exists():

@@ -16,6 +16,54 @@ FIGURE_DIR = PROJECT_ROOT / "figures"
 DEEP_LEARNING_MODELS = {"LSTM", "GRU", "TRANSFORMER"}
 
 
+def list_experiment_runs(category: str, root: Path | None = None) -> list[str]:
+    """Discover completed, isolated Web experiment reports for a dashboard page.
+
+    category: 'forecast' accepts train_ml/train_dl; 'anomaly' accepts
+    train_anomaly only. Never mix report files from separate runs.
+    """
+    base = Path(root) if root is not None else PROJECT_ROOT
+    experiments = base / "resources" / "experiments"
+    allowed = {"forecast": {"train_ml", "train_dl"},
+               "anomaly": {"train_anomaly"}}.get(category)
+    if allowed is None or not experiments.is_dir():
+        return []
+
+    runs = []
+    for folder in experiments.iterdir():
+        if not folder.is_dir() or folder.is_symlink():
+            continue
+        request = folder / "requested_parameters.json"
+        if not request.is_file():
+            continue
+        try:
+            task = json.loads(request.read_text(encoding="utf-8")).get("task")
+        except (OSError, ValueError, TypeError):
+            continue
+        if task not in allowed:
+            continue
+        report = folder / "reports"
+        expected = {
+            "train_ml": "model_metrics.csv",
+            "train_dl": "w3_deep_learning_metrics.csv",
+            "train_anomaly": "w3_anomaly_method_summary.csv",
+        }[task]
+        if (report / expected).is_file():
+            runs.append(folder.name)
+    return sorted(runs, reverse=True)
+
+
+def run_report_dir(run_id: str, root: Path | None = None) -> Path:
+    """Resolve an ID from the enumerated local runs, never arbitrary paths."""
+    base = Path(root) if root is not None else PROJECT_ROOT
+    all_runs = set(list_experiment_runs("forecast", base))
+    all_runs.update(list_experiment_runs("anomaly", base))
+    if run_id not in all_runs:
+        raise ValueError("Unknown or incomplete experiment version")
+    return base / "resources" / "experiments" / run_id / "reports"
+
+
+
 def read_csv_if_exists(path: Path) -> pd.DataFrame:
     """Read a CSV if present; return an empty frame for missing artifacts."""
     if not path.exists():
@@ -31,9 +79,10 @@ def read_json_if_exists(path: Path) -> dict:
         return json.load(file)
 
 
-def load_model_metrics() -> pd.DataFrame:
+def load_model_metrics(report_dir: Path | None = None) -> pd.DataFrame:
     """Return model metrics in a common schema across ML and DL families."""
-    combined_path = REPORT_DIR / "week3" / "w3_ml_dl_all_metrics.csv"
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
+    combined_path = report_dir / "week3" / "w3_ml_dl_all_metrics.csv"
     if combined_path.exists():
         frame = pd.read_csv(combined_path)
         if "KPI" in frame.columns and "target" not in frame.columns:
@@ -42,8 +91,8 @@ def load_model_metrics() -> pd.DataFrame:
             frame["family"] = "Unknown"
     else:
         frames = []
-        traditional_path = REPORT_DIR / "model_metrics.csv"
-        deep_path = REPORT_DIR / "w3_deep_learning_metrics.csv"
+        traditional_path = report_dir / "model_metrics.csv"
+        deep_path = report_dir / "w3_deep_learning_metrics.csv"
 
         if traditional_path.exists():
             traditional = pd.read_csv(traditional_path)
@@ -72,29 +121,31 @@ def load_model_metrics() -> pd.DataFrame:
     return frame
 
 
-def available_prediction_models() -> list[str]:
+def available_prediction_models(report_dir: Path | None = None) -> list[str]:
     """List models that have saved prediction series available to the UI."""
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
     models: set[str] = set()
 
-    traditional_path = REPORT_DIR / "prediction_timeseries.csv"
+    traditional_path = report_dir / "prediction_timeseries.csv"
     if traditional_path.exists():
         frame = pd.read_csv(traditional_path, usecols=["model"])
         models.update(frame["model"].dropna().astype(str).unique())
 
     for model in DEEP_LEARNING_MODELS:
-        path = REPORT_DIR / f"w3_{model.lower()}_hourly_predictions.csv"
+        path = report_dir / f"w3_{model.lower()}_hourly_predictions.csv"
         if path.exists():
             models.add(model)
 
     return sorted(models, key=str.casefold)
 
 
-def load_prediction_series(model: str, kpi: str) -> pd.DataFrame:
+def load_prediction_series(model: str, kpi: str, report_dir: Path | None = None) -> pd.DataFrame:
     """Load one model/KPI prediction series using common column names."""
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
     model_key = model.upper()
 
     if model_key in DEEP_LEARNING_MODELS:
-        path = REPORT_DIR / f"w3_{model_key.lower()}_hourly_predictions.csv"
+        path = report_dir / f"w3_{model_key.lower()}_hourly_predictions.csv"
         frame = read_csv_if_exists(path)
         actual_col = f"{kpi}_actual"
         predicted_col = f"{kpi}_pred"
@@ -108,7 +159,7 @@ def load_prediction_series(model: str, kpi: str) -> pd.DataFrame:
         result["KPI"] = kpi
         return result.sort_values("Time")
 
-    path = REPORT_DIR / "prediction_timeseries.csv"
+    path = report_dir / "prediction_timeseries.csv"
     frame = read_csv_if_exists(path)
     required = {"target", "model", "target_time", "actual_mean", "prediction_mean"}
 
@@ -135,22 +186,26 @@ def load_prediction_series(model: str, kpi: str) -> pd.DataFrame:
     return selected[["Time", "actual", "prediction", "model", "KPI"]].sort_values("Time")
 
 
-def load_anomaly_summary() -> pd.DataFrame:
-    return read_csv_if_exists(REPORT_DIR / "w3_anomaly_method_summary.csv")
+def load_anomaly_summary(report_dir: Path | None = None) -> pd.DataFrame:
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
+    return read_csv_if_exists(report_dir / "w3_anomaly_method_summary.csv")
 
 
-def load_anomaly_hourly_rates() -> pd.DataFrame:
-    return read_csv_if_exists(REPORT_DIR / "w3_anomaly_rate_by_hour.csv")
+def load_anomaly_hourly_rates(report_dir: Path | None = None) -> pd.DataFrame:
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
+    return read_csv_if_exists(report_dir / "w3_anomaly_rate_by_hour.csv")
 
 
-def load_anomaly_events() -> pd.DataFrame:
-    return read_csv_if_exists(REPORT_DIR / "w3_anomaly_candidate_events.csv")
+def load_anomaly_events(report_dir: Path | None = None) -> pd.DataFrame:
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
+    return read_csv_if_exists(report_dir / "w3_anomaly_candidate_events.csv")
 
 
-def load_correlation_matrix() -> tuple[pd.DataFrame, str]:
+def load_correlation_matrix(report_dir: Path | None = None) -> tuple[pd.DataFrame, str]:
     """Prefer the W4 matrix with significance work; fall back to W3 matrix."""
-    w4_path = REPORT_DIR / "w4_anomaly_kpi_correlation_matrix.csv"
-    w3_path = REPORT_DIR / "w3_anomaly_kpi_correlations.csv"
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
+    w4_path = report_dir / "w4_anomaly_kpi_correlation_matrix.csv"
+    w3_path = report_dir / "w3_anomaly_kpi_correlations.csv"
 
     for path, label in (
         (w4_path, "W4 diagnostic output"),
@@ -165,13 +220,15 @@ def load_correlation_matrix() -> tuple[pd.DataFrame, str]:
     return pd.DataFrame(), "Unavailable"
 
 
-def load_correlation_tests() -> pd.DataFrame:
-    return read_csv_if_exists(REPORT_DIR / "w4_anomaly_kpi_correlation_tests.csv")
+def load_correlation_tests(report_dir: Path | None = None) -> pd.DataFrame:
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
+    return read_csv_if_exists(report_dir / "w4_anomaly_kpi_correlation_tests.csv")
 
 
 def load_preprocessing_summary() -> dict:
     return read_json_if_exists(REPORT_DIR / "preprocessing_summary.json")
 
 
-def load_experiment_config() -> dict:
-    return read_json_if_exists(REPORT_DIR / "w3_anomaly_run_config.json")
+def load_experiment_config(report_dir: Path | None = None) -> dict:
+    report_dir = Path(report_dir) if report_dir is not None else REPORT_DIR
+    return read_json_if_exists(report_dir / "w3_anomaly_run_config.json")
