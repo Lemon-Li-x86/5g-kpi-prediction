@@ -10,6 +10,7 @@ ML_LAGS = (1, 2, 24, 168)  # observed hours before the prediction origin
 ML_FORECAST_HORIZON = 1     # one-hour-ahead target
 ML_HISTORY_HOURS = max(ML_LAGS) + 1
 DEFAULT_RANDOM_SEED = 42
+DATASET_TEST_START_HOUR = 672  # historical gotsf-ds train/test boundary
 RAW_DATA = ROOT / "data" / "raw"
 PROCESSED_DATA = ROOT / "data" / "processed"
 REPORTS = ROOT / "reports"
