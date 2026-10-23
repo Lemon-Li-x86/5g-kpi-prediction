@@ -374,12 +374,14 @@ def aggregate_by_time(
 def plot_prediction_curve(
     target_name,
     prediction_df,
+    figure_dir=None,
 ):
     """
     Plot mean observed and predicted KPI values over test time.
     """
 
-    FIGURE_DIR.mkdir(
+    figure_dir = Path(figure_dir) if figure_dir is not None else FIGURE_DIR
+    figure_dir.mkdir(
         parents=True,
         exist_ok=True,
     )
@@ -468,7 +470,7 @@ def plot_prediction_curve(
     plt.tight_layout()
 
     output_path = (
-        FIGURE_DIR
+        figure_dir
         / f"{target_name}_predictions.png"
     )
 
@@ -493,12 +495,14 @@ def plot_prediction_curve(
 def plot_metric_comparison(
     metrics_df,
     metric,
+    figure_dir=None,
 ):
     """
     Create one model-comparison chart for a metric.
     """
 
-    FIGURE_DIR.mkdir(
+    figure_dir = Path(figure_dir) if figure_dir is not None else FIGURE_DIR
+    figure_dir.mkdir(
         parents=True,
         exist_ok=True,
     )
@@ -543,7 +547,7 @@ def plot_metric_comparison(
     plt.tight_layout()
 
     output_path = (
-        FIGURE_DIR
+        figure_dir
         / f"model_comparison_{metric}.png"
     )
 
@@ -606,6 +610,9 @@ def run_experiment(
     feature_columns,
     current_raw_columns,
     quick=False,
+    max_train=200000,
+    max_test=0,
+    model_output_dir=None,
 ):
     """
     Train and evaluate all models for all four KPI targets.
@@ -640,9 +647,16 @@ def run_experiment(
 
         train_indices = (
             create_quick_training_mask(
-                train_indices
+                train_indices,
+                max_samples=max_train,
             )
         )
+
+        if max_test and max_test < len(test_indices):
+            rng = np.random.default_rng(RANDOM_STATE)
+            test_indices = np.sort(
+                rng.choice(test_indices, size=max_test, replace=False)
+            )
 
         print(
             "\nQUICK MODE enabled."
@@ -903,7 +917,10 @@ def run_experiment(
             )
 
             from src.models.inference import save_ml
-            save_ml(model, model_name, kpi, feature_columns)
+            save_ml(
+                model, model_name, kpi, feature_columns,
+                output_dir=model_output_dir,
+            )
 
             fit_seconds = (
                 time.perf_counter()
@@ -1073,12 +1090,14 @@ def save_run_config(
     quick,
     feature_columns,
     metrics_df,
+    output_file=None,
 ):
     """
     Save experiment metadata for reproducibility.
     """
 
-    REPORT_DIR.mkdir(
+    output_file = Path(output_file) if output_file is not None else RUN_CONFIG_FILE
+    output_file.parent.mkdir(
         parents=True,
         exist_ok=True,
     )
@@ -1129,7 +1148,7 @@ def save_run_config(
     }
 
     with open(
-        RUN_CONFIG_FILE,
+        output_file,
         "w",
         encoding="utf-8",
     ) as file:
@@ -1146,7 +1165,20 @@ def save_run_config(
 # Main
 # ============================================================
 
-def main(quick=False):
+def main(quick=False, output_dir=None, max_train=200000, max_test=0):
+    """Run traditional ML with optional isolated outputs for Web experiments."""
+    if max_train < 1 or max_test < 0:
+        raise ValueError("Invalid quick-mode sample limits")
+    if not quick and (max_train != 200000 or max_test != 0):
+        raise ValueError("Sample limits require --quick")
+
+    output_root = Path(output_dir) if output_dir is not None else None
+    report_dir = output_root / "reports" if output_root else REPORT_DIR
+    figure_dir = output_root / "figures" if output_root else FIGURE_DIR
+    model_dir = output_root / "models" if output_root else None
+    metrics_file = report_dir / METRICS_FILE.name
+    prediction_file = report_dir / PREDICTION_SUMMARY_FILE.name
+    config_file = report_dir / RUN_CONFIG_FILE.name
 
     # --------------------------------------------------------
     # Load feature definition
@@ -1203,6 +1235,9 @@ def main(quick=False):
         feature_columns,
         current_raw_columns,
         quick=quick,
+        max_train=max_train,
+        max_test=max_test,
+        model_output_dir=model_dir,
     )
 
     # Large source dataframe no longer needed.
@@ -1214,19 +1249,19 @@ def main(quick=False):
     # Save reports
     # --------------------------------------------------------
 
-    REPORT_DIR.mkdir(
+    report_dir.mkdir(
         parents=True,
         exist_ok=True,
     )
 
     metrics_df.to_csv(
-        METRICS_FILE,
+        metrics_file,
         index=False,
         float_format="%.8g",
     )
 
     prediction_df.to_csv(
-        PREDICTION_SUMMARY_FILE,
+        prediction_file,
         index=False,
         float_format="%.8g",
     )
@@ -1235,16 +1270,17 @@ def main(quick=False):
         quick,
         feature_columns,
         metrics_df,
+        output_file=config_file,
     )
 
     print(
         f"\nMetrics saved: "
-        f"{METRICS_FILE}"
+        f"{metrics_file}"
     )
 
     print(
         f"Prediction summary saved: "
-        f"{PREDICTION_SUMMARY_FILE}"
+        f"{prediction_file}"
     )
 
     # --------------------------------------------------------
@@ -1256,6 +1292,7 @@ def main(quick=False):
         plot_prediction_curve(
             kpi,
             prediction_df,
+            figure_dir=figure_dir,
         )
 
     # --------------------------------------------------------
@@ -1271,6 +1308,7 @@ def main(quick=False):
         plot_metric_comparison(
             metrics_df,
             metric,
+            figure_dir=figure_dir,
         )
 
     # --------------------------------------------------------
@@ -1334,11 +1372,11 @@ def main(quick=False):
     )
 
     print(
-        f"  {RUN_CONFIG_FILE}"
+        f"  {config_file}"
     )
 
     print(
-        f"  {FIGURE_DIR}"
+        f"  {figure_dir}"
     )
 
     if quick:
@@ -1380,8 +1418,24 @@ if __name__ == "__main__":
         ),
     )
 
+    parser.add_argument(
+        "--out", type=Path, default=None,
+        help="Optional isolated experiment directory; default keeps legacy outputs.",
+    )
+    parser.add_argument(
+        "--max-train", type=int, default=200000,
+        help="Maximum training rows in --quick mode only.",
+    )
+    parser.add_argument(
+        "--max-test", type=int, default=0,
+        help="Maximum test rows in --quick mode (0 = all).",
+    )
+
     args = parser.parse_args()
 
     main(
-        quick=args.quick
+        quick=args.quick,
+        output_dir=args.out,
+        max_train=args.max_train,
+        max_test=args.max_test,
     )
