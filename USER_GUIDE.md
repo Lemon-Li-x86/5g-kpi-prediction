@@ -143,3 +143,7 @@ python -m compileall -q src app.py
 ## 10. 限制与验收
 
 当前未接入 free5GC/UERANSIM 的实时 KPI 流；异常候选缺少真实故障标签；ML/异常检测完整按版本保存仍需完善；UI 与新模型的指标尚未完全绑定。此分支完成的是**代码整理与功能保留**，并不代表所有真实训练和 Web 点击流程已经在用户电脑上重新验收。
+
+## 11. 生成演示与验收输入
+
+已下载并预处理原数据时，在项目根目录执行 `python -m src.data.prepare_demo_inputs`，自动输出 `resources/demo_inputs/forecast_history.csv`（一个波束连续 169 小时）和 `resources/demo_inputs/anomaly_history.csv`（所有波束连续三个小时）。在「模型版本管理与推理」中分别选择预测权重/异常检测权重并上传相应 CSV。若模型季节性滞后超过 168 小时，可用 `--forecast-hours` 增大预测历史窗口。生成样本仅用于系统验收，不等于带有故障标签的测试集。
