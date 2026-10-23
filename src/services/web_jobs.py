@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
-from src.services.model_registry import ROOT, archive_models
+from src.services.model_registry import ROOT
 from src.services.process_env import python_job_env
 from src.core.training_config import normalize_params, params_to_cli
 
@@ -40,15 +40,15 @@ def run(task: str, model: str = "", params: dict | None = None) -> int:
     run_dir: Path | None = None
     run_id: str | None = None
 
-    if task in ("train_dl", "train_anomaly"):
+    if task in ("train_dl", "train_anomaly", "train_ml"):
         if task == "train_dl":
             if model not in DL_MODELS:
                 raise ValueError("Unsupported deep learning model")
             prefix = model
         elif model:
-            raise ValueError("Anomaly training does not accept a model name")
+            raise ValueError("This training task does not accept a model name")
         else:
-            prefix = "anomaly"
+            prefix = "anomaly" if task == "train_anomaly" else "ml"
         run_id = f"{prefix}_{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}_{uuid4().hex[:6]}"
         run_dir = ROOT / "resources" / "experiments" / run_id
         if task == "train_dl":
@@ -56,8 +56,10 @@ def run(task: str, model: str = "", params: dict | None = None) -> int:
                 "src.models.train_deep_learning_models", "--models", model,
                 "--out", str(run_dir),
             ]]
-        else:
+        elif task == "train_anomaly":
             commands = [["src.models.detect_kpi_anomalies", "--out", str(run_dir)]]
+        else:
+            commands = [["src.models.train_traditional_models", "--out", str(run_dir)]]
     elif task in TASKS and not model:
         commands = TASKS[task]
     else:
@@ -83,10 +85,6 @@ def run(task: str, model: str = "", params: dict | None = None) -> int:
                 json.dumps({"task": task, "model": model, "parameters": params},
                            ensure_ascii=False, indent=2), encoding="utf-8"
             )
-        elif task == "train_ml":
-            # Traditional ML currently writes to fixed report names.
-            archive_models(ROOT, reason="before_" + task)
-
         for args in commands:
             cmd = [sys.executable, "-u", "-m", *args, *params_to_cli(task, params, model)]
             print("Running:", " ".join(cmd), flush=True)
@@ -129,8 +127,27 @@ def run(task: str, model: str = "", params: dict | None = None) -> int:
             state["model_path"] = str(published)
             print("Published anomaly model:", published, flush=True)
         elif task == "train_ml":
-            saved = archive_models(ROOT, reason="after_" + task)
-            state["models_archived"] = len(saved)
+            assert run_dir is not None and run_id is not None
+            artifact_dir = run_dir / "models"
+            artifacts = sorted(artifact_dir.glob("*.pkl"))
+            metrics = run_dir / "reports" / "model_metrics.csv"
+            if not artifacts or not metrics.is_file():
+                raise FileNotFoundError(
+                    f"Traditional ML produced no model bundles or metrics in {run_dir}"
+                )
+            version_dir = ROOT / "resources" / "models" / run_id
+            version_dir.mkdir(parents=True, exist_ok=False)
+            for artifact in artifacts:
+                shutil.copy2(artifact, version_dir / artifact.name)
+            shutil.copy2(
+                run_dir / "requested_parameters.json",
+                version_dir / "requested_parameters.json",
+            )
+            state["models_archived"] = len(artifacts)
+            state["model_path"] = str(version_dir)
+            state["metrics_path"] = str(metrics)
+            print(f"Published {len(artifacts)} traditional ML models: {version_dir}", flush=True)
+            print(f"New experiment results: {metrics}", flush=True)
 
         state["status"] = "completed"
         return 0
