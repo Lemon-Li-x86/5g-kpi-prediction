@@ -30,7 +30,7 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 from sklearn.svm import OneClassSVM
 
-from src.core.config import KPIS, KEYS
+from src.core.config import KPIS, KEYS, DATASET_TEST_START_HOUR
 
 
 # ============================================================
@@ -268,7 +268,7 @@ def main():
     p.add_argument(
         "--test-start",
         type=int,
-        default=672,
+        default=DATASET_TEST_START_HOUR,
     )
 
     p.add_argument(
