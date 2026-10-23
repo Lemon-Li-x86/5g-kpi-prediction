@@ -149,6 +149,9 @@ page = st.sidebar.radio(
     "功能模块",
     [
         "项目总览",
+        "数据管理与预处理",
+        "模型训练",
+        "模型管理与推理",
         "KPI 预测",
         "模型评估",
         "异常检测",
@@ -558,6 +561,21 @@ elif page == "KPI 关联分析":
         "相关性描述 KPI 的共同变化，不等于因果关系。由于样本是由异常检测规则筛选出的候选事件，"
         "结果属于探索性关联分析，不应直接当作已确认的网络故障根因。"
     )
+
+
+# ============================================================
+# 8. Interactive workflow modules
+# ============================================================
+if page in ("数据管理与预处理", "模型训练", "模型管理与推理"):
+    from src.web_workflow import (
+        render_data_page, render_training_page, render_model_page,
+    )
+    if page == "数据管理与预处理":
+        render_data_page()
+    elif page == "模型训练":
+        render_training_page()
+    else:
+        render_model_page()
 
 
 # ============================================================

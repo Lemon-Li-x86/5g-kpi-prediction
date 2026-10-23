@@ -15,10 +15,11 @@
 ├── app.py
 ├── requirements.txt
 ├── src/
+│   ├── __init__.py
 │   ├── dashboard_data.py
-│   ├── w2_data_preprocessing_pipeline.py
-│   ├── w3_dl_prediction.py
-│   └── w3_anomaly_detection.py
+│   ├── preprocess_kpi_data.py
+│   ├── train_deep_learning_models.py
+│   └── detect_kpi_anomalies.py
 ├── reports/
 │   ├── model_metrics.csv
 │   ├── prediction_timeseries.csv
@@ -35,6 +36,8 @@
 ```
 
 部分结果文件缺失时，对应页面可能显示提示或不显示相关图表。
+
+注意：所有训练与分析脚本从项目根目录使用 `python -m src.<模块名>` 执行；完整流程见 [README.md](README.md)。
 
 ## 3. 安装与启动
 
@@ -104,6 +107,8 @@ python -m streamlit run app.py
 
 ## 5. 更新实验结果
 
+在项目根目录运行 `python -m src.detect_kpi_anomalies` 和 `python -m src.analyze_anomaly_statistics` 可以重新产生异常检测与显著性文件。预测训练入口分别为 `python -m src.train_traditional_models` 和 `python -m src.train_deep_learning_models`。完整重训并非启动 Web 所需。
+
 当前 Web 应用读取已保存的 CSV/JSON，不会自动重训模型。若重新运行模型或异常检测脚本，请确认结果已写入 `reports/` 目录，再刷新或重启 Streamlit 页面。
 
 W4 统计诊断脚本完成运行后，会输出相关性显著性结果；将其放在 `reports/` 目录下即可供关联分析页面读取。
@@ -123,3 +128,39 @@ W4 统计诊断脚本完成运行后，会输出相关性显著性结果；将�
 3. 仓库中保存的候选事件 CSV 最多包含 2,000 条事件。
 4. 数据集没有经过验证的真实故障标签，无法据此报告真实故障检测的 precision、recall 或 F1。
 5. 相关性分析是候选样本上的探索性分析，不构成已确认的故障根因结论。
+
+## 第七周部署接口（本地生成模型）
+
+GitHub 历史产物只有指标/预测 CSV 和图片，没有预训练权重。CSV 不能还原模型。
+先安装 `pip install -r requirements.txt`，在仓库根目录依次执行：
+
+```shell
+python -m src.download_kpi_data
+python -m src.preprocess_kpi_data
+python -m src.build_ml_features
+python -m src.train_traditional_models
+python -m src.train_deep_learning_models --out .
+python -m src.detect_kpi_anomalies --out .
+python -m unittest test_inference -v
+```
+
+传统训练会生成 `models/<模型名>_<KPI>.pkl`；深度训练保存最佳权重及同名 JSON 配置，两者必须一起保留。深度标准化现在仅用 validation-start 之前的数据，旧报告不代表修复后重新训练结果。训练命令会更新报告；保留历史结果时请先复制仓库到独立本地工作目录运行。
+
+```python
+from src.inference import predict_kpi, detect_anomalies
+prediction = predict_kpi(history, 'models/RandomForest_DLPRB.pkl')
+# history: DataFrame，包含 Time、base_station、cell、beam 和四个原始 KPI。
+# ML 每个波束至少169个连续小时；DL由配置决定窗口和季节历史长度。
+# 返回每个波束下一小时原始量纲预测，无需未来标签。
+```
+
+异常接口支持与预测相同的原始 KPI DataFrame，自动按已存标准化参数转换并校验波束标识和连续时间；也兼容低层数组接口：`detect_anomalies(values, 'models/anomalies.pkl')`。
+values 是与训练完全相同波束顺序、相同标准化的 [波束,时间,4] 数组；首小时为差分上下文、不输出该小时。使用原有三西格玛/IQR（含零IQR回退）、IF、SVM及共识逻辑。统计训练分布保存在本地产物中，推理不重新拟合估计器。数组调用方负责波束顺序和标准化；建议使用 DataFrame 入口以启用元数据校验。
+
+仅加载自己生成且可信的 pickle/PT 产物。models/、权重和pickle均不提交GitHub。
+现有 dashboard_data/app.py 继续展示历史报告，尚未调用新接口。
+
+验证边界：仓库没有原始/已处理数据或权重；不能声称已复现历史指标或完成真实数据训练。合成数据测试仅检查模型训练一步后保存/加载的推理一致性。
+
+
+测试记录（2026-10-22）：Python 3.12；scikit-learn 1.9.1、PyTorch 2.14.1；`python -m unittest test_inference -v`：3 tests，OK（含三个深度网络子案例）。沙箱首次运行因系统临时目录权限失败，获准在沙箱外重跑后通过。`compileall` 通过。未执行真实数据全量训练、XGBoost/LightGBM训练往返、Streamlit交互回归；未完成全仓逐行审查。当前为第一步基础实现，不能视为完整生产部署验收。

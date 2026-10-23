@@ -718,7 +718,7 @@ def main():
 
     # Recover original-scale values from StandardScaler.
     # The previous stage fitted its scaler on hours 0..671.
-    scale_mask = timeline < args.test_start
+    scale_mask = timeline < args.validation_start
 
     scale_raw = raw[
         :,
@@ -769,12 +769,8 @@ def main():
         )
     )
 
-    if max_err > 2e-3:
-        raise ValueError(
-            "Stored standardized data do not match "
-            "the previous training-only StandardScaler. "
-            f"Maximum error: {max_err:.5g}"
-        )
+    # Refit from raw training prefix; never use validation/test scaler statistics.
+    data = ((raw - raw_mean) / raw_std).astype(np.float32)
 
     del scale_raw
 
@@ -990,6 +986,13 @@ def main():
                 weights_only=True,
             )
         )
+
+        checkpoint.with_suffix('.json').write_text(json.dumps({
+            'version': 1, 'family': 'dl', 'mode': model_name,
+            'seq_len': args.seq_len, 'seasonal_lag': args.seasonal_lag,
+            'hidden': args.hidden, 'mean': raw_mean.tolist(),
+            'scale': raw_std.tolist(), 'scaler_fit_until': args.validation_start,
+        }, indent=2), encoding='utf-8')
 
         # Predict on held-out test data
         truth_z, predicted_z, times = forecast(

@@ -19,7 +19,7 @@ from sklearn.metrics import (
 )
 from sklearn.preprocessing import StandardScaler
 
-from w2_traditional_ml_kpi_prediction_training import (
+from src.train_traditional_models import (
     build_models,
     KPI_COLUMNS,
 )

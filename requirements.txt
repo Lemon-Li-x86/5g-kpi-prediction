@@ -8,6 +8,9 @@ xgboost>=2.0,<4
 lightgbm>=4.0,<5
 huggingface-hub>=0.20,<2
 
+# Deep learning training dependency (CPU or platform-specific CUDA build)
+torch>=2.2,<3
+
 # W7 Streamlit dashboard
 streamlit>=1.35,<2
 plotly>=5.20,<7
