@@ -83,3 +83,6 @@ events.out.tfevents.*
 # Keep requirements.txt and project documentation
 .test-deps/
 *.pkl
+
+# Fourth-stage local model versions and background job state
+resources/
