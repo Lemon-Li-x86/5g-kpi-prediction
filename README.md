@@ -88,3 +88,13 @@ python -m compileall -q src app.py
 - [项目架构](docs/ARCHITECTURE.md)：目录职责和依赖边界。
 - [参数登记簿](docs/PARAMETER_REGISTER.md)：KPI、时序切分、超参数、硬编码和重复定义的来源与归属。
 - 演示 PPT 与 Word 报告另行导出，交付前需随最终测试截图核对。
+
+## 一键生成 Web 验收输入
+
+已有预处理数据后，可运行：
+
+```bash
+python -m src.data.prepare_demo_inputs
+```
+
+它将分别生成 `resources/demo_inputs/forecast_history.csv`（一个波束、169 小时，用于预测推理）和 `resources/demo_inputs/anomaly_history.csv`（所有波束、最后 3 小时，用于异常推理），不会触碰已有权重或报告。异常模型要求与训练时波束集合一致；若选择了超过 168 小时季节性滞后的 DL 权重，可通过 `--forecast-hours` 增加预测历史长度。
