@@ -74,6 +74,8 @@ class ParameterContractTests(unittest.TestCase):
             request = json.loads((run / "requested_parameters.json").read_text(encoding="utf-8"))
             self.assertEqual(request["parameters"]["epochs"], 3)
             self.assertTrue(Path(output["model_path"]).is_file())
+            saved_request = json.loads((Path(output["model_path"]).parent / "requested_parameters.json").read_text(encoding="utf-8"))
+            self.assertEqual(saved_request["parameters"]["batch_size"], 64)
 
 
 if __name__ == "__main__":
