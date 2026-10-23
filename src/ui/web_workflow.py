@@ -249,6 +249,11 @@ def _status() -> None:
     st.caption(f"任务：{name} {model} ｜ 当前状态：{status}")
     if info.get("error"):
         st.error(str(info["error"]))
+    if info.get("output_dir"):
+        st.caption(f"独立实验目录：{info['output_dir']}")
+    if info.get("parameters"):
+        with st.expander("查看本次任务实际参数"):
+            st.json(info["parameters"])
 
     session = _read_session()
     if session.get("port") and session.get("token") and (session.get("task"), session.get("model")) == (info.get("task"), info.get("model") or ""):
@@ -345,7 +350,7 @@ def render_training_page() -> None:
             c4, c5, c6 = st.columns(3)
             params["hidden"] = int(c4.number_input(
                 "隐藏层维度 (Hidden Size)", min_value=4, max_value=1024,
-                value=d["hidden"], step=4 if model == "transformer" else 4,
+                value=d["hidden"], step=4,
             ))
             params["patience"] = int(c5.number_input(
                 "早停耐心 (Patience)", min_value=1, max_value=100,
