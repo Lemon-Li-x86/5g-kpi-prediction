@@ -10,6 +10,15 @@ from __future__ import annotations
 
 import streamlit as st
 
+# Streamlit page configuration must precede importing modules with decorated
+# fragment views or calling any other Streamlit UI commands.
+st.set_page_config(
+    page_title="5G KPI 预测与异常检测系统",
+    page_icon="📡",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
 from src.ui.dashboard_data import list_experiment_runs, run_report_dir
 from src.ui.result_views import render_current_association, render_saved_association
 from src.ui.web_workflow import (
@@ -17,13 +26,6 @@ from src.ui.web_workflow import (
     render_training_page,
     render_model_page,
     render_inference_page,
-)
-
-st.set_page_config(
-    page_title="5G KPI 预测与异常检测系统",
-    page_icon="📡",
-    layout="wide",
-    initial_sidebar_state="expanded",
 )
 
 st.sidebar.title("📡 5G KPI 分析系统")
