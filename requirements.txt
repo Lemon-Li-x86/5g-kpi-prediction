@@ -12,7 +12,7 @@ huggingface-hub>=0.20,<2
 torch>=2.2,<3
 
 # W7 Streamlit dashboard
-streamlit>=1.35,<2
+streamlit>=1.37,<2
 plotly>=5.20,<7
 
 # Local WebSocket training console (websockets.asyncio.server)
