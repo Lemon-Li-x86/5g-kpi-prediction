@@ -184,6 +184,22 @@ if __name__ == "__main__":
     args = parser.parse_args()
     try:
         asyncio.run(_main(args.port, args.token, args.task, args.model, args.params_json))
+    except KeyboardInterrupt:
+        # asyncio.run() cancels pending reader tasks on Ctrl+C. Treat this as
+        # a controlled interruption rather than printing a misleading full
+        # CancelledError/KeyboardInterrupt traceback to the startup log.
+        JOBS.mkdir(parents=True, exist_ok=True)
+        try:
+            state = json.loads(STATE.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            state = {}
+        if state.get("status") == "running":
+            state.update(status="interrupted", finished=_now(),
+                         error="实时日志工作器收到中断信号；请核对训练子进程与日志。")
+            STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+            with LOG.open("ab") as f:
+                f.write(b"\n[Live log supervisor interrupted; verify the child job status.]\n")
+        raise SystemExit(130)
     except Exception:
         error = traceback.format_exc()
         JOBS.mkdir(parents=True, exist_ok=True)
