@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import html
 import hashlib
+import os
 import json
 import re
 import secrets
@@ -64,6 +65,51 @@ def _read_session() -> dict:
         return {}
 
 
+def _worker_alive(pid: object) -> bool:
+    """Check a worker PID without sending a signal to it on Windows.
+
+    os.kill(pid, 0) is intentionally used only on POSIX; Windows uses
+    GetExitCodeProcess so this check cannot terminate the training worker.
+    """
+    if not isinstance(pid, int) or isinstance(pid, bool) or pid <= 0:
+        return False
+    if os.name == "nt":
+        import ctypes
+        from ctypes import wintypes
+
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        open_process = kernel32.OpenProcess
+        open_process.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        open_process.restype = wintypes.HANDLE
+        get_exit_code = kernel32.GetExitCodeProcess
+        get_exit_code.argtypes = [wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD)]
+        get_exit_code.restype = wintypes.BOOL
+        close_handle = kernel32.CloseHandle
+        close_handle.argtypes = [wintypes.HANDLE]
+        close_handle.restype = wintypes.BOOL
+
+        PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+        STILL_ACTIVE = 259
+        handle = open_process(PROCESS_QUERY_LIMITED_INFORMATION, False, pid)
+        if not handle:
+            return False
+        try:
+            exit_code = wintypes.DWORD()
+            if not get_exit_code(handle, ctypes.byref(exit_code)):
+                return False
+            return exit_code.value == STILL_ACTIVE
+        finally:
+            close_handle(handle)
+
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
+
+
 def _launch(task: str, model: str = "", params: dict | None = None) -> None:
     if _busy():
         st.warning("已有任务正在执行，请勿重复启动。")
@@ -81,11 +127,6 @@ def _launch(task: str, model: str = "", params: dict | None = None) -> None:
         temp.bind(("127.0.0.1", 0))
         port = temp.getsockname()[1]
     token = secrets.token_urlsafe(24)
-    # The session file is read by the UI. It is not committed to Git.
-    SESSION.write_text(
-        json.dumps({"port": port, "token": token, "task": task, "model": model}),
-        encoding="utf-8",
-    )
     STATE.write_text(
         json.dumps({"task": task, "model": model, "parameters": params, "status": "running"}, ensure_ascii=False),
         encoding="utf-8",
@@ -94,7 +135,7 @@ def _launch(task: str, model: str = "", params: dict | None = None) -> None:
     env = python_job_env()
     try:
         with (JOBS / "stream_errors.log").open("w", encoding="utf-8") as diagnostics:
-            subprocess.Popen(
+            worker = subprocess.Popen(
                 [sys.executable, "-u", "-m", "src.services.web_stream_worker", task,
                  *([model] if model else []), "--port", str(port), "--token", token,
                  "--params-json", json.dumps(params, ensure_ascii=False)],
@@ -104,7 +145,17 @@ def _launch(task: str, model: str = "", params: dict | None = None) -> None:
                 stdin=subprocess.DEVNULL,
                 env=env,
                 close_fds=True,
+                # A new Windows process group prevents stopping the Streamlit
+                # console with Ctrl+C from also cancelling the training worker.
+                creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0),
             )
+        # Record the real worker PID only after a successful process spawn.
+        # It allows the UI to distinguish an expired/stale session from a live one.
+        SESSION.write_text(
+            json.dumps({"port": port, "token": token, "task": task,
+                        "model": model, "pid": worker.pid}),
+            encoding="utf-8",
+        )
     except Exception as exc:
         STATE.write_text(
             json.dumps({"task": task, "model": model, "status": "failed", "error": str(exc)}, ensure_ascii=False),
@@ -257,20 +308,38 @@ def _status() -> None:
             st.json(info["parameters"])
 
     session = _read_session()
-    if session.get("port") and session.get("token") and (session.get("task"), session.get("model")) == (info.get("task"), info.get("model") or ""):
-        # No @st.fragment; the browser receives push events directly.
-        backup = ""
-        if status != "running":
-            backup = _tail_log()
+    session_matches = (
+        bool(session.get("port") and session.get("token"))
+        and (session.get("task"), session.get("model")) ==
+            (info.get("task"), info.get("model") or "")
+    )
+    # The WebSocket worker intentionally exits after a short post-job grace
+    # period. Once a job ends, show its durable logfile directly rather than
+    # trying to reconnect to an already closed WebSocket server.
+    if status != "running":
+        st.components.v1.html(_terminal_html(_tail_log()), height=370, scrolling=False)
+    elif session_matches and _worker_alive(session.get("pid")):
         st.components.v1.html(
-            _stream_terminal_html(int(session["port"]), str(session["token"]), backup, status),
+            _stream_terminal_html(int(session["port"]), str(session["token"]), "", status),
             height=410,
             scrolling=False,
         )
-    elif status == "running":
-        _legacy_status()
-    else:
+    elif session_matches:
+        st.warning(
+            "实时日志工作器已退出，或这是旧版本留下的任务记录。"
+            "以下显示已写入的日志。请确认没有训练进程在运行后，再标记该任务已中断。"
+        )
         st.components.v1.html(_terminal_html(_tail_log()), height=370, scrolling=False)
+        if st.button("确认任务已停止，清理失效状态", key="clear_stale_training"):
+            STATE.write_text(
+                json.dumps({**info, "status": "interrupted",
+                            "error": "实时工作器已退出；任务是否完成请核对日志。"},
+                           ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            st.rerun()
+    else:
+        _legacy_status()
 
     st.caption("终端走实时消息流；current.log 在后台每 2 秒或累计 64 KB 后写入。")
     if LOG.is_file():
