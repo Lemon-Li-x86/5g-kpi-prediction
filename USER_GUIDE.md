@@ -1,166 +1,141 @@
 # 5G KPI 预测与异常检测系统使用手册
 
-## 1. 系统定位
+> 适用分支：`w4/local-integration-2026-10-23`（第四阶段整合版本）。这是**本地离线 KPI 实验与交互系统**，不是实时接入 free5GC/UERANSIM 或运营商网络的线上告警平台。
 
-本系统是基于开源 KPI 数据集的离线分析与可视化原型。它读取仓库内已生成的预测指标、预测时间序列、异常检测汇总、异常候选事件和相关性分析结果，并通过 Streamlit 提供交互式展示。
+## 1. 系统包含什么
 
-当前版本不会在页面打开时训练模型，不会从 free5GC、UERANSIM 或实时基站接口采集数据，也不提供实时告警。异常候选不等同于经过网络故障标签验证的真实故障。
+主要流程：下载数据 → 审计/预处理 → 生成 ML 特征 → 选择算法训练 → 自动保存或归档权重 → 选择本地模型版本 → 上传符合格式的历史 KPI CSV 进行下一小时推理 → 查看和导出结果。
 
-## 2. 目录要求
+另有历史实验成果展示，包括跨波束平均的逐小时 KPI 曲线、MAE/RMSE/R²、异常候选及相关性分析。**历史结果页面读取的是仓库 `reports/` 中保存的 CSV/JSON，不会自动切换成刚选择的权重的评估指标。**
 
-将文件放在项目根目录，保持以下结构：
+支持四个 KPI：`DLPRB`、`DLThpVol`、`DLThpTime`、`MR_number`；系统不根据字段名猜测物理单位。
+
+## 2. 文件夹说明
 
 ```text
-5g-kpi-prediction/
-├── app.py
-├── requirements.txt
+项目根目录/
+├── app.py                       Web 主入口
 ├── src/
-│   ├── __init__.py
-│   ├── dashboard_data.py
-│   ├── preprocess_kpi_data.py
-│   ├── train_deep_learning_models.py
-│   └── detect_kpi_anomalies.py
-├── reports/
-│   ├── model_metrics.csv
-│   ├── prediction_timeseries.csv
-│   ├── w3_deep_learning_metrics.csv
-│   ├── w3_gru_hourly_predictions.csv
-│   ├── w3_lstm_hourly_predictions.csv
-│   ├── w3_transformer_hourly_predictions.csv
-│   ├── w3_anomaly_method_summary.csv
-│   ├── w3_anomaly_rate_by_hour.csv
-│   ├── w3_anomaly_candidate_events.csv
-│   ├── w3_anomaly_kpi_correlations.csv
-│   └── week3/w3_ml_dl_all_metrics.csv
-└── figures/
+│   ├── core/config.py           路径与字段配置
+│   ├── data/                    数据下载、审计、预处理和特征
+│   ├── models/                  预测、异常检测和推理
+│   ├── analysis/                模型比较、异常统计、稳健性验证
+│   ├── services/                模型权重、后台任务、流式日志
+│   ├── ui/                      界面和历史结果读取
+│   └── *.py                     兼容旧版 python -m src.xxx 的薄入口
+├── data/raw/                    原始数据（本地）
+├── data/processed/              处理后数据（本地）
+├── models/                      历史权重（本地）
+├── resources/models/            已归档的模型版本（本地）
+├── resources/experiments/       深度学习每次训练的独立实验结果（本地）
+├── resources/jobs/              current.json、current.log、stream_session.json 等
+├── reports/                     随仓库保存的历史实验结果
+└── figures/                     随仓库保存的历史图片
 ```
 
-部分结果文件缺失时，对应页面可能显示提示或不显示相关图表。
+`data/`、`models/`、`resources/` 中的本地大文件不会自动上传 GitHub；**重新 Clone 后没有权重是正常的**。不要手动删除或重建现有的 `.venv`、`data/`、`models/`、`resources/`。
 
-注意：所有训练与分析脚本从项目根目录使用 `python -m src.<模块名>` 执行；完整流程见 [README.md](README.md)。
+## 3. 启动系统
 
-## 3. 安装与启动
-
-建议使用 Python 3.10 或更新版本。在项目根目录打开终端，执行：
-
-```bash
-python -m venv .venv
-```
-
-Windows PowerShell 激活环境：
+在 VS Code 打开**项目根目录**，在 PowerShell 执行：
 
 ```powershell
-.venv\Scripts\Activate.ps1
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-macOS/Linux 激活环境：
+如果已安装过依赖，第一行通常只检查版本和补装缺项。若没有 `.venv`，先安装 Python 3.10+ 并创建或选用你的既有 Python 环境。Web 默认访问 `http://localhost:8501`（具体以终端输出为准）。
+
+实时终端使用浏览器访问本机 `ws://127.0.0.1:<动态端口>`；仅支持本机运行浏览器与服务的这一配置。关闭浏览器不会主动终止已经独立启动的训练进程，但不要在任务执行中删除项目目录。
+
+## 4. 数据管理与预处理
+
+在「数据管理与预处理」检查 `data/raw/` 中四个 gotsf-ds 原始 CSV 是否存在。
+
+- 「下载原始数据」：从配置的数据源下载原始文件。
+- 「审计并预处理」：运行检查、清洗、时间对齐、标准化并生成 `data/processed/kpi_timeseries.csv`。
+- 「生成传统 ML 特征」：为机器学习预测生成滞后特征（包括 1、2、24 和 168 小时）。
+
+页面当前不支持任意格式 CSV 上传后自动转换为训练集；这是固定公开数据集流水线。
+
+## 5. 模型训练与实时终端
+
+「模型训练」支持：传统 ML、LSTM、GRU、Transformer 和异常检测。点击开始训练后，后台工作器启动固定的受控命令。日志通过 WebSocket 事件流传给浏览器，另外每约 2 秒或达到缓冲阈值写入 `resources/jobs/current.log`。只读终端支持滚动查看，不是可执行任意命令的 Shell。
+
+`resources/jobs/current.json` 记录任务状态；若 WebSocket 服务启动失败，还可检查 `resources/jobs/stream_errors.log`。不要在同一任务尚未结束时反复点击「开始训练」。
+
+**深度学习版本隔离：** 新 LSTM/GRU/Transformer 训练的原始 checkpoint、指标与图表保存于 `resources/experiments/<run_id>/`，成功后将 `.pt` + 同名 `.json` 复制至 `resources/models/<run_id>/` 供推理选择。训练时可以提前停止（Early stopping），不等于训练失败。
+
+传统 ML 和异常检测目前仍写入旧版固定路径 `models/`、`reports/`。开始前会归档现有可信旧模型，完成后将可用权重再归档。固定路径产生的传统实验指标尚未做到完整的逐版本隔离。
+
+## 6. 模型管理与推理
+
+进入「模型版本管理与推理」。下拉框扫描本地 `models/`（legacy）和 `resources/models/`（版本归档）。没有模型时先在本机训练；仓库内已有的历史 CSV 不能还原权重。
+
+选中模型后上传历史 KPI CSV，必须有：
+
+```text
+Time,base_station,cell,beam,DLPRB,DLThpVol,DLThpTime,MR_number
+```
+
+同一 beam 的时间必须唯一且连续。ML 推理使用多个滞后特征，通常需要至少 **169 个连续小时**历史值；深度学习所需历史长度由相应 `.json` 中的 `seq_len` 与 `seasonal_lag` 决定。结果可导出 CSV。界面上传大小限制为 50 MB。
+
+传统 ML 的 `.pkl` 只能加载本人信任的本机模型文件。DL 的 `.pt` 必须保留同名 JSON 元数据；缺失元数据的文件不会出现在列表。异常模型的完整交互式推理页面目前尚未开放，虽已有 `src.models.inference.detect_anomalies` 接口。
+
+## 7. 历史结果页面
+
+- 「项目总览」：公开数据规模、已有结果和预测异常实验概览。
+- 「KPI 预测」：读取已存预测序列，查看 KPI 的逐小时聚合实际/预测曲线。
+- 「模型评估」：读取已存指标，比较不同 ML/DL 模型的 MAE、RMSE、R²。
+- 「异常检测」：比较 3σ、IQR、Isolation Forest、One-Class SVM 的标记率与候选事件。SVM 来自抽样子集，不能与完整测试集结果直接等量比较。
+- 「KPI 关联分析」：相关性和（若文件存在）Holm 校正的统计显著性；相关不代表根因。
+
+这些页面仍是离线历史实验展示，不会自动采用所选权重重新运行对应评估。
+
+## 8. 命令行接口（旧命令保持兼容）
 
 ```bash
-source .venv/bin/activate
-```
-
-安装依赖：
-
-```bash
-pip install -r requirements.txt
-```
-
-启动 Web 应用：
-
-```bash
-streamlit run app.py
-```
-
-终端会显示本地访问地址。将地址复制到浏览器即可打开系统。若命令找不到 Streamlit，可尝试：
-
-```bash
-python -m streamlit run app.py
-```
-
-## 4. 功能说明
-
-### 4.1 项目总览
-
-查看数据规模、时间索引范围、训练/测试区间、模型数量和联合异常候选数量，并检查主要结果文件是否存在。
-
-### 4.2 KPI 预测
-
-选择 KPI 和模型，查看测试区间内实际 KPI 均值与预测 KPI 均值的变化曲线，并查看对应的 MAE、RMSE 和 R²。曲线是跨 Beam 的逐小时聚合结果，指标则来自模型在测试样本上的评估；二者统计粒度不同。
-
-横轴是数据集中的整数时间索引，不是实际日历时间。当前数据集采用 Time 0–671 作为训练区间、Time 672–839 作为测试区间。
-
-### 4.3 模型评估
-
-按 KPI 和 MAE、RMSE 或 R² 对比传统机器学习与深度学习模型。MAE 和 RMSE 越低越好，R² 越高越好。页面可下载当前 KPI 的比较表。
-
-### 4.4 异常检测
-
-查看 3σ、IQR、Isolation Forest 和 One-Class SVM 的标记率、逐小时标记率，以及已保存的异常候选事件。One-Class SVM 只在抽样测试子集上评估，不能将其标记率当作与完整测试集同条件的直接比较。
-
-`w3_anomaly_candidate_events.csv` 只保存按 Isolation Forest 分数排序的最多 2,000 条联合候选事件，不代表完整候选集合。筛选后的表格可以导出为 CSV。
-
-### 4.5 KPI 关联分析
-
-查看 KPI Pearson 相关性矩阵。若 `reports/w4_anomaly_kpi_correlation_tests.csv` 已生成，页面还会显示 Holm 校正后的基站聚类稳健显著性结果。若该文件不存在，页面只显示 W3 探索性相关系数，不会虚构 p 值。
-
-相关性不等于因果关系。由于相关性是在异常检测筛选出的候选样本上计算的，结果只能作为探索性分析线索。
-
-## 5. 更新实验结果
-
-在项目根目录运行 `python -m src.detect_kpi_anomalies` 和 `python -m src.analyze_anomaly_statistics` 可以重新产生异常检测与显著性文件。预测训练入口分别为 `python -m src.train_traditional_models` 和 `python -m src.train_deep_learning_models`。完整重训并非启动 Web 所需。
-
-当前 Web 应用读取已保存的 CSV/JSON，不会自动重训模型。若重新运行模型或异常检测脚本，请确认结果已写入 `reports/` 目录，再刷新或重启 Streamlit 页面。
-
-W4 统计诊断脚本完成运行后，会输出相关性显著性结果；将其放在 `reports/` 目录下即可供关联分析页面读取。
-
-## 6. 常见问题
-
-- **找不到结果文件：** 检查文件是否位于项目根目录下的 `reports/`，而不是 `src/reports/`。
-- **页面数据没有变化：** 使用 Streamlit 菜单中的重新运行功能，必要时重启应用以清除缓存。
-- **某模型没有预测曲线：** 检查对应的 `w3_<model>_hourly_predictions.csv` 或 `prediction_timeseries.csv` 是否存在，以及模型/KPI 名称是否一致。
-- **没有相关性显著性：** 这通常意味着 W4 检验文件尚未生成；当前 W3 矩阵本身不包含 p 值。
-- **模型数值看起来不像真实物理单位：** 当前图表按结果文件中保存的 KPI 数值尺度展示。正式报告应根据预处理与逆变换过程确认单位，不能仅凭列名推断物理单位。
-
-## 7. 当前限制
-
-1. 仅展示已有离线实验结果，没有在线推理和实时网络采集。
-2. free5GC/UERANSIM 尚未连接到当前 KPI 数据处理流程。
-3. 仓库中保存的候选事件 CSV 最多包含 2,000 条事件。
-4. 数据集没有经过验证的真实故障标签，无法据此报告真实故障检测的 precision、recall 或 F1。
-5. 相关性分析是候选样本上的探索性分析，不构成已确认的故障根因结论。
-
-## 第七周部署接口（本地生成模型）
-
-GitHub 历史产物只有指标/预测 CSV 和图片，没有预训练权重。CSV 不能还原模型。
-先安装 `pip install -r requirements.txt`，在仓库根目录依次执行：
-
-```shell
 python -m src.download_kpi_data
+python -m src.audit_kpi_data
 python -m src.preprocess_kpi_data
 python -m src.build_ml_features
 python -m src.train_traditional_models
-python -m src.train_deep_learning_models --out .
-python -m src.detect_kpi_anomalies --out .
-python -m unittest test_inference -v
+python -m src.train_deep_learning_models --models lstm --out resources/experiments/manual_lstm_01
+python -m src.detect_kpi_anomalies
+python -m src.analyze_anomaly_statistics
 ```
 
-传统训练会生成 `models/<模型名>_<KPI>.pkl`；深度训练保存最佳权重及同名 JSON 配置，两者必须一起保留。深度标准化现在仅用 validation-start 之前的数据，旧报告不代表修复后重新训练结果。训练命令会更新报告；保留历史结果时请先复制仓库到独立本地工作目录运行。
+实际实现已移到 `src/data/`、`src/models/`、`src/analysis/`、`src/services/`、`src/ui/`；这些旧命令只是向新模块转发。
+
+直接调用推理 API 示例：
 
 ```python
-from src.inference import predict_kpi, detect_anomalies
-prediction = predict_kpi(history, 'models/RandomForest_DLPRB.pkl')
-# history: DataFrame，包含 Time、base_station、cell、beam 和四个原始 KPI。
-# ML 每个波束至少169个连续小时；DL由配置决定窗口和季节历史长度。
-# 返回每个波束下一小时原始量纲预测，无需未来标签。
+import pandas as pd
+from src.models.inference import predict_kpi
+history = pd.read_csv("your_history.csv")
+result = predict_kpi(history, "resources/models/<run_id>/w3_lstm.pt")
+print(result.head())
 ```
 
-异常接口支持与预测相同的原始 KPI DataFrame，自动按已存标准化参数转换并校验波束标识和连续时间；也兼容低层数组接口：`detect_anomalies(values, 'models/anomalies.pkl')`。
-values 是与训练完全相同波束顺序、相同标准化的 [波束,时间,4] 数组；首小时为差分上下文、不输出该小时。使用原有三西格玛/IQR（含零IQR回退）、IF、SVM及共识逻辑。统计训练分布保存在本地产物中，推理不重新拟合估计器。数组调用方负责波束顺序和标准化；建议使用 DataFrame 入口以启用元数据校验。
+请将 `<run_id>` 替换成真实版本目录名，不能照抄占位符。此 API 不会自动连接实时网络。
 
-仅加载自己生成且可信的 pickle/PT 产物。models/、权重和pickle均不提交GitHub。
-现有 dashboard_data/app.py 继续展示历史报告，尚未调用新接口。
+## 9. 测试与常见问题
 
-验证边界：仓库没有原始/已处理数据或权重；不能声称已复现历史指标或完成真实数据训练。合成数据测试仅检查模型训练一步后保存/加载的推理一致性。
+项目根目录执行：
 
+```bash
+python -m unittest discover -s tests -v
+python -m unittest test_inference test_model_registry -v
+python -m compileall -q src app.py
+```
 
-测试记录（2026-10-22）：Python 3.12；scikit-learn 1.9.1、PyTorch 2.14.1；`python -m unittest test_inference -v`：3 tests，OK（含三个深度网络子案例）。沙箱首次运行因系统临时目录权限失败，获准在沙箱外重跑后通过。`compileall` 通过。未执行真实数据全量训练、XGBoost/LightGBM训练往返、Streamlit交互回归；未完成全仓逐行审查。当前为第一步基础实现，不能视为完整生产部署验收。
+- **找不到模型**：确认 `models/` 或 `resources/models/` 有可识别的权重；DL 要有同名 JSON。
+- **LSTM 训练完成却提示 `train_scale_mean` 不同**：旧脚本试图合并标准化协议不同的历史报告；下次通过 Web 启动新的 DL 训练或为命令行指定**新的** `--out` 目录。报错前写出的 `models/w3_lstm.pt` 与 JSON 可以先备份，不要直接覆盖。
+- **训练显示 CPU**：当前 PyTorch 未选用 CUDA，不代表 GPU 不可用；需另行核对驱动与 PyTorch CUDA 版本。
+- **WebSocket 连接失败**：确认正在本机打开 Web 和浏览器，并查看 `resources/jobs/stream_errors.log`。训练输出通常还在日志中。
+- **Web 历史图没有变化**：旧页面读取 `reports/`，不会自动读取独立运行目录的指标。
+- **新的结构如何维护**：参阅 `docs/ARCHITECTURE.md`。
+
+## 10. 限制与验收
+
+当前未接入 free5GC/UERANSIM 的实时 KPI 流；异常候选缺少真实故障标签；ML/异常检测完整按版本保存仍需完善；UI 与新模型的指标尚未完全绑定。此分支完成的是**代码整理与功能保留**，并不代表所有真实训练和 Web 点击流程已经在用户电脑上重新验收。

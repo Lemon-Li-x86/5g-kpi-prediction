@@ -14,3 +14,6 @@ torch>=2.2,<3
 # W7 Streamlit dashboard
 streamlit>=1.35,<2
 plotly>=5.20,<7
+
+# Local WebSocket training console (websockets.asyncio.server)
+websockets>=13,<17
