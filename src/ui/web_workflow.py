@@ -498,10 +498,33 @@ def render_training_page() -> None:
                 "结果写入新的实验目录，历史异常检测图表不会自动切换到本次版本。"
             )
         else:
+            st.subheader("传统 ML 训练参数")
+            params["quick"] = st.checkbox(
+                "快速验收模式（抽样训练与测试，成绩不用于正式实验报告）",
+                value=True,
+            )
+            if params["quick"]:
+                c1, c2 = st.columns(2)
+                params["max_train"] = int(c1.number_input(
+                    "最多训练样本", min_value=100, max_value=1000000,
+                    value=512, step=100,
+                ))
+                params["max_test"] = int(c2.number_input(
+                    "最多测试样本（0 = 全部）", min_value=0, max_value=1000000,
+                    value=512, step=100,
+                ))
+                st.caption(
+                    "快速模式用于验证 Web 后台、五种传统 ML 模型及保存链路，"
+                    "抽样成绩不能与历史全量测试成绩比较。"
+                )
+            else:
+                st.warning(
+                    "正式模式将运行所有传统 ML 模型的全量训练与测试，"
+                    "耗时和内存需求可能较高。"
+                )
             st.info(
-                "传统 ML 当前使用脚本内的正式训练配置。"
-                "具体算法超参数尚未开放 CLI 接口，因此这里不提供无效输入框；"
-                "它仍会写入原来的 reports/ 结果路径。"
+                "Web 会把报告、图表和权重保存到本次独立实验目录；"
+                "不会覆盖 GitHub 中的历史 reports/、figures/ 或 models/。"
             )
         submitted = st.form_submit_button(
             "开始训练并保存配置", disabled=_busy() or not ready,
