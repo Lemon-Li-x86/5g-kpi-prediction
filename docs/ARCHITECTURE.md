@@ -71,6 +71,7 @@ Transformer               One-Class SVM
 | `KPIS` | 四个 KPI 字段，保持公开数据集字段顺序 | `src/core/config.py` | 预处理、ML/DL/异常训练、推理、分析和 UI | **共享单一来源**；各训练脚本直接引用 |
 | `KEYS` | 波束身份字段 `base_station/cell/beam`，不带物理单位 | `src/core/config.py` | 特征工程、DL/异常数据整形、推理、会话关联 | **共享单一来源**；表格关联包含 `Time` |
 | `ROOT` 与目录常量 | 仓库根路径和 `data/`、`reports/`、`resources/` 等 | `src/core/config.py` | 数据、训练、模型归档、Web | **共享路径契约**；各实验输出目录由 `run_id` 派生 |
+| `DATASET_REPO_ID`、`DATASET_FILES` | 公开数据集标识和四份原始 KPI CSV 文件名 | `src/core/config.py` | `download_kpi_data.py`、`audit_kpi_data.py`、`preprocess_kpi_data.py` | **固定数据集清单**；下载、审计、预处理共用一份映射 |
 | `DATASET_TEST_START_HOUR` | 历史数据集测试区间起点，小时索引，默认 672 | `src/core/config.py` | 预处理、ML 特征、DL/异常训练与诊断的 CLI 默认值 | **共享默认边界**；研究脚本仍可显式指定 CLI 切分 |
 | `ML_LAGS` | 传统 ML 输入滞后 1/2/24/168 小时 | `src/core/config.py` | `build_ml_features.py`、`inference.py` | **共享训练／推理特征契约**，顺序和含义必须一致 |
 | `ML_FORECAST_HORIZON` | 传统 ML 预测目标间隔：1 小时 | `src/core/config.py` | `build_ml_features.py` | **固定任务语义**，与训练目标一致 |
@@ -91,7 +92,7 @@ Transformer               One-Class SVM
 | 标准化 `mean/scale`、波束顺序 | 各模型实际训练拟合的变换参数及输入排列 | ML `.pkl` bundle、DL `.pt.json`、异常 `anomalies.pkl` | 各自模型的 `inference.py` | **随模型保存的状态**；不同实验不可用同名参数互相覆盖 |
 | `run_id` 与 `requested_parameters.json` | 一轮独立训练的身份、用户配置和归档来源 | `src/services/web_jobs.py` | 模型版本登记、训练评估与 Web | **每轮唯一标识**，历史指标保持独立 |
 
-**重复定义检查结果：**四项 KPI、波束标识、传统 ML 滞后与最短历史长度、数据集测试起点已统一。各 CLI 保留与 Web 相匹配的默认参数作为独立命令行接口；Web 运行会显式传入经校验的全部参数。LSTM、GRU、Transformer 保留各自的 `hidden` 语义与模型权重，SVM/IF 的抽样分母分别记录。固定的 Transformer 注意力头数属于模型结构，若未来开放调整，应同步调整结构定义、参数校验、checkpoint 元数据及测试。
+**重复定义检查结果：**四项 KPI、波束标识、公开数据集文件清单、传统 ML 滞后与最短历史长度、数据集测试起点已统一。预处理和特征工程缓存还将公共配置文件加入依赖检查，确保配置更新后重新验证生成文件。各 CLI 保留与 Web 相匹配的默认参数作为独立命令行接口；Web 运行会显式传入经校验的全部参数。LSTM、GRU、Transformer 保留各自的 `hidden` 语义与模型权重，SVM/IF 的抽样分母分别记录。固定的 Transformer 注意力头数属于模型结构，若未来开放调整，应同步调整结构定义、参数校验、checkpoint 元数据及测试。
 
 ## 4.1 注释及代码维护规范
 
