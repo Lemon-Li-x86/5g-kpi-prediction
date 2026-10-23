@@ -16,7 +16,7 @@
 ## 当前功能
 
 - **数据管理与预处理**：识别固定 gotsf-ds 四 KPI 文件；下载、审计、预处理及传统 ML 特征工程。
-- **模型训练**：在 Web 表单直接调整 LSTM/GRU/Transformer 的 Epoch、Batch Size、学习率、隐藏维度、时间窗口、早停、抽样上限、随机种子及计算设备；异常检测可设置污染率和抽样参数。后台按白名单校验，再由独立进程执行。WebSocket 实时展示输出，日志同时写入 `resources/jobs/current.log`。传统 ML 尚无独立的超参数 CLI，Web 保留固定的正式训练配置。
+- **模型训练**：在 Web 表单直接调整 LSTM/GRU/Transformer 的 Epoch、Batch Size、学习率、隐藏维度、时间窗口、早停、抽样上限、随机种子及计算设备；异常检测可设置污染率和抽样参数。后台按白名单校验，再由独立进程执行。WebSocket 实时展示输出，日志同时写入 `resources/jobs/current.log`。传统 ML 可在 Web 选择快速抽样验收或完整训练，自动隔离实验目录与权重；尚不开放各算法独立的树深度等超参数。
 - **模型管理与推理**：从本机 `models/` 和 `resources/models/` 枚举模型版本，选择可信本地权重，对符合字段要求的历史 CSV 执行下一小时预测，或选择保存的异常模型执行候选标记，并导出 CSV；本轮新增的异常 Web 推理仍须本机实测。
 - **结果展示**：总览、KPI 预测曲线、模型评估、异常候选统计、KPI 关联分析。**这些历史图表读取 `reports/` 中的已有实验结果，不一定对应当前下拉框选中的模型版本。**
 
@@ -63,7 +63,7 @@ python -m src.models.detect_kpi_anomalies
 python -m src.analysis.analyze_anomaly_statistics
 ```
 
-注意：每次 Web 深度学习和异常检测训练都会自动分配唯一的 `resources/experiments/<run_id>/` 输出目录，并保存 `requested_parameters.json`；成功后将可用模型发布到 `resources/models/<run_id>/`。同类历史实验不会被新调参覆盖。命令行复现实验时同样建议指定新的 `--out` 目录。传统 ML 的报告仍沿用固定输出路径，尚未做到完整版本隔离。
+注意：每次 Web 传统 ML、深度学习和异常检测训练都会自动分配唯一的 `resources/experiments/<run_id>/` 输出目录，并保存 `requested_parameters.json`；成功后将可用模型发布到 `resources/models/<run_id>/`。命令行复现实验也建议指定新的 `--out` 目录。**直接运行未带 `--out` 的传统 ML 命令仍沿用历史固定输出路径**，可能覆盖已跟踪报告。传统 ML 新版 Web 快速模式尚待本机验收。
 
 ## 检查
 
