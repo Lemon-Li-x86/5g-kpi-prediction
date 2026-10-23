@@ -86,4 +86,5 @@ python -m compileall -q src app.py
 - [项目技术报告](docs/TECHNICAL_REPORT.md)：基于已保存的历史实验数据，标注最新集成尚待验收的内容。
 - [收尾验收记录](docs/FINAL_ACCEPTANCE.md)：逐项测试步骤、性能记录、仍需填写的本机验证结果。
 - [项目架构](docs/ARCHITECTURE.md)：目录职责和依赖边界。
+- [参数登记簿](docs/PARAMETER_REGISTER.md)：KPI、时序切分、超参数、硬编码和重复定义的来源与归属。
 - 演示 PPT 与 Word 报告另行导出，交付前需随最终测试截图核对。
