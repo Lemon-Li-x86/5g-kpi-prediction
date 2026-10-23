@@ -1,10 +1,10 @@
 # 5G KPI 预测与异常检测系统
 
-基于 gotsf-ds 公开 KPI 数据的离线实验系统，支持数据下载/预处理、传统 ML 与深度学习预测、异常候选检测、实验分析，以及本机 Streamlit 交互操作。Web 训练支持本地 WebSocket 日志流；**不等于对接实时 5G 网络**。
+基于 gotsf-ds 公开 KPI 数据的离线实验系统，支持数据下载/预处理、传统 ML 与深度学习预测、异常候选检测、实验分析，以及本机 Streamlit 交互操作。Web 训练支持本地 WebSocket 日志流。
 
 ## 快速运行（从项目根目录执行）
 
-在已有虚拟环境内安装缺少的依赖，无需每次重新建环境：
+在已有虚拟环境内安装缺少的依赖：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
@@ -47,11 +47,9 @@
 └── USER_GUIDE.md
 ```
 
-`src/` 根目录只保留 `__init__.py` 和六个功能子包，不再维护旧版扁平脚本入口。新功能直接添加到对应子包。参见 [架构说明](docs/ARCHITECTURE.md)。
-
 ## 命令行复现实验
 
-命令行使用新分层模块路径。旧版 `python -m src.<脚本名>` **不再支持**：
+命令行使用新分层模块路径。
 
 ```bash
 python -m src.data.download_kpi_data
@@ -80,16 +78,7 @@ python -m compileall -q src app.py
 ## 文档
 
 详细操作、模型版本、实时日志和问题排查： [USER_GUIDE.md](USER_GUIDE.md)。
-技术结构和迁移准则： [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
-
-## 第七、八周交付资料
-
-- [项目技术报告](docs/TECHNICAL_REPORT.md)：基于已保存的历史实验数据，标注最新集成尚待验收的内容。
-- [收尾验收记录](docs/FINAL_ACCEPTANCE.md)：逐项测试步骤、性能记录、仍需填写的本机验证结果。
-- [项目架构](docs/ARCHITECTURE.md)：目录职责和依赖边界。
-- [参数登记簿](docs/PARAMETER_REGISTER.md)：KPI、时序切分、超参数、硬编码和重复定义的来源与归属。
-- [原第 3–7 周交付审查](docs/WEEK3_7_AUDIT.md)：逐项核查代码、历史报告、数据与权重缺失的合理性、测试待办。
-- **PPT 暂缓**。当前先以代码、技术报告、使用手册和测试验收为交付重点。
+技术结构： [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
 ## 一键生成 Web 验收输入
 
@@ -103,6 +92,4 @@ python -m src.data.prepare_demo_inputs
 
 ## 当前交付说明
 
-本仓库已跟踪第 3–7 周对应的源代码、Python 单元测试、历史 `reports/` 和 `figures/`、使用手册与技术报告；大型公开源 CSV、处理中间数据及模型权重按照 `.gitignore` 留在用户本机。仓库可按文档重建处理与训练链路，但不能把“GitHub 含有源码”误说成“无需下载数据或加载权重即可运行推理”。
-
-最近更新的 Web 推理输出使用 Streamlit 会话状态保存，可在同一文件和模型下完成 CSV 下载；切换模型或输入文件后需要重新执行推理。完整 Windows 训练、推理和 Web 点击验收仍以 `docs/FINAL_ACCEPTANCE.md` 的实测记录为准。
+本仓库已跟踪源代码、Python 单元测试、历史 `reports/` 和 `figures/`、使用手册与技术报告；大型公开源 CSV、处理中间数据及模型权重按照 `.gitignore` 留在用户本机。
