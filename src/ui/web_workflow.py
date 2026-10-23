@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import html
 import hashlib
+import io
 import os
 import json
 import re
@@ -18,6 +19,11 @@ import streamlit as st
 from src.services.model_registry import ROOT, KPIS, archive_models, list_models
 from src.services.process_env import python_job_env
 from src.core.training_config import normalize_params, DL_DEFAULTS, ANOMALY_DEFAULTS
+from src.ui.dashboard_data import list_experiment_runs, run_report_dir
+from src.ui.result_views import (
+    render_forecast_evaluation, render_anomaly_training_results,
+    render_forecast_inference_result, render_anomaly_inference_result,
+)
 
 JOBS = ROOT / "resources" / "jobs"
 STATE = JOBS / "current.json"
@@ -540,85 +546,187 @@ def render_training_page() -> None:
     st.caption("训练期间保持配置不可更改；下次训练可以使用新的设置。")
     _status()
 
+    # Read the durable experiment artifacts after the background worker has
+    # completed; the training algorithm has already saved these files.
+    info = _read_state()
+    if info.get("status") == "completed" and info.get("task") in {
+        "train_ml", "train_dl", "train_anomaly",
+    }:
+        output = Path(info.get("output_dir", ""))
+        reports = output / "reports"
+        if output.is_dir() and reports.is_dir():
+            st.divider()
+            st.subheader("最近一次训练的测试评估与保存结果")
+            st.caption(f"实验版本：{output.name} · 已保存到：{reports}")
+            st.info("快速训练只用于功能验收，不能替代此前完整训练的正式实验成绩。")
+            if info["task"] == "train_anomaly":
+                render_anomaly_training_results(reports, output.name)
+            else:
+                render_forecast_evaluation(reports, output.name)
+    elif info.get("status") == "running":
+        st.caption("训练结束后点击下方按钮刷新，即可在本页面查看本次测试指标、曲线及图表。")
+    if st.button("刷新训练状态及评估结果", key="refresh_training_results"):
+        st.rerun()
+
 
 def render_model_page() -> None:
-    """Select a trusted local checkpoint, run inference, and retain CSV exports."""
-    st.title("模型版本管理与推理")
-    st.caption("只扫描 resources/models/ 与 models/ 中的本地可信模型；不接受外部上传的 pickle。")
+    """View local model versions and immutable historic/new experiment scores."""
+    st.title("模型管理与实验记录")
+    st.caption("模型权重只从本机可信目录枚举；正式历史对比不可被快速训练覆盖。")
     if st.button("归档现有未版本化模型", disabled=_busy()):
-        added = archive_models(ROOT, reason="manual_web_archive")
-        st.success(f"已归档 {len(added)} 个模型文件。")
+        saved = archive_models(ROOT, reason="manual_web_archive")
+        st.success(f"已归档 {len(saved)} 个模型文件。")
+
     models = list_models(ROOT)
-    if not models:
-        st.info("尚未发现本地权重。GitHub 中的历史指标 CSV 并不是模型权重，请先在本机运行训练。")
-        return
-
-    options = {f"{idx}: {item.label}": item for idx, item in enumerate(models)}
-    selected_label = st.selectbox("选择本地权重版本", list(options))
-    selected = options[selected_label]
-    st.write({"类型": selected.family, "模型": selected.model,
-              "目标": selected.target, "版本": selected.version, "路径": selected.path})
-    if selected.family == "anomaly":
-        st.info("异常检测必须使用和训练时相同的全部波束 ID、连续且对齐的小时轴；首小时只作差分上下文。检测结果是候选异常，不是已确认故障。")
+    if models:
+        st.subheader("本地模型权重")
+        frame = pd.DataFrame([{
+            "版本": m.version, "算法": m.model, "类型": m.family,
+            "预测目标": m.target, "文件": Path(m.path).name, "已归档": m.archived,
+        } for m in models])
+        st.dataframe(frame, hide_index=True, use_container_width=True)
+        st.caption("在 KPI 预测或异常检测页面选择模型并进行推理。")
     else:
-        st.warning("仅加载本机可信权重；预测要求各波束的连续 KPI 历史序列。")
+        st.info("本机尚未发现可用权重。历史报告并不包含模型权重。")
 
-    uploaded = st.file_uploader("上传 KPI 历史 CSV（不保存到磁盘）", type=["csv"])
-    if uploaded is None:
+    st.divider()
+    st.subheader("实验评价记录")
+    versions = list_experiment_runs("forecast") + list_experiment_runs("anomaly")
+    sources = ["历史正式实验（固定对比）"] + [f"新实验：{run}" for run in sorted(versions, reverse=True)]
+    selected = st.selectbox("选择已有实验", sources, key="model_history_run")
+    if selected.startswith("新实验："):
+        run_id = selected.split("：", 1)[1]
+        report_dir = run_report_dir(run_id)
+        if run_id in list_experiment_runs("anomaly"):
+            render_anomaly_training_results(report_dir, run_id)
+        else:
+            render_forecast_evaluation(report_dir, run_id)
+    else:
+        st.caption("以下仅是第 4～6 周已保存的正式历史成绩，不会随新模型训练而更新。")
+        render_forecast_evaluation(None, "历史正式实验")
+
+
+def _generate_demo_files(forecast_hours: int = 169) -> None:
+    """Reuse the same validated data preparation as the CLI demo generator."""
+    from src.data.prepare_demo_inputs import COLUMNS, prepare_demo_frames
+    source = ROOT / "data" / "processed" / "kpi_timeseries.csv"
+    if not source.is_file():
+        raise FileNotFoundError("请先在数据管理页面生成 data/processed/kpi_timeseries.csv")
+    data = pd.read_csv(source, usecols=COLUMNS)
+    forecast, anomaly = prepare_demo_frames(data, forecast_hours=forecast_hours)
+    destination = ROOT / "resources" / "demo_inputs"
+    destination.mkdir(parents=True, exist_ok=True)
+    forecast.to_csv(destination / "forecast_history.csv", index=False)
+    anomaly.to_csv(destination / "anomaly_history.csv", index=False)
+
+
+def render_inference_page(kind: str) -> None:
+    """Real model inference; never substitute historical dashboard output."""
+    if kind not in {"forecast", "anomaly"}:
+        raise ValueError("Unknown inference kind")
+
+    is_anomaly = kind == "anomaly"
+    st.title("异常检测" if is_anomaly else "KPI 预测")
+    st.caption(
+        "选择本机实际权重和输入 CSV，立即执行计算并显示本次结果。"
+        " 这里不使用历史实验指标替代推理。"
+    )
+    models = list_models(ROOT, family="anomaly") if is_anomaly else (
+        list_models(ROOT, family="ml") + list_models(ROOT, family="dl")
+    )
+    if not models:
+        st.warning("没有找到对应模型权重。请先到模型训练页面训练并发布模型。")
         return
-    if uploaded.size > 50 * 1024 * 1024:
-        st.error("文件超过 50 MB 限制。")
+    options = {f"{i} · {m.label}": m for i, m in enumerate(models)}
+    chosen = st.selectbox("选择模型权重", list(options), key=f"{kind}_model")
+    selected = options[chosen]
+    st.caption(f"模型版本：{selected.version} ｜ 模型文件：{Path(selected.path).name}")
+
+    st.subheader("输入 KPI 数据")
+    input_mode = st.radio(
+        "数据来源", ["系统演示数据", "上传 CSV"],
+        horizontal=True, key=f"{kind}_input_mode",
+    )
+    payload = None
+    if input_mode == "系统演示数据":
+        demo_dir = ROOT / "resources" / "demo_inputs"
+        target = demo_dir / ("anomaly_history.csv" if is_anomaly else "forecast_history.csv")
+        hours = 169
+        if not is_anomaly:
+            hours = int(st.number_input(
+                "生成预测历史的小时数（传统 ML 至少 169）",
+                min_value=169, max_value=1000, value=169,
+                key="forecast_demo_hours",
+            ))
+        if st.button("从本机预处理数据生成演示 CSV", key=f"{kind}_generate_demo"):
+            try:
+                with st.spinner("正在从已处理 KPI 数据生成演示输入"):
+                    _generate_demo_files(forecast_hours=hours)
+                st.success("演示 CSV 已生成；不修改训练数据、历史实验或模型权重。")
+            except Exception as exc:
+                st.error(f"生成演示输入失败：{exc}")
+        if target.is_file():
+            payload = target.read_bytes()
+            st.caption(f"当前文件：{target.relative_to(ROOT)}")
+            st.download_button(
+                "下载演示输入 CSV", payload,
+                file_name=target.name, mime="text/csv",
+                key=f"{kind}_demo_download",
+            )
+        else:
+            st.info("当前没有演示 CSV，请先点击上面的生成按钮。")
+    else:
+        uploaded = st.file_uploader(
+            "上传历史 KPI CSV", type=["csv"], key=f"{kind}_upload",
+        )
+        if uploaded is not None:
+            payload = uploaded.getvalue()
+
+    if payload is None:
+        return
+    if len(payload) > 50 * 1024 * 1024:
+        st.error("输入 CSV 超过 50 MB 的当前上传限制。")
         return
     try:
-        # Bind the remembered result to BOTH the model and precise CSV bytes.
-        payload = uploaded.getvalue()
-        signature = (selected.path, hashlib.sha256(payload).hexdigest())
-        data = pd.read_csv(uploaded)
+        data = pd.read_csv(io.BytesIO(payload))
         required = {"Time", "base_station", "cell", "beam", *KPIS}
         missing = required - set(data.columns)
         if missing:
             st.error(f"缺少必要字段：{sorted(missing)}")
             return
-        st.write(f"输入样本：{len(data):,} 行")
-
-        if selected.family == "anomaly":
-            label = "运行异常检测"
-        else:
-            label = "运行下一小时预测"
-        if st.button(label):
-            from src.models.inference import detect_anomalies, predict_kpi
-            with st.spinner("正在执行推理"):
-                result = (detect_anomalies(data, selected.path)
-                          if selected.family == "anomaly"
-                          else predict_kpi(data, selected.path))
-            st.session_state["kpi_inference_result"] = {
-                "signature": signature,
-                "family": selected.family,
-                "frame": result,
-            }
-
-        saved = st.session_state.get("kpi_inference_result")
-        if saved and saved["signature"] == signature and saved["family"] == selected.family:
-            result = saved["frame"]
-            if selected.family == "anomaly":
-                flags = ["sigma", "iqr", "isolation_forest", "one_class_svm", "consensus"]
-                summary = pd.DataFrame({
-                    "检测方法": flags,
-                    "候选数量": [int(result[k].sum()) for k in flags],
-                    "标记比例": [float(result[k].mean()) for k in flags],
-                })
-                st.subheader("本次输入数据的异常候选统计")
-                st.dataframe(summary, hide_index=True, use_container_width=True)
-                filename = "kpi_anomaly_candidates.csv"
-                download_label = "导出异常标记 CSV"
-            else:
-                filename = "kpi_inference.csv"
-                download_label = "导出预测结果 CSV"
-            st.dataframe(result.head(200), hide_index=True, use_container_width=True)
-            st.download_button(
-                download_label, data=result.to_csv(index=False).encode("utf-8-sig"),
-                file_name=filename, mime="text/csv",
-            )
-            st.caption("结果保存在当前浏览器会话中；下载或页面刷新不会清空结果。切换模型或上传文件后需重新运行推理。")
+        st.caption(f"输入行数：{len(data):,} ｜ 时间索引范围：{data['Time'].min()}～{data['Time'].max()}")
     except Exception as exc:
-        st.error(f"无法执行推理：{exc}")
+        st.error(f"无法读取 CSV：{exc}")
+        return
+
+    signature = (selected.path, hashlib.sha256(payload).hexdigest())
+    key = "kpi_anomaly_result" if is_anomaly else "kpi_forecast_result"
+    if st.button("运行异常检测" if is_anomaly else "预测下一小时 KPI",
+                 key=f"{kind}_run_inference"):
+        try:
+            from src.models.inference import predict_kpi, detect_anomalies
+            with st.spinner("正在运行模型推理"):
+                result = (detect_anomalies(data, selected.path) if is_anomaly
+                          else predict_kpi(data, selected.path))
+            st.session_state[key] = {
+                "signature": signature,
+                "frame": result,
+                "history": data if is_anomaly else None,
+                "family": selected.family,
+            }
+            st.success("本次模型推理完成。")
+        except Exception as exc:
+            st.session_state.pop(key, None)
+            st.error(f"推理失败：{exc}")
+    saved = st.session_state.get(key)
+    if saved is not None and saved.get("signature") == signature:
+        st.divider()
+        if is_anomaly:
+            render_anomaly_inference_result(saved)
+            st.caption("前往 KPI 关联分析页面可以直接分析本次共识异常候选。")
+        else:
+            render_forecast_inference_result(saved)
+    elif saved is not None:
+        st.info("模型或输入已切换，请点击运行以更新结果。")
+    if is_anomaly:
+        st.caption("本项目异常检测模型要求与训练时相同的全部波束 ID 和对齐的连续小时，第一小时作为差分上下文。")
