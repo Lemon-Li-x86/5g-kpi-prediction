@@ -48,6 +48,10 @@ desktop.ini
 # Large preprocessed datasets and feature caches
 /data/processed/
 
+# Large dataset copies in submission folders stay local.
+# Keep reports, presentation files, source snapshots and small metrics CSVs.
+/deliverables/**/*kpi_timeseries*.csv
+
 # ============================================================
 # Deep learning model artifacts
 # ============================================================

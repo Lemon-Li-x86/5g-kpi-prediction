@@ -1,0 +1,162 @@
+﻿《基于 AI 的 5G 网络关键性能指标预测与异常检测系统》
+项目交付物与相对文件路径对照
+依据：原始项目任务书“详细周计划与交付物”，共 8 周、24 项。
+核对日期：2026-10-25。
+路径说明：
+1. 下列路径均相对于本 TXT 所在的 deliverables 目录。
+2. submit1/～submit4/ 指本目录内的四阶段交付文件夹；../ 指上一级项目根目录。
+3. 任务书原始 8 周与四阶段文件夹的对应关系：第 1～2 周对应 submit1，第 3～4 周对应 submit2，第 5～6 周对应 submit3，第 7～8 周对应项目源码及 submit4。
+4. 压缩包内部路径单独注明；路径中的空格及特殊汉字保留实际文件名。
+5. 本文件用于定位交付物，不替代运行验收记录。
+============================================================
+一、任务书规定的 24 项交付物
+============================================================
+
+【第 1 周：环境搭建与 5G 网络基础学习】
+
+01. 环境搭建详细文档（包含所有命令和截图）
+    相对路径：submit1/W1环境配置文档.pdf
+
+02. 5G 网络架构学习笔记
+    相对路径：submit1/学习笔记.pdf
+
+03. 端到端 5G 网络连接成功截图
+    相对路径：submit1/端到端5G网络连接成功截图.zip
+    说明：ZIP 压缩包内为连接成功截图。
+
+【第 2 周：网络数据采集与协议分析】
+
+04. 网络数据采集脚本
+    相对路径：submit1/week2_files.tar.gz
+    说明：压缩包内脚本：scripts/capture_5g.sh
+    配套抓包：pcap/week2_full.pcap（两者均为压缩包内部路径）。
+
+05. 5G 核心协议分析报告
+    相对路径：submit1/协议分析.pdf
+
+06. 关键信令流程截图与解释
+    相对路径：submit1/信令流程.pdf
+
+【第 3 周：开源数据集获取与预处理】
+
+07. 数据预处理 Python 脚本
+    相对路径：submit2/1_数据预处理Python脚本/w2_data_preprocessing_download.py
+    相对路径：submit2/1_数据预处理Python脚本/w2_data_preprocessing_audit.py
+    相对路径：submit2/1_数据预处理Python脚本/w2_data_preprocessing_pipeline.py
+    说明：以上为阶段提交脚本；现行实现位于 ../src/data/。
+
+08. 预处理后的 KPI 数据集（CSV 格式）
+    相对路径：submit2/2_kpi_timeseries.csv
+    说明：现行运行数据另存于 ../data/processed/kpi_timeseries.csv。
+
+09. 数据集统计分析报告
+    相对路径：submit2/3_数据集统计分析报告.pdf
+    说明：此处按文件名对应；此前内容审查发现该 PDF 正文为模型性能评估报告，需替换为正确的数据集统计分析报告。
+
+【第 4 周：基于传统机器学习的 KPI 预测】
+
+10. 传统机器学习 KPI 预测模型代码
+    相对路径：submit2/4_传统机器学习 KPI 预测模型代码/w2_traditional_ml_kpi_prediction_features.py
+    相对路径：submit2/4_传统机器学习 KPI 预测模型代码/w2_traditional_ml_kpi_prediction_training.py
+    说明：现行实现：../src/data/build_ml_features.py、../src/models/train_traditional_models.py。
+
+11. 模型性能评估报告（包含 MAE、RMSE、R² 等指标）
+    相对路径：submit2/5_模型性能评估报告.pdf
+
+12. 预测结果可视化图表
+    相对路径：submit2/6_预测结果可视化图表/DLPRB_predictions.png
+    相对路径：submit2/6_预测结果可视化图表/DLThpVol_predictions.png
+    相对路径：submit2/6_预测结果可视化图表/DLThpTime_predictions.png
+    相对路径：submit2/6_预测结果可视化图表/MR_number_predictions.png
+    相对路径：submit2/6_预测结果可视化图表/model_comparison_MAE.png
+    相对路径：submit2/6_预测结果可视化图表/model_comparison_RMSE.png
+    相对路径：submit2/6_预测结果可视化图表/model_comparison_R2.png
+
+【第 5 周：基于深度学习的 KPI 预测】
+
+13. 深度学习 KPI 预测模型代码
+    相对路径：submit3/1-深度学习 KPI 预测模型代码/w3_dl_prediction.py
+    说明：现行实现：../src/models/train_deep_learning_models.py、../src/models/architectures.py。
+
+14. 深度学习模型性能评估报告
+    相对路径：submit3/2-深度学习模型性能评估报告.pdf
+
+15. 传统机器学习与深度学习模型对比分析
+    相对路径：submit3/3-传统机器学习与深度学习模型对比分析.pdf
+    相对路径：submit3/1-深度学习 KPI 预测模型代码/w3_dl_comparison.py
+    说明：第二个路径为生成对比分析的配套代码。
+
+【第 6 周：5G 网络异常检测系统开发】
+
+16. 异常检测模型代码
+    相对路径：submit3/4-异常检测模型代码/w3_anomaly_detection.py
+    说明：现行实现：../src/models/detect_kpi_anomalies.py。
+
+17. 异常检测结果报告
+    相对路径：submit3/5-异常检测结果报告.pdf
+
+18. 异常根因分析初步方案
+    相对路径：submit3/6-异常根因分析初步⽅案.pdf
+
+【第 7 周：系统集成与 Web 展示】
+
+19. 完整的系统代码
+    相对路径：../app.py
+    相对路径：../src/
+    相对路径：../tests/
+    相对路径：../test_inference.py
+    相对路径：../test_model_registry.py
+    相对路径：../requirements.txt
+    相对路径：../requirements-research.txt
+    相对路径：../README.md
+    说明：系统代码位于项目根目录，不在 submit1～submit4 中另存一份；../src/ 包含 core、data、models、analysis、services、ui 六类模块。
+
+20. 可运行的 Web 应用
+    相对路径：../app.py
+    相对路径：../src/ui/web_workflow.py
+    相对路径：../src/ui/result_views.py
+    相对路径：../src/ui/dashboard_data.py
+    相对路径：../src/services/web_jobs.py
+    相对路径：../src/services/web_stream_worker.py
+    说明：启动入口为 ../app.py；在项目根目录运行：python -m streamlit run app.py。
+
+21. 系统使用手册
+    相对路径：submit4/3_系统使用手册.pdf
+    相对路径：../USER_GUIDE.md
+    相对路径：../docs/USER_GUIDE.md
+
+【第 8 周：项目总结与汇报】
+
+22. 完整的项目技术报告
+    相对路径：submit4/项目技术报告.pdf
+
+23. 项目演示 PPT
+    相对路径：submit4/ppt.pptx
+
+24. GitHub 代码仓库（包含所有代码和文档）
+    相对路径：../
+    说明：对应整个项目目录。远端仓库地址见本文件下方；远端地址不是本地文件路径，本清单也不代表全部文件已经推送。
+
+GitHub 仓库地址（按本机 origin 配置）：
+    https://github.com/Lemon-Li-x86/5g-kpi-prediction.git
+
+============================================================
+二、文件夹内的补充交付材料（不另计入上述 24 项）
+============================================================
+
+第一阶段补充材料
+    相对路径：submit1/W1.pdf
+    相对路径：submit1/W1周报.pdf
+
+第二阶段周报及原交付物对照
+    相对路径：submit2/s2周报.pdf
+    相对路径：submit2/s2交付物对照.txt
+
+第三阶段周报及原交付物对照
+    相对路径：submit3/s3周报.pdf
+    相对路径：submit3/s3交付物对照.txt
+
+第四阶段周报
+    相对路径：submit4/w4周报.pdf
+
+对应文件说明：deliverables 内现有的 38 个交付文件均已列入上述主清单或补充清单；本 TXT 为新增索引文件。
