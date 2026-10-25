@@ -9,6 +9,7 @@
 在仓库根目录运行（Windows PowerShell）：
 
 ```powershell
+python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m pip check
 .\.venv\Scripts\python.exe -m streamlit run app.py
@@ -120,10 +121,20 @@ python -m unittest discover -s tests -v
 python -m unittest test_inference test_model_registry -v
 ```
 
-2026-10-23 已完成原版 Web 中传统 ML、GRU 和异常模型的本机训练、权重发布、推理及 CSV 导出验收。随后完成六模块界面整理，将训练评估与实际推理分离，并新增按模型实验版本读取报告、当前异常候选关联和对应测试。**六模块新版界面的本机回归测试仍待执行。**
+2026-10-23 已完成原版 Web 中传统 ML、GRU 和异常模型的本机训练、权重发布、推理及 CSV 导出验收。随后完成六模块界面整理，将训练评估与实际推理分离，并新增按模型实验版本读取报告、当前异常候选关联和对应测试。**六模块新版界面的后续自动验收见 2026-10-25 最终审查记录；本次文件整理后的验证见下方交付入口。**
 
 ## 7. 相关文档
 
 - [系统使用手册](USER_GUIDE.md)：逐步操作、演示数据及常见问题
 - [系统架构](docs/ARCHITECTURE.md)：模块职责、参数归属、数据流及产物管理
 - [技术报告](docs/TECHNICAL_REPORT.md)：实验方法、正式结果、Web 集成和验收记录
+
+## 8. 2026-10-25 仓库交付入口
+
+- [文件审计、隔离清单与提交边界](docs/DELIVERY_AUDIT.md)
+- [数据获取、环境版本及模型迁移](docs/DATA_AND_MODELS.md)
+- [修订后的阶段 Word/PDF](deliverables/review_20261025/)
+- [原始报告输入](docs/source_reports/)与 [实验文本/图片归档](reports/experiment_archive/)
+- [本轮审计及验证](reports/delivery_audit_20261025/)
+
+运行目录 resources 继续受忽略规则保护；本次补充的实验归档副本随 Git 跟踪。原始数据、历史权重和逐样本配对预测留在本机完整备份中，模型外部发布地址尚待确认。主程序依赖位于 requirements.txt；可选调参和文档工具依赖位于 requirements-research.txt。本次不重新训练模型，不用新结果覆盖历史对比。

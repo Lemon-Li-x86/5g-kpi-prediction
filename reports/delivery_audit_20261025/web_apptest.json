@@ -1,0 +1,32 @@
+[
+  {
+    "page": "数据管理与预处理",
+    "exceptions": [],
+    "visible_errors": []
+  },
+  {
+    "page": "模型训练",
+    "exceptions": [],
+    "visible_errors": []
+  },
+  {
+    "page": "模型管理与实验记录",
+    "exceptions": [],
+    "visible_errors": []
+  },
+  {
+    "page": "KPI 预测",
+    "exceptions": [],
+    "visible_errors": []
+  },
+  {
+    "page": "异常检测",
+    "exceptions": [],
+    "visible_errors": []
+  },
+  {
+    "page": "KPI 关联分析",
+    "exceptions": [],
+    "visible_errors": []
+  }
+]

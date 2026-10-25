@@ -43,25 +43,25 @@ desktop.ini
 # ============================================================
 
 # Raw downloaded datasets
-data/raw/
+/data/raw/
 
 # Large preprocessed datasets and feature caches
-data/processed/
+/data/processed/
 
 # ============================================================
 # Deep learning model artifacts
 # ============================================================
 
 # Model weights and checkpoints
-models/
-checkpoints/
+/models/
+/checkpoints/
 
 *.pt
 *.pth
 *.ckpt
 
 # TensorBoard / training logs
-runs/
+/runs/
 events.out.tfevents.*
 
 # ============================================================
@@ -85,4 +85,15 @@ events.out.tfevents.*
 *.pkl
 
 # Fourth-stage local model versions and background job state
-resources/
+/resources/
+
+# Local backup/quarantine and private credentials
+/delivery-safety-*/
+/quarantine/
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+# Evidence exported intentionally to reports/experiment_archive/ is tracked.

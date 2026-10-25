@@ -1,0 +1,5 @@
+# Keep experimental evidence byte-for-byte so published SHA-256 manifests work
+# after a clone on Windows as well as on other platforms.
+/reports/delivery_audit_20261025/** -text
+/reports/experiment_archive/** -text
+/reports/final_audit_20261025/** -text

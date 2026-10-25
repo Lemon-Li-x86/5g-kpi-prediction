@@ -1,0 +1,87 @@
+test_anomaly_loader_rejects_duplicate_and_fractional_hours (test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours) ... ok
+test_dl_scaler_ignores_all_future_changes (test_algorithm_audit.AlgorithmAuditTests.test_dl_scaler_ignores_all_future_changes) ... ok
+test_existing_experiment_is_rejected_before_writes (test_algorithm_audit.AlgorithmAuditTests.test_existing_experiment_is_rejected_before_writes) ... ok
+test_forecast_rejects_fractional_hour_before_casting_target (test_algorithm_audit.AlgorithmAuditTests.test_forecast_rejects_fractional_hour_before_casting_target) ... ok
+test_loaders_reject_joint_missing_hour (test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour) ... ok
+test_twenty_features_match_inference_on_each_beam (test_algorithm_audit.AlgorithmAuditTests.test_twenty_features_match_inference_on_each_beam) ... ok
+test_window_uses_target_exclusive_history_and_origin_season (test_algorithm_audit.AlgorithmAuditTests.test_window_uses_target_exclusive_history_and_origin_season) ... ok
+test_cli_consumes_canonical_defaults (test_cli_default_sources.CliDefaultSourceTests.test_cli_consumes_canonical_defaults) ... ok
+test_child_prints_unicode_losslessly (test_console_encoding.ConsoleEncodingTests.test_child_prints_unicode_losslessly) ... ok
+test_windows_gbk_parent_is_overridden (test_console_encoding.ConsoleEncodingTests.test_windows_gbk_parent_is_overridden) ... ok
+test_anomaly_run_never_borrows_historical_significance (test_dashboard_sources.DashboardSourceTests.test_anomaly_run_never_borrows_historical_significance) ... ok
+test_gru_run_uses_its_own_hourly_csv (test_dashboard_sources.DashboardSourceTests.test_gru_run_uses_its_own_hourly_csv) ... ok
+test_incomplete_runs_are_not_visible (test_dashboard_sources.DashboardSourceTests.test_incomplete_runs_are_not_visible) ... ok
+test_ml_run_reads_only_its_own_scores_and_predictions (test_dashboard_sources.DashboardSourceTests.test_ml_run_reads_only_its_own_scores_and_predictions) ... ok
+test_detects_missing_beam_hour (test_demo_inputs.DemoInputTests.test_detects_missing_beam_hour) ... ok
+test_forecast_and_anomaly_shapes (test_demo_inputs.DemoInputTests.test_forecast_and_anomaly_shapes) ... ok
+test_rejects_short_history (test_demo_inputs.DemoInputTests.test_rejects_short_history) ... ok
+test_experiment_design_uses_identical_twenty_lags (test_final_evaluation.FinalEvaluationTests.test_experiment_design_uses_identical_twenty_lags) ... ok
+test_hourly_loss_is_mean_of_individual_errors (test_final_evaluation.FinalEvaluationTests.test_hourly_loss_is_mean_of_individual_errors) ... ok
+test_finished_child_is_not_live (test_live_console_lifecycle.LiveConsoleLifecycleTests.test_finished_child_is_not_live) ... ok
+test_launch_records_pid_and_detaches_windows_console_group (test_live_console_lifecycle.LiveConsoleLifecycleTests.test_launch_records_pid_and_detaches_windows_console_group) ... ok
+test_pid_detection (test_live_console_lifecycle.LiveConsoleLifecycleTests.test_pid_detection) ... ok
+test_only_flagged_beam_hours_are_correlated (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_only_flagged_beam_hours_are_correlated) ... ok
+test_reject_duplicate_keys (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_reject_duplicate_keys) ... ok
+test_reject_inconsistent_beam_timestamps (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_reject_inconsistent_beam_timestamps) ... ok
+test_shuffled_history_does_not_shift_labels (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_shuffled_history_does_not_shift_labels) ... ok
+test_too_few_candidates_reports_no_correlation (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_too_few_candidates_reports_no_correlation) ... ok
+test_anomaly_and_regression_settings_are_scoped (test_shared_contracts.SharedConfigContracts.test_anomaly_and_regression_settings_are_scoped) ... ok
+test_dataset_manifest_has_one_file_per_kpi (test_shared_contracts.SharedConfigContracts.test_dataset_manifest_has_one_file_per_kpi) ... ok
+test_dl_architectures_keep_four_kpi_output_shape (test_shared_contracts.SharedConfigContracts.test_dl_architectures_keep_four_kpi_output_shape) ... ok
+test_forecast_history_is_derived_from_lag_contract (test_shared_contracts.SharedConfigContracts.test_forecast_history_is_derived_from_lag_contract) ... ok
+test_four_kpis_and_beam_keys_have_canonical_order (test_shared_contracts.SharedConfigContracts.test_four_kpis_and_beam_keys_have_canonical_order) ... ok
+test_independent_dl_models_allow_different_hidden_widths (test_shared_contracts.SharedConfigContracts.test_independent_dl_models_allow_different_hidden_widths) ... ok
+test_background_jobs_use_new_modules (test_structure.ProjectLayoutTests.test_background_jobs_use_new_modules) ... ok
+test_layered_implementations_exist_and_parse (test_structure.ProjectLayoutTests.test_layered_implementations_exist_and_parse) ... ok
+test_no_legacy_scripts_remain (test_structure.ProjectLayoutTests.test_no_legacy_scripts_remain) ... ok
+test_project_root_and_fields (test_structure.ProjectLayoutTests.test_project_root_and_fields) ... ok
+test_shared_architecture (test_structure.ProjectLayoutTests.test_shared_architecture) ... ok
+test_web_navigation_separates_training_and_inference (test_structure.ProjectLayoutTests.test_web_navigation_separates_training_and_inference) ... ok
+test_anomaly_cli_parameters (test_training_parameters.ParameterContractTests.test_anomaly_cli_parameters) ... ok
+test_args_reach_training_program (test_training_parameters.ParameterContractTests.test_args_reach_training_program) ... ok
+test_dl_defaults_match_existing_cli (test_training_parameters.ParameterContractTests.test_dl_defaults_match_existing_cli) ... ok
+test_isolated_run_keeps_requested_parameters (test_training_parameters.ParameterContractTests.test_isolated_run_keeps_requested_parameters) ... 
+Building time-series features...
+Running: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Scripts\python.exe -u -m src.models.train_deep_learning_models --models gru --out D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmps4cmhy_j\resources\experiments\gru_20261025T114819Z_72db78 --epochs 3 --batch-size 64 --lr 0.001 --hidden 32 --seq-len 24 --seasonal-lag 168 --patience 3 --max-train 60000 --max-val 12000 --max-test 0 --seed 42 --device auto
+Published model: D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmps4cmhy_j\resources\models\gru_20261025T114819Z_72db78\w3_gru.pt
+New experiment results: D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmps4cmhy_j\resources\experiments\gru_20261025T114819Z_72db78\reports\w3_deep_learning_metrics.csv
+ok
+test_reject_bad_inputs_before_launch (test_training_parameters.ParameterContractTests.test_reject_bad_inputs_before_launch) ... ok
+test_traditional_ml_quick_cli_and_validation (test_training_parameters.ParameterContractTests.test_traditional_ml_quick_cli_and_validation) ... ok
+test_traditional_ml_script_keeps_reports_isolated (test_training_parameters.ParameterContractTests.test_traditional_ml_script_keeps_reports_isolated) ... ok
+test_traditional_ml_web_output_isolation (test_training_parameters.ParameterContractTests.test_traditional_ml_web_output_isolation) ... 
+Metrics saved: D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmpoev2hj7q\isolated_ml\reports\model_metrics.csv
+Prediction summary saved: D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmpoev2hj7q\isolated_ml\reports\prediction_timeseries.csv
+
+======================================================================
+W4 traditional ML experiment completed.
+======================================================================
+
+Best model by R² for each KPI:
+target            model  MAE  RMSE  R2
+ DLPRB LinearRegression  0.1   0.1 0.9
+
+Generated:
+  D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmpoev2hj7q\isolated_ml\reports\model_metrics.csv
+  D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmpoev2hj7q\isolated_ml\reports\prediction_timeseries.csv
+  D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmpoev2hj7q\isolated_ml\reports\model_run_config.json
+  D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmpoev2hj7q\isolated_ml\figures
+
+WARNING:
+Results were generated in QUICK MODE.
+Run again without --quick for the final W4 experiment.
+Running: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Scripts\python.exe -u -m src.models.train_traditional_models --out D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmp09wk4z47\resources\experiments\ml_20261025T114819Z_01d05a --quick --max-train 512 --max-test 512
+Published 1 traditional ML models: D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmp09wk4z47\resources\models\ml_20261025T114819Z_01d05a
+New experiment results: D:\1_ToGo\Huawei5G\delivery-safety-20261025\test-temp\tmp09wk4z47\resources\experiments\ml_20261025T114819Z_01d05a\reports\model_metrics.csv
+ok
+test_cross_family_comparison_has_four_targets (test_week3_7_contracts.WeekThreeToSevenContracts.test_cross_family_comparison_has_four_targets) ... ok
+test_documented_modules_and_manual_exist (test_week3_7_contracts.WeekThreeToSevenContracts.test_documented_modules_and_manual_exist) ... ok
+test_each_week_has_source_code (test_week3_7_contracts.WeekThreeToSevenContracts.test_each_week_has_source_code) ... ok
+test_historical_data_split_and_four_kpis (test_week3_7_contracts.WeekThreeToSevenContracts.test_historical_data_split_and_four_kpis) ... ok
+test_ml_and_dl_metrics_have_expected_columns (test_week3_7_contracts.WeekThreeToSevenContracts.test_ml_and_dl_metrics_have_expected_columns) ... ok
+test_tracked_historical_results_exist (test_week3_7_contracts.WeekThreeToSevenContracts.test_tracked_historical_results_exist) ... ok
+
+----------------------------------------------------------------------
+Ran 53 tests in 1.719s
+
+OK

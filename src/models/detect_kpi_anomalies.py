@@ -30,6 +30,7 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 from sklearn.svm import OneClassSVM
 
+from src.core.training_config import ANOMALY_DEFAULTS
 from src.core.config import KPIS, KEYS, DATASET_TEST_START_HOUR
 
 
@@ -46,6 +47,7 @@ Z = [f"{k}_z" for k in KPIS]
 # ============================================================
 
 def load_data(path: Path):
+    from src.data.hourly_contract import validate_hourly_timeline
 
     cols = [
         "Time",
@@ -89,6 +91,7 @@ def load_data(path: Path):
     )
 
     timeline = tgrid[0].copy()
+    validate_hourly_timeline(timeline)
 
     if not np.array_equal(
         tgrid,
@@ -274,37 +277,37 @@ def main():
     p.add_argument(
         "--if-train-sample",
         type=int,
-        default=80000,
+        default=ANOMALY_DEFAULTS["if_train_sample"],
     )
 
     p.add_argument(
         "--if-contamination",
         type=float,
-        default=0.02,
+        default=ANOMALY_DEFAULTS["if_contamination"],
     )
 
     p.add_argument(
         "--svm-train-sample",
         type=int,
-        default=2500,
+        default=ANOMALY_DEFAULTS["svm_train_sample"],
     )
 
     p.add_argument(
         "--svm-test-sample",
         type=int,
-        default=12000,
+        default=ANOMALY_DEFAULTS["svm_test_sample"],
     )
 
     p.add_argument(
         "--seed",
         type=int,
-        default=42,
+        default=ANOMALY_DEFAULTS["seed"],
     )
 
     p.add_argument(
         "--max-events",
         type=int,
-        default=2000,
+        default=ANOMALY_DEFAULTS["max_events"],
     )
 
     args = p.parse_args()

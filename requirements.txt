@@ -16,4 +16,4 @@ streamlit>=1.37,<2
 plotly>=5.20,<7
 
 # Local WebSocket training console (websockets.asyncio.server)
-websockets>=13,<17
+websockets>=13,<18

@@ -1,0 +1,18 @@
+{
+  "task": "train_dl",
+  "model": "gru",
+  "parameters": {
+    "epochs": 3,
+    "batch_size": 64,
+    "lr": 0.001,
+    "hidden": 32,
+    "seq_len": 24,
+    "seasonal_lag": 168,
+    "patience": 2,
+    "max_train": 512,
+    "max_val": 512,
+    "max_test": 0,
+    "seed": 42,
+    "device": "auto"
+  }
+}

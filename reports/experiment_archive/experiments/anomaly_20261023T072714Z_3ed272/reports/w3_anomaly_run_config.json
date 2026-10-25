@@ -1,0 +1,16 @@
+{
+  "input": "data\\processed\\kpi_timeseries.csv",
+  "train_until_exclusive": 672,
+  "test_hours": [
+    672,
+    839
+  ],
+  "n_beams": 2880,
+  "test_samples": 483840,
+  "if_train_sample": 2048,
+  "svm_train_sample": 300,
+  "svm_test_sample": 500,
+  "if_contamination": 0.02,
+  "consensus_candidates": 3478,
+  "seed": 42
+}

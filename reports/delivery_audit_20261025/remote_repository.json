@@ -1,0 +1,15 @@
+{
+  "repository": "Lemon-Li-x86/5g-kpi-prediction",
+  "url": "https://github.com/Lemon-Li-x86/5g-kpi-prediction.git",
+  "visibility": "private",
+  "default_branch": "main",
+  "connected_permissions": [
+    "admin",
+    "maintain",
+    "pull",
+    "push",
+    "triage"
+  ],
+  "source": "GitHub get_repo read-only response, 2026-10-25",
+  "push_performed": false
+}

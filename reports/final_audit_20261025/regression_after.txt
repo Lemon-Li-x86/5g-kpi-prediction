@@ -1,0 +1,14 @@
+test_anomaly_loader_rejects_duplicate_and_fractional_hours (tests.test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours) ... ok
+test_dl_scaler_ignores_all_future_changes (tests.test_algorithm_audit.AlgorithmAuditTests.test_dl_scaler_ignores_all_future_changes) ... ok
+test_existing_experiment_is_rejected_before_writes (tests.test_algorithm_audit.AlgorithmAuditTests.test_existing_experiment_is_rejected_before_writes) ... ok
+test_forecast_rejects_fractional_hour_before_casting_target (tests.test_algorithm_audit.AlgorithmAuditTests.test_forecast_rejects_fractional_hour_before_casting_target) ... ok
+test_loaders_reject_joint_missing_hour (tests.test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour) ... ok
+test_twenty_features_match_inference_on_each_beam (tests.test_algorithm_audit.AlgorithmAuditTests.test_twenty_features_match_inference_on_each_beam) ... ok
+test_window_uses_target_exclusive_history_and_origin_season (tests.test_algorithm_audit.AlgorithmAuditTests.test_window_uses_target_exclusive_history_and_origin_season) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.056s
+
+OK
+
+Building time-series features...

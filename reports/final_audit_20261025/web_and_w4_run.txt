@@ -1,0 +1,2 @@
+W4 verified {'n': 483840, 'sigma': 22059, 'iqr': 51318, 'IF': 9900, 'consensus': 3165, 'IF_IQR': 3159, 'IF_sigma': 2080, 'three_OR': 58108, 'consensus_extra_vs_IF_IQR': 6, 'max_correlation_difference': 9.525896738082906e-10, 'p_values_and_bootstrap': 'reused existing W4 outputs; not re-estimated'}
+2026-10-25 16:18:07.477 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.

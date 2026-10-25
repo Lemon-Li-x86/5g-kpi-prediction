@@ -1,0 +1,62 @@
+[
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week2\\w2-1.docx",
+    "destination": "docs/source_reports/week2/w2-1.docx",
+    "actual_sha256": "e38e036fdaefd814dded90b2266de90051b074b8101cb13e244674021e99293c",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week2\\w2-2.docx",
+    "destination": "docs/source_reports/week2/w2-2.docx",
+    "actual_sha256": "4ce6dae1d452b2ca346c54ec5decaa08134aa9176ac0a9a1ee177639e8f6b06c",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week2\\W2周报.docx",
+    "destination": "docs/source_reports/week2/W2周报.docx",
+    "actual_sha256": "ed97c523336d8bd27e606522751fcaf033286187af92e48ef547a9a88b7e7cdb",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\01_深度学习模型性能评估报告_修订版.docx",
+    "destination": "docs/source_reports/week3/W3报告/01_深度学习模型性能评估报告_修订版.docx",
+    "actual_sha256": "65c17ee9cc61e626c4c78eddd5d3e62dad81b31127a32aa8d64e655bc868f3de",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\02_传统ML与DL模型对比分析_修订版.docx",
+    "destination": "docs/source_reports/week3/W3报告/02_传统ML与DL模型对比分析_修订版.docx",
+    "actual_sha256": "e49e3bcb31e5a307a4773ddcfa183bbb4ec29a5c99745155a89768eeb5e1175c",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\03_异常检测结果报告_修订版.docx",
+    "destination": "docs/source_reports/week3/W3报告/03_异常检测结果报告_修订版.docx",
+    "actual_sha256": "d182f4a86da654e694a97d5b0330fadabc7a7185b3603e4bf58e131097082c89",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\04_异常根因分析初步方案_修订版.docx",
+    "destination": "docs/source_reports/week3/W3报告/04_异常根因分析初步方案_修订版.docx",
+    "actual_sha256": "2183d44a66edd5d2792ac2c1addf2b2c8386ab19db330fd86c2135ee2a2574ed",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\05_第三阶段周实验报告.docx",
+    "destination": "docs/source_reports/week3/W3报告/05_第三阶段周实验报告.docx",
+    "actual_sha256": "f6bff0544ebbe7def6fcdaa32d606b0e572029a67cc1c159fdecddc1ac368aa2",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\w3周报.docx",
+    "destination": "docs/source_reports/week3/W3报告/w3周报.docx",
+    "actual_sha256": "415530c39809bc10cc01c2563901376f0695510f620fb00a269b6dcc0f71ea09",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\5G网络KPI预测与异常检测系统_完整项目技术报告_可编辑.docx",
+    "destination": "docs/source_reports/week4/5G网络KPI预测与异常检测系统_完整项目技术报告_可编辑.docx",
+    "actual_sha256": "1ba23cb93818c78d43f65b7348470e0fc2b6ee6bd6156c26409ef4325b68ecf2",
+    "matches_historical_manifest": true
+  }
+]

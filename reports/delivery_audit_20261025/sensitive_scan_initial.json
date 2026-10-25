@@ -1,0 +1,16 @@
+{
+  "scope": "Working text <=10MiB excluding .git/.venv/binaries; selected text Git history, regex heuristics only. No token values stored.",
+  "scanned_files": 252,
+  "patterns": [
+    "github_token",
+    "huggingface_token",
+    "aws_access_key",
+    "private_key",
+    "openai_token",
+    "credential_url",
+    "literal_secret_assignment"
+  ],
+  "findings": [],
+  "git_history_findings": [],
+  "sensitive_names": []
+}

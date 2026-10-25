@@ -1,0 +1,792 @@
+test_anomaly_loader_rejects_duplicate_and_fractional_hours (test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours) ... ERROR
+test_dl_scaler_ignores_all_future_changes (test_algorithm_audit.AlgorithmAuditTests.test_dl_scaler_ignores_all_future_changes) ... ok
+test_existing_experiment_is_rejected_before_writes (test_algorithm_audit.AlgorithmAuditTests.test_existing_experiment_is_rejected_before_writes) ... ERROR
+test_forecast_rejects_fractional_hour_before_casting_target (test_algorithm_audit.AlgorithmAuditTests.test_forecast_rejects_fractional_hour_before_casting_target) ... ERROR
+test_loaders_reject_joint_missing_hour (test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour) ... ERROR
+test_twenty_features_match_inference_on_each_beam (test_algorithm_audit.AlgorithmAuditTests.test_twenty_features_match_inference_on_each_beam) ... ERROR
+test_window_uses_target_exclusive_history_and_origin_season (test_algorithm_audit.AlgorithmAuditTests.test_window_uses_target_exclusive_history_and_origin_season) ... ok
+test_child_prints_unicode_losslessly (test_console_encoding.ConsoleEncodingTests.test_child_prints_unicode_losslessly) ... ok
+test_windows_gbk_parent_is_overridden (test_console_encoding.ConsoleEncodingTests.test_windows_gbk_parent_is_overridden) ... ok
+test_anomaly_run_never_borrows_historical_significance (test_dashboard_sources.DashboardSourceTests.test_anomaly_run_never_borrows_historical_significance) ... ERROR
+test_anomaly_run_never_borrows_historical_significance (test_dashboard_sources.DashboardSourceTests.test_anomaly_run_never_borrows_historical_significance) ... ERROR
+test_gru_run_uses_its_own_hourly_csv (test_dashboard_sources.DashboardSourceTests.test_gru_run_uses_its_own_hourly_csv) ... ERROR
+test_gru_run_uses_its_own_hourly_csv (test_dashboard_sources.DashboardSourceTests.test_gru_run_uses_its_own_hourly_csv) ... ERROR
+test_incomplete_runs_are_not_visible (test_dashboard_sources.DashboardSourceTests.test_incomplete_runs_are_not_visible) ... ERROR
+test_incomplete_runs_are_not_visible (test_dashboard_sources.DashboardSourceTests.test_incomplete_runs_are_not_visible) ... ERROR
+test_ml_run_reads_only_its_own_scores_and_predictions (test_dashboard_sources.DashboardSourceTests.test_ml_run_reads_only_its_own_scores_and_predictions) ... ERROR
+test_ml_run_reads_only_its_own_scores_and_predictions (test_dashboard_sources.DashboardSourceTests.test_ml_run_reads_only_its_own_scores_and_predictions) ... ERROR
+test_detects_missing_beam_hour (test_demo_inputs.DemoInputTests.test_detects_missing_beam_hour) ... ok
+test_forecast_and_anomaly_shapes (test_demo_inputs.DemoInputTests.test_forecast_and_anomaly_shapes) ... ok
+test_rejects_short_history (test_demo_inputs.DemoInputTests.test_rejects_short_history) ... ok
+test_experiment_design_uses_identical_twenty_lags (test_final_evaluation.FinalEvaluationTests.test_experiment_design_uses_identical_twenty_lags) ... ok
+test_hourly_loss_is_mean_of_individual_errors (test_final_evaluation.FinalEvaluationTests.test_hourly_loss_is_mean_of_individual_errors) ... ok
+test_finished_child_is_not_live (test_live_console_lifecycle.LiveConsoleLifecycleTests.test_finished_child_is_not_live) ... ok
+test_launch_records_pid_and_detaches_windows_console_group (test_live_console_lifecycle.LiveConsoleLifecycleTests.test_launch_records_pid_and_detaches_windows_console_group) ... ERROR
+test_pid_detection (test_live_console_lifecycle.LiveConsoleLifecycleTests.test_pid_detection) ... ok
+test_only_flagged_beam_hours_are_correlated (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_only_flagged_beam_hours_are_correlated) ... ok
+test_reject_duplicate_keys (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_reject_duplicate_keys) ... ok
+test_reject_inconsistent_beam_timestamps (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_reject_inconsistent_beam_timestamps) ... ok
+test_shuffled_history_does_not_shift_labels (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_shuffled_history_does_not_shift_labels) ... ok
+test_too_few_candidates_reports_no_correlation (test_session_kpi_analysis.CurrentAnomalyAssociationTests.test_too_few_candidates_reports_no_correlation) ... ok
+test_anomaly_and_regression_settings_are_scoped (test_shared_contracts.SharedConfigContracts.test_anomaly_and_regression_settings_are_scoped) ... ok
+test_dataset_manifest_has_one_file_per_kpi (test_shared_contracts.SharedConfigContracts.test_dataset_manifest_has_one_file_per_kpi) ... ok
+test_dl_architectures_keep_four_kpi_output_shape (test_shared_contracts.SharedConfigContracts.test_dl_architectures_keep_four_kpi_output_shape) ... ok
+test_forecast_history_is_derived_from_lag_contract (test_shared_contracts.SharedConfigContracts.test_forecast_history_is_derived_from_lag_contract) ... ok
+test_four_kpis_and_beam_keys_have_canonical_order (test_shared_contracts.SharedConfigContracts.test_four_kpis_and_beam_keys_have_canonical_order) ... ok
+test_independent_dl_models_allow_different_hidden_widths (test_shared_contracts.SharedConfigContracts.test_independent_dl_models_allow_different_hidden_widths) ... ok
+test_background_jobs_use_new_modules (test_structure.ProjectLayoutTests.test_background_jobs_use_new_modules) ... ok
+test_layered_implementations_exist_and_parse (test_structure.ProjectLayoutTests.test_layered_implementations_exist_and_parse) ... ok
+test_no_legacy_scripts_remain (test_structure.ProjectLayoutTests.test_no_legacy_scripts_remain) ... ok
+test_project_root_and_fields (test_structure.ProjectLayoutTests.test_project_root_and_fields) ... ok
+test_shared_architecture (test_structure.ProjectLayoutTests.test_shared_architecture) ... ok
+test_web_navigation_separates_training_and_inference (test_structure.ProjectLayoutTests.test_web_navigation_separates_training_and_inference) ... ok
+test_anomaly_cli_parameters (test_training_parameters.ParameterContractTests.test_anomaly_cli_parameters) ... ok
+test_args_reach_training_program (test_training_parameters.ParameterContractTests.test_args_reach_training_program) ... ok
+test_dl_defaults_match_existing_cli (test_training_parameters.ParameterContractTests.test_dl_defaults_match_existing_cli) ... ok
+test_isolated_run_keeps_requested_parameters (test_training_parameters.ParameterContractTests.test_isolated_run_keeps_requested_parameters) ... ERROR
+test_reject_bad_inputs_before_launch (test_training_parameters.ParameterContractTests.test_reject_bad_inputs_before_launch) ... ok
+test_traditional_ml_quick_cli_and_validation (test_training_parameters.ParameterContractTests.test_traditional_ml_quick_cli_and_validation) ... ok
+test_traditional_ml_script_keeps_reports_isolated (test_training_parameters.ParameterContractTests.test_traditional_ml_script_keeps_reports_isolated) ... ERROR
+test_traditional_ml_web_output_isolation (test_training_parameters.ParameterContractTests.test_traditional_ml_web_output_isolation) ... ERROR
+test_cross_family_comparison_has_four_targets (test_week3_7_contracts.WeekThreeToSevenContracts.test_cross_family_comparison_has_four_targets) ... ok
+test_documented_modules_and_manual_exist (test_week3_7_contracts.WeekThreeToSevenContracts.test_documented_modules_and_manual_exist) ... ok
+test_each_week_has_source_code (test_week3_7_contracts.WeekThreeToSevenContracts.test_each_week_has_source_code) ... ok
+test_historical_data_split_and_four_kpis (test_week3_7_contracts.WeekThreeToSevenContracts.test_historical_data_split_and_four_kpis) ... ok
+test_ml_and_dl_metrics_have_expected_columns (test_week3_7_contracts.WeekThreeToSevenContracts.test_ml_and_dl_metrics_have_expected_columns) ... ok
+test_tracked_historical_results_exist (test_week3_7_contracts.WeekThreeToSevenContracts.test_tracked_historical_results_exist) ... ok
+
+======================================================================
+ERROR: test_anomaly_loader_rejects_duplicate_and_fractional_hours (test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 40, in test_anomaly_loader_rejects_duplicate_and_fractional_hours
+    self.frame(times).to_csv(p, index=False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\core\generic.py", line 3989, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        path_or_buf,
+        ^^^^^^^^^^^^
+    ...<14 lines>...
+        storage_options=storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\io\formats\format.py", line 1014, in to_csv
+    csv_formatter.save()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+         ~~~~~~~~~~^
+        self.filepath_or_buffer,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        storage_options=self.storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as handles:
+    ^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+        handle,
+    ...<3 lines>...
+        newline="",
+    )
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpm7w_ecwj\\input.csv'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpm7w_ecwj'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 37, in test_anomaly_loader_rejects_duplicate_and_fractional_hours
+    with tempfile.TemporaryDirectory() as d:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpm7w_ecwj'
+
+======================================================================
+ERROR: test_existing_experiment_is_rejected_before_writes (test_algorithm_audit.AlgorithmAuditTests.test_existing_experiment_is_rejected_before_writes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 78, in test_existing_experiment_is_rejected_before_writes
+    out = Path(d); (out / 'models').mkdir()
+                   ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp0rqt42yx\\models'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp0rqt42yx'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 77, in test_existing_experiment_is_rejected_before_writes
+    with tempfile.TemporaryDirectory() as d:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp0rqt42yx'
+
+======================================================================
+ERROR: test_forecast_rejects_fractional_hour_before_casting_target (test_algorithm_audit.AlgorithmAuditTests.test_forecast_rejects_fractional_hour_before_casting_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 69, in test_forecast_rejects_fractional_hour_before_casting_target
+    with p.open('wb') as f:
+         ~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 776, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpx_209pdw\\m.pkl'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpx_209pdw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 67, in test_forecast_rejects_fractional_hour_before_casting_target
+    with tempfile.TemporaryDirectory() as d:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpx_209pdw'
+
+======================================================================
+ERROR: test_loaders_reject_joint_missing_hour (test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 31, in test_loaders_reject_joint_missing_hour
+    self.frame([0, 1, 3, 4]).to_csv(p, index=False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\core\generic.py", line 3989, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        path_or_buf,
+        ^^^^^^^^^^^^
+    ...<14 lines>...
+        storage_options=storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\io\formats\format.py", line 1014, in to_csv
+    csv_formatter.save()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+         ~~~~~~~~~~^
+        self.filepath_or_buffer,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        storage_options=self.storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as handles:
+    ^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+        handle,
+    ...<3 lines>...
+        newline="",
+    )
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpazuqa471\\input.csv'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpazuqa471'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 29, in test_loaders_reject_joint_missing_hour
+    with tempfile.TemporaryDirectory() as d:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpazuqa471'
+
+======================================================================
+ERROR: test_twenty_features_match_inference_on_each_beam (test_algorithm_audit.AlgorithmAuditTests.test_twenty_features_match_inference_on_each_beam)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 100, in test_twenty_features_match_inference_on_each_beam
+    with p.open('wb') as f:
+         ~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 776, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpzai51n4y\\m.pkl'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpzai51n4y'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 98, in test_twenty_features_match_inference_on_each_beam
+    with tempfile.TemporaryDirectory() as d:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpzai51n4y'
+
+======================================================================
+ERROR: test_anomaly_run_never_borrows_historical_significance (test_dashboard_sources.DashboardSourceTests.test_anomaly_run_never_borrows_historical_significance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_dashboard_sources.py", line 27, in setUp
+    self.history.mkdir()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp6ox8bvzy\\reports'
+
+======================================================================
+ERROR: test_anomaly_run_never_borrows_historical_significance (test_dashboard_sources.DashboardSourceTests.test_anomaly_run_never_borrows_historical_significance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp6ox8bvzy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp6ox8bvzy'
+
+======================================================================
+ERROR: test_gru_run_uses_its_own_hourly_csv (test_dashboard_sources.DashboardSourceTests.test_gru_run_uses_its_own_hourly_csv)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_dashboard_sources.py", line 27, in setUp
+    self.history.mkdir()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpfg3l3cyd\\reports'
+
+======================================================================
+ERROR: test_gru_run_uses_its_own_hourly_csv (test_dashboard_sources.DashboardSourceTests.test_gru_run_uses_its_own_hourly_csv)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpfg3l3cyd'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpfg3l3cyd'
+
+======================================================================
+ERROR: test_incomplete_runs_are_not_visible (test_dashboard_sources.DashboardSourceTests.test_incomplete_runs_are_not_visible)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_dashboard_sources.py", line 27, in setUp
+    self.history.mkdir()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpsb1_scbi\\reports'
+
+======================================================================
+ERROR: test_incomplete_runs_are_not_visible (test_dashboard_sources.DashboardSourceTests.test_incomplete_runs_are_not_visible)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpsb1_scbi'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpsb1_scbi'
+
+======================================================================
+ERROR: test_ml_run_reads_only_its_own_scores_and_predictions (test_dashboard_sources.DashboardSourceTests.test_ml_run_reads_only_its_own_scores_and_predictions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_dashboard_sources.py", line 27, in setUp
+    self.history.mkdir()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpk_q0by_x\\reports'
+
+======================================================================
+ERROR: test_ml_run_reads_only_its_own_scores_and_predictions (test_dashboard_sources.DashboardSourceTests.test_ml_run_reads_only_its_own_scores_and_predictions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpk_q0by_x'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpk_q0by_x'
+
+======================================================================
+ERROR: test_launch_records_pid_and_detaches_windows_console_group (test_live_console_lifecycle.LiveConsoleLifecycleTests.test_launch_records_pid_and_detaches_windows_console_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_live_console_lifecycle.py", line 49, in test_launch_records_pid_and_detaches_windows_console_group
+    web_workflow._launch("download")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\ui\web_workflow.py", line 131, in _launch
+    JOBS.mkdir(parents=True, exist_ok=True)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpeixag1cn\\jobs'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpeixag1cn'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_live_console_lifecycle.py", line 35, in test_launch_records_pid_and_detaches_windows_console_group
+    with tempfile.TemporaryDirectory() as tmp:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpeixag1cn'
+
+======================================================================
+ERROR: test_isolated_run_keeps_requested_parameters (test_training_parameters.ParameterContractTests.test_isolated_run_keeps_requested_parameters)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpk_dzmc4o\\resources\\jobs'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_training_parameters.py", line 173, in test_isolated_run_keeps_requested_parameters
+    self.assertEqual(web_jobs.run("train_dl", "gru", {"epochs": 3, "batch_size": 64}), 0)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\services\web_jobs.py", line 38, in run
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1020, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpk_dzmc4o\\resources'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpk_dzmc4o'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_training_parameters.py", line 156, in test_isolated_run_keeps_requested_parameters
+    with tempfile.TemporaryDirectory() as d:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpk_dzmc4o'
+
+======================================================================
+ERROR: test_traditional_ml_script_keeps_reports_isolated (test_training_parameters.ParameterContractTests.test_traditional_ml_script_keeps_reports_isolated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_training_parameters.py", line 59, in test_traditional_ml_script_keeps_reports_isolated
+    old_dir.mkdir()
+    ~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpqjwzwseb\\reports'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpqjwzwseb'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_training_parameters.py", line 56, in test_traditional_ml_script_keeps_reports_isolated
+    with tempfile.TemporaryDirectory() as directory:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmpqjwzwseb'
+
+======================================================================
+ERROR: test_traditional_ml_web_output_isolation (test_training_parameters.ParameterContractTests.test_traditional_ml_web_output_isolation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_training_parameters.py", line 107, in test_traditional_ml_web_output_isolation
+    legacy_reports.mkdir()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 1016, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp11j3pwpq\\reports'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 707, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp11j3pwpq'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_training_parameters.py", line 104, in test_traditional_ml_web_output_isolation
+    with tempfile.TemporaryDirectory() as directory:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 971, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 975, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 955, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 852, in rmtree
+    _rmtree_impl(path, dir_fd, onexc)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 711, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 927, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\29753\AppData\Local\Programs\Python\Python314\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\29753\\AppData\\Local\\Packages\\sandbox.{a37d9a72-2ddf-4030-8146-05402f15d657}\\AC\\Temp\\tmp11j3pwpq'
+
+----------------------------------------------------------------------
+Ran 52 tests in 1.633s
+
+FAILED (errors=17)
+
+Building time-series features...

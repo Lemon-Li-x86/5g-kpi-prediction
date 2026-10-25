@@ -1,0 +1,34 @@
+{
+  "git_history": [
+    54,
+    17289228
+  ],
+  "source_config_or_other": [
+    59,
+    421890
+  ],
+  "environment": [
+    40831,
+    1388756759
+  ],
+  "documentation": [
+    7,
+    81997
+  ],
+  "regenerable_cache": [
+    69,
+    533629
+  ],
+  "critical_data": [
+    6,
+    720848425
+  ],
+  "experiment_evidence_or_runtime": [
+    385,
+    76084820
+  ],
+  "model_scaler_or_predictions": [
+    249,
+    1509731808
+  ]
+}

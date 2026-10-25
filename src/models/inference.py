@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 from src.core.config import ROOT, KPIS, KEYS, ML_LAGS, ML_HISTORY_HOURS
+from src.data.hourly_contract import validate_hourly_timeline
 
 
 def save_ml(model, name, target, columns, output_dir=None):
@@ -38,6 +39,7 @@ def predict_kpi(history, artifact):
     results = []
     for key, group in history.groupby(KEYS, sort=True):
         group = group.sort_values('Time')
+        validate_hourly_timeline(group.Time.to_numpy())
         if group.Time.duplicated().any() or not np.all(np.diff(group.Time) == 1):
             raise ValueError('History must have unique contiguous hours per beam')
         raw = group[KPIS].to_numpy(dtype=np.float32)
@@ -90,6 +92,7 @@ def detect_anomalies(values, artifact):
         if not actual.equals(expected):
             raise ValueError('Unknown, missing, or mismatched beam identifiers')
         times = [g.Time.to_numpy() for _, g in groups]
+        validate_hourly_timeline(times[0])
         if any(not np.array_equal(t, times[0]) for t in times) or not np.all(np.diff(times[0]) == 1):
             raise ValueError('Expected aligned contiguous beam timelines')
         scaling = bundle['scaling']

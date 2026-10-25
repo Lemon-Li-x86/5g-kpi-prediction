@@ -1,0 +1,64 @@
+ M docs/ARCHITECTURE.md
+ M docs/TECHNICAL_REPORT.md
+ M src/models/detect_kpi_anomalies.py
+ M src/models/inference.py
+ M src/models/train_deep_learning_models.py
+?? "docs/\345\217\202\346\225\260\347\231\273\350\256\260\347\260\277_\346\234\200\347\273\210\345\256\241\346\237\245.md"
+?? "docs/\345\257\274\345\270\210\345\217\215\351\246\210\350\277\275\350\270\252\347\237\251\351\230\265.md"
+?? "docs/\345\257\274\345\270\210\345\217\215\351\246\210\351\200\220\351\241\271\345\205\263\351\227\255\346\270\205\345\215\225.md"
+?? reports/final_audit_20261025/algorithm_regression_all.txt
+?? reports/final_audit_20261025/baseline_manifest.json
+?? reports/final_audit_20261025/baseline_tests.txt
+?? reports/final_audit_20261025/baseline_tests_retry.txt
+?? reports/final_audit_20261025/changed_files.txt
+?? reports/final_audit_20261025/cli_smoke.txt
+?? reports/final_audit_20261025/document_qa.json
+?? reports/final_audit_20261025/environment_freeze.txt
+?? reports/final_audit_20261025/experiment_input_artifact_hashes.json
+?? reports/final_audit_20261025/experiment_run.txt
+?? reports/final_audit_20261025/experiments/COMPLETE.json
+?? reports/final_audit_20261025/experiments/decision_context.json
+?? reports/final_audit_20261025/experiments/environment.json
+?? reports/final_audit_20261025/experiments/holdout_significance.csv
+?? reports/final_audit_20261025/experiments/hourly_losses.csv
+?? reports/final_audit_20261025/experiments/metrics.csv
+?? reports/final_audit_20261025/experiments/protocol.json
+?? reports/final_audit_20261025/experiments/runner_used.py
+?? reports/final_audit_20261025/experiments/runs.json
+?? reports/final_audit_20261025/experiments/seed_summary.csv
+?? reports/final_audit_20261025/experiments/walkforward_summary.csv
+?? reports/final_audit_20261025/experiments/walkforward_summary_flat.csv
+?? reports/final_audit_20261025/final_report_page_evidence.json
+?? reports/final_audit_20261025/final_tests.txt
+?? reports/final_audit_20261025/fractional_before.txt
+?? reports/final_audit_20261025/git_status_latest.txt
+?? reports/final_audit_20261025/installed_versions.json
+?? reports/final_audit_20261025/parameter_inventory.csv
+?? reports/final_audit_20261025/pip_check.txt
+?? reports/final_audit_20261025/preservation_check.json
+?? reports/final_audit_20261025/real_artifact_roundtrip.json
+?? reports/final_audit_20261025/real_artifact_run.txt
+?? reports/final_audit_20261025/regression_after.txt
+?? reports/final_audit_20261025/regression_before.txt
+?? reports/final_audit_20261025/remote_heads.txt
+?? reports/final_audit_20261025/renderer_probe.txt
+?? reports/final_audit_20261025/renderer_probe_retry.txt
+?? reports/final_audit_20261025/report_revision_manifest.json
+?? reports/final_audit_20261025/w4_verification.json
+?? reports/final_audit_20261025/web_and_w4_run.txt
+?? reports/final_audit_20261025/web_apptest.json
+?? reports/final_audit_20261025/web_apptest_retry.txt
+?? reports/final_audit_20261025/word_render.txt
+?? reports/final_audit_20261025/word_render_final.txt
+?? "reports/final_audit_20261025/\346\250\241\345\236\213\345\256\236\351\252\214\344\270\216\347\273\237\350\256\241\345\244\215\346\240\270.md"
+?? scripts/audit_project.py
+?? scripts/build_review_documents.py
+?? scripts/check_real_artifacts.py
+?? scripts/inspect_review_pdfs.py
+?? scripts/render_review_docs.ps1
+?? scripts/summarize_final_review.py
+?? scripts/verify_final_review.py
+?? src/analysis/final_model_validation.py
+?? src/data/hourly_contract.py
+?? tests/test_algorithm_audit.py
+?? tests/test_final_evaluation.py

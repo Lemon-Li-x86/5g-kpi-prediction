@@ -1,0 +1,4 @@
+{
+  "findings": [],
+  "scope": "Token/private-key regex in Office XML; no personal information classification"
+}

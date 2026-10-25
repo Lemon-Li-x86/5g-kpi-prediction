@@ -1,0 +1,12 @@
+{
+  "version": "20261023T025138Z_8fd183",
+  "reason": "before_train_dl",
+  "artifacts": [
+    {
+      "filename": "w3_lstm.pt",
+      "family": "dl",
+      "model": "LSTM",
+      "target": "ALL"
+    }
+  ]
+}

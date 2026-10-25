@@ -1,0 +1,13 @@
+train: 512 samples; hours 169..587
+val: 512 samples; hours 588..671
+test: 512 samples; hours 672..839
+
+Training GRU on cpu...
+Epoch 1/1: train MSE=0.69542, val MSE=1.06334
+
+Metrics saved: resources\final_audit_20261025\cli_smoke\reports\w3_deep_learning_metrics.csv
+model       KPI      MAE     RMSE        R2  test_samples unit
+  GRU     DLPRB 0.687948 0.931411  0.252400           512  raw
+  GRU  DLThpVol 0.396910 0.842754 -0.638058           512  raw
+  GRU DLThpTime 0.406395 0.878146 -0.047264           512  raw
+  GRU MR_number 0.872449 1.223705 -0.268454           512  raw

@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "seeds": [
+    42,
+    43
+  ],
+  "sample_seed": 42,
+  "max_train": 60000,
+  "epochs": 12,
+  "patience": 3,
+  "batch_size": 256,
+  "learning_rate": 0.001,
+  "hidden": 32,
+  "seq_len": 24,
+  "seasonal_lag": 168,
+  "cpu_threads": 4,
+  "pairing": "same beam/target rows, all beams in each evaluation hour",
+  "sample_budget": "same training labels and time range for RF, XGB, GRU; different input representations",
+  "folds": [
+    [
+      384,
+      480,
+      336
+    ],
+    [
+      480,
+      576,
+      432
+    ],
+    [
+      576,
+      672,
+      528
+    ]
+  ],
+  "holdout": [
+    672,
+    840,
+    588
+  ],
+  "selection": "fixed before running; no test-based parameter adjustment",
+  "tests": "24 comparisons per scenario/seed, two-sided NW HAC24, Holm all24",
+  "uncertainty": "CI is pointwise HAC95%; Holm applies to p-values, seeds are not independent new time periods",
+  "limitation": "outer test is not an official external test dataset; labels observed each hour for next-hour forecast",
+  "source_sha256": {
+    "src\\analysis\\final_model_validation.py": "eaa8e55b583b05b98fc3fbbffd3e67a57c95e16d4d395d1520dd5c19f96a63d0",
+    "src\\models\\train_deep_learning_models.py": "57c3cdfdb0af05243a4222da9dabba2cbc42d441acecb93f683506eb55dbb665",
+    "src\\models\\train_traditional_models.py": "bff67dd4398eef78d77ff1630503732c2792592acaae7ddc73fbf1ba8a85c419",
+    "src\\models\\architectures.py": "d2f94a7ca3e1e4ec48b4eb22b7ef8154bab0851b7852728637ac41123dba084d"
+  }
+}

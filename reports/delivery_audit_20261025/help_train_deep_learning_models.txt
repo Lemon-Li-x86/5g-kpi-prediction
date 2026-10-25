@@ -1,0 +1,44 @@
+usage: python.exe -m src.models.train_deep_learning_models [-h] [--csv CSV]
+                                                           [--out OUT]
+                                                           [--models {lstm,gru,transformer} [{lstm,gru,transformer} ...]]
+                                                           [--seq-len SEQ_LEN]
+                                                           [--seasonal-lag SEASONAL_LAG]
+                                                           [--min-target-hour MIN_TARGET_HOUR]
+                                                           [--validation-start VALIDATION_START]
+                                                           [--test-start TEST_START]
+                                                           [--max-train MAX_TRAIN]
+                                                           [--max-val MAX_VAL]
+                                                           [--max-test MAX_TEST]
+                                                           [--epochs EPOCHS]
+                                                           [--patience PATIENCE]
+                                                           [--batch-size BATCH_SIZE]
+                                                           [--hidden HIDDEN]
+                                                           [--lr LR]
+                                                           [--seed SEED]
+                                                           [--device {auto,cpu,cuda}]
+
+Condensed W3 (original Week 5): Beam-level multi-KPI forecasting with LSTM,
+GRU and Transformer. Input: data/processed/kpi_timeseries.csv Targets: DLPRB,
+DLThpVol, DLThpTime, MR_number Task: Use historical KPI values to predict the
+next hour. Evaluation: MAE, RMSE and R2 in original KPI units.
+
+options:
+  -h, --help            show this help message and exit
+  --csv CSV
+  --out OUT
+  --models {lstm,gru,transformer} [{lstm,gru,transformer} ...]
+  --seq-len SEQ_LEN
+  --seasonal-lag SEASONAL_LAG
+  --min-target-hour MIN_TARGET_HOUR
+  --validation-start VALIDATION_START
+  --test-start TEST_START
+  --max-train MAX_TRAIN
+  --max-val MAX_VAL
+  --max-test MAX_TEST
+  --epochs EPOCHS
+  --patience PATIENCE
+  --batch-size BATCH_SIZE
+  --hidden HIDDEN
+  --lr LR
+  --seed SEED
+  --device {auto,cpu,cuda}

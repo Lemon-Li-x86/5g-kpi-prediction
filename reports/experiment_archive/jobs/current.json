@@ -1,0 +1,16 @@
+{
+  "task": "train_ml",
+  "model": "",
+  "parameters": {
+    "quick": true,
+    "max_train": 512,
+    "max_test": 512
+  },
+  "status": "completed",
+  "started": "2026-10-23T07:50:16+00:00",
+  "output_dir": "D:\\1_ToGo\\Huawei5G\\5g-kpi-prediction-refactor-project-structure\\resources\\experiments\\ml_20261023T075016Z_0e8e81",
+  "models_archived": 20,
+  "model_path": "D:\\1_ToGo\\Huawei5G\\5g-kpi-prediction-refactor-project-structure\\resources\\models\\ml_20261023T075016Z_0e8e81",
+  "metrics_path": "D:\\1_ToGo\\Huawei5G\\5g-kpi-prediction-refactor-project-structure\\resources\\experiments\\ml_20261023T075016Z_0e8e81\\reports\\model_metrics.csv",
+  "finished": "2026-10-23T07:50:22+00:00"
+}

@@ -1,0 +1,9 @@
+{
+  "task": "train_ml",
+  "model": "",
+  "parameters": {
+    "quick": true,
+    "max_train": 512,
+    "max_test": 512
+  }
+}

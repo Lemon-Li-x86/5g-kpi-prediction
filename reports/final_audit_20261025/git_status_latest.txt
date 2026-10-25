@@ -1,0 +1,16 @@
+## w4/local-integration-2026-10-23...origin/w4/local-integration-2026-10-23 [gone]
+ M docs/ARCHITECTURE.md
+ M docs/TECHNICAL_REPORT.md
+ M src/models/detect_kpi_anomalies.py
+ M src/models/inference.py
+ M src/models/train_deep_learning_models.py
+?? deliverables/
+?? "docs/\345\217\202\346\225\260\347\231\273\350\256\260\347\260\277_\346\234\200\347\273\210\345\256\241\346\237\245.md"
+?? "docs/\345\257\274\345\270\210\345\217\215\351\246\210\350\277\275\350\270\252\347\237\251\351\230\265.md"
+?? "docs/\345\257\274\345\270\210\345\217\215\351\246\210\351\200\220\351\241\271\345\205\263\351\227\255\346\270\205\345\215\225.md"
+?? reports/final_audit_20261025/
+?? scripts/
+?? src/analysis/final_model_validation.py
+?? src/data/hourly_contract.py
+?? tests/test_algorithm_audit.py
+?? tests/test_final_evaluation.py

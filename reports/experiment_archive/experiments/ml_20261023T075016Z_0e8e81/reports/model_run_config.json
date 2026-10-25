@@ -1,0 +1,52 @@
+{
+  "experiment": {
+    "task": "1-hour-ahead beam-level KPI regression",
+    "targets": [
+      "DLPRB",
+      "DLThpVol",
+      "DLThpTime",
+      "MR_number"
+    ],
+    "quick_mode": true
+  },
+  "features": {
+    "count": 20,
+    "columns": [
+      "DLPRB_z_t",
+      "DLPRB_z_lag1",
+      "DLPRB_z_lag2",
+      "DLPRB_z_lag24",
+      "DLPRB_z_lag168",
+      "DLThpVol_z_t",
+      "DLThpVol_z_lag1",
+      "DLThpVol_z_lag2",
+      "DLThpVol_z_lag24",
+      "DLThpVol_z_lag168",
+      "DLThpTime_z_t",
+      "DLThpTime_z_lag1",
+      "DLThpTime_z_lag2",
+      "DLThpTime_z_lag24",
+      "DLThpTime_z_lag168",
+      "MR_number_z_t",
+      "MR_number_z_lag1",
+      "MR_number_z_lag2",
+      "MR_number_z_lag24",
+      "MR_number_z_lag168"
+    ]
+  },
+  "models": [
+    "Persistence",
+    "LinearRegression",
+    "DecisionTree",
+    "RandomForest",
+    "XGBoost",
+    "LightGBM"
+  ],
+  "metrics": [
+    "MAE",
+    "RMSE",
+    "R2"
+  ],
+  "result_rows": 24,
+  "random_state": 42
+}

@@ -1,0 +1,64 @@
+{
+  "syntax_files": 57,
+  "original_artifacts_evidence_checked": 640,
+  "original_artifacts_changed": [],
+  "candidate_files": 404,
+  "candidate_bytes": 63298794,
+  "oversized_files": [],
+  "sensitive_scan": {
+    "text_files": 296,
+    "findings": []
+  },
+  "ignore_checks": {
+    "src/models/new_module.py": false,
+    "models/new.pt": true,
+    "resources/models/run/model.pt": true,
+    "data/raw/source.csv": true,
+    ".env": true,
+    "reports/experiment_archive/run/reports/metrics.csv": false,
+    "docs/source_reports/week2/report.docx": false
+  },
+  "checks": [
+    {
+      "log": "unit_tests.txt",
+      "returncode": 0,
+      "note": "Reused completed validation; not rerun."
+    },
+    {
+      "log": "inference_registry_tests.txt",
+      "returncode": 0,
+      "note": "Reused completed validation; not rerun."
+    },
+    {
+      "log": "pip_check.txt",
+      "returncode": 0,
+      "note": "Reused completed validation; not rerun."
+    },
+    {
+      "log": "help_train_traditional_models.txt",
+      "returncode": 0,
+      "note": "Reused completed validation; not rerun."
+    },
+    {
+      "log": "help_train_deep_learning_models.txt",
+      "returncode": 0,
+      "note": "Reused completed validation; not rerun."
+    },
+    {
+      "log": "help_detect_kpi_anomalies.txt",
+      "returncode": 0,
+      "note": "Reused completed validation; not rerun."
+    },
+    {
+      "log": "actual_artifact_inference.txt",
+      "returncode": 0,
+      "note": "Reused completed validation; not rerun."
+    },
+    {
+      "log": "web_validation_retry.txt",
+      "returncode": 0,
+      "note": "Restricted runner stalled and was interrupted; elevated local runner passed all six pages. W4 evidence verified in original run."
+    }
+  ],
+  "all_passed": true
+}

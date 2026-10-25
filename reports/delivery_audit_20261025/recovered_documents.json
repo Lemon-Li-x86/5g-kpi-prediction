@@ -1,0 +1,142 @@
+[
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W2_数据集统计分析报告_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W2_数据集统计分析报告_核验修订20261025.docx",
+    "expected_historical_sha256": "fde7c2f0acae64e11413ab45723baf438fb68210a49b4c702a5d0ac21dc2ad3e",
+    "actual_sha256": "fde7c2f0acae64e11413ab45723baf438fb68210a49b4c702a5d0ac21dc2ad3e",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W2_模型性能评估报告_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W2_模型性能评估报告_核验修订20261025.docx",
+    "expected_historical_sha256": "e4398e00782453bec2d45d1f4f3847442a50c21c2ebf4c155608cc2a0738c049",
+    "actual_sha256": "e4398e00782453bec2d45d1f4f3847442a50c21c2ebf4c155608cc2a0738c049",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W2_周报_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W2_周报_核验修订20261025.docx",
+    "expected_historical_sha256": "fa4fe6789e9a1dc3d52a940497a70bfcd51f80b912a1e36f2a550a376f6ae7e6",
+    "actual_sha256": "fa4fe6789e9a1dc3d52a940497a70bfcd51f80b912a1e36f2a550a376f6ae7e6",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W3_深度学习模型性能评估报告_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W3_深度学习模型性能评估报告_核验修订20261025.docx",
+    "expected_historical_sha256": "0949330849749238e7bc7ef8549268254cebb5b46702a2c97ae62c9c1f322d79",
+    "actual_sha256": "0949330849749238e7bc7ef8549268254cebb5b46702a2c97ae62c9c1f322d79",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W3_传统ML与DL模型对比分析_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W3_传统ML与DL模型对比分析_核验修订20261025.docx",
+    "expected_historical_sha256": "da510c539c56dc6e90c134c5044e36659ea1c47480f20330e843668d76820a59",
+    "actual_sha256": "da510c539c56dc6e90c134c5044e36659ea1c47480f20330e843668d76820a59",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W3_异常检测结果报告_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W3_异常检测结果报告_核验修订20261025.docx",
+    "expected_historical_sha256": "60197b3b95446441c979233d3c3b3bacdb41bf7b72efea89ea69d927a368c4d7",
+    "actual_sha256": "60197b3b95446441c979233d3c3b3bacdb41bf7b72efea89ea69d927a368c4d7",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W3_异常根因分析初步方案_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W3_异常根因分析初步方案_核验修订20261025.docx",
+    "expected_historical_sha256": "9be1cd9006bee13ff62ab88e21c5d8bde768429010cd7e57c184f22498fbf2f4",
+    "actual_sha256": "9be1cd9006bee13ff62ab88e21c5d8bde768429010cd7e57c184f22498fbf2f4",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W3_第三阶段周实验报告_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W3_第三阶段周实验报告_核验修订20261025.docx",
+    "expected_historical_sha256": "d27c9cef65a1e3a42a02f4446fb63c8b6ceccc2dc21d3c05411ebf5fc83d3bab",
+    "actual_sha256": "d27c9cef65a1e3a42a02f4446fb63c8b6ceccc2dc21d3c05411ebf5fc83d3bab",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\W3_周报_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/W3_周报_核验修订20261025.docx",
+    "expected_historical_sha256": "5f24437d95141d08edf43997bb6bd1df4b9a962b026e6584bdfd44e32c8d528b",
+    "actual_sha256": "5f24437d95141d08edf43997bb6bd1df4b9a962b026e6584bdfd44e32c8d528b",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\完整项目技术报告_核验修订20261025.docx",
+    "destination": "deliverables/review_20261025/完整项目技术报告_核验修订20261025.docx",
+    "expected_historical_sha256": "f7f8ae2dfe8997be6966118070d15683baf6d4aac8b7dbd6f564b1e26f8f026e",
+    "actual_sha256": "18d62e936156e491cb94e30c9d1185dbbbfd9a1a5f7f98c7f7e1e9f67a4973c8",
+    "matches_historical_manifest": false
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W2_周报_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W2_周报_核验修订20261025.pdf",
+    "expected_historical_sha256": "8383b479ceb7f85f7fc9a870ba01c8868ff2142a3f393dc5e063abff629d62c8",
+    "actual_sha256": "8383b479ceb7f85f7fc9a870ba01c8868ff2142a3f393dc5e063abff629d62c8",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W2_数据集统计分析报告_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W2_数据集统计分析报告_核验修订20261025.pdf",
+    "expected_historical_sha256": "07c3eb24aa16c50b237f1a1462b9f15ede6a99c0442372d9673e6d10abc56f7c",
+    "actual_sha256": "07c3eb24aa16c50b237f1a1462b9f15ede6a99c0442372d9673e6d10abc56f7c",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W2_模型性能评估报告_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W2_模型性能评估报告_核验修订20261025.pdf",
+    "expected_historical_sha256": "7b97c34f3da3602107c950f3394bbf52ccb89539a34ad6ddccd0b88fb532283e",
+    "actual_sha256": "7b97c34f3da3602107c950f3394bbf52ccb89539a34ad6ddccd0b88fb532283e",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W3_传统ML与DL模型对比分析_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W3_传统ML与DL模型对比分析_核验修订20261025.pdf",
+    "expected_historical_sha256": "0e99c969c774bc6ca3a5ebb2e20b408221dc6898733dcd8bcd9336b25eaf30dd",
+    "actual_sha256": "0e99c969c774bc6ca3a5ebb2e20b408221dc6898733dcd8bcd9336b25eaf30dd",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W3_周报_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W3_周报_核验修订20261025.pdf",
+    "expected_historical_sha256": "4a5bea3673b73d8583e86ef092b6a99a6cee463724959dcfa703424907a44754",
+    "actual_sha256": "4a5bea3673b73d8583e86ef092b6a99a6cee463724959dcfa703424907a44754",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W3_异常根因分析初步方案_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W3_异常根因分析初步方案_核验修订20261025.pdf",
+    "expected_historical_sha256": "5f436456bbb565c67d65d69401b0652dbcda4c2996aef91ea925d085c585f261",
+    "actual_sha256": "5f436456bbb565c67d65d69401b0652dbcda4c2996aef91ea925d085c585f261",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W3_异常检测结果报告_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W3_异常检测结果报告_核验修订20261025.pdf",
+    "expected_historical_sha256": "7adf37041ea68bdd32490360402e67b6f5a0f85cf7a3c9dac9c04cae27c6d8a5",
+    "actual_sha256": "7adf37041ea68bdd32490360402e67b6f5a0f85cf7a3c9dac9c04cae27c6d8a5",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W3_深度学习模型性能评估报告_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W3_深度学习模型性能评估报告_核验修订20261025.pdf",
+    "expected_historical_sha256": "83a07904baef8a354869ce90ffcdadeb9c90e062fd7185491dd0d818b553052f",
+    "actual_sha256": "83a07904baef8a354869ce90ffcdadeb9c90e062fd7185491dd0d818b553052f",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\W3_第三阶段周实验报告_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/W3_第三阶段周实验报告_核验修订20261025.pdf",
+    "expected_historical_sha256": "8bf199beb309f7e485fbd3d1c113ee5c32c5271142bdcbe721aea0414bd4b803",
+    "actual_sha256": "8bf199beb309f7e485fbd3d1c113ee5c32c5271142bdcbe721aea0414bd4b803",
+    "matches_historical_manifest": true
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\deliverables\\review_20261025\\pdf\\完整项目技术报告_核验修订20261025.pdf",
+    "destination": "deliverables/review_20261025/pdf/完整项目技术报告_核验修订20261025.pdf",
+    "expected_historical_sha256": "1eefe10984f9c3aa81b7e370c63677d71a19bfaa97ceda529dd40da5a7f2c9a0",
+    "actual_sha256": "1eefe10984f9c3aa81b7e370c63677d71a19bfaa97ceda529dd40da5a7f2c9a0",
+    "matches_historical_manifest": true
+  }
+]

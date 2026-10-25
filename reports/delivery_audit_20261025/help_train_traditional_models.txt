@@ -1,0 +1,16 @@
+usage: python.exe -m src.models.train_traditional_models [-h] [--quick]
+                                                         [--out OUT]
+                                                         [--max-train MAX_TRAIN]
+                                                         [--max-test MAX_TEST]
+
+Train and evaluate traditional ML models for four 5G KPI forecasting tasks.
+
+options:
+  -h, --help            show this help message and exit
+  --quick               Run a reduced experiment for debugging. Do not use
+                        quick-mode results in the final report.
+  --out OUT             Optional isolated experiment directory; default keeps
+                        legacy outputs.
+  --max-train MAX_TRAIN
+                        Maximum training rows in --quick mode only.
+  --max-test MAX_TEST   Maximum test rows in --quick mode (0 = all).

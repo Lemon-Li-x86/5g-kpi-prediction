@@ -23,6 +23,7 @@ from sklearn.metrics import (
     r2_score,
 )
 
+from src.core.training_config import ML_DEFAULTS
 from src.core.config import (
     ROOT as PROJECT_ROOT, KPIS, DEFAULT_RANDOM_SEED,
     PROCESSED_DATA, REPORTS, FIGURES,
@@ -1426,11 +1427,11 @@ if __name__ == "__main__":
         help="Optional isolated experiment directory; default keeps legacy outputs.",
     )
     parser.add_argument(
-        "--max-train", type=int, default=200000,
+        "--max-train", type=int, default=ML_DEFAULTS["max_train"],
         help="Maximum training rows in --quick mode only.",
     )
     parser.add_argument(
-        "--max-test", type=int, default=0,
+        "--max-test", type=int, default=ML_DEFAULTS["max_test"],
         help="Maximum test rows in --quick mode (0 = all).",
     )
 

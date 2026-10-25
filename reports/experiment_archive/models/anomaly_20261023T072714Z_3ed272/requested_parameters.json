@@ -1,0 +1,12 @@
+{
+  "task": "train_anomaly",
+  "model": "",
+  "parameters": {
+    "if_train_sample": 2048,
+    "if_contamination": 0.02,
+    "svm_train_sample": 300,
+    "svm_test_sample": 500,
+    "max_events": 100,
+    "seed": 42
+  }
+}

@@ -1,0 +1,426 @@
+{
+  "PIL": [
+    "scripts/inspect_review_pdfs.py"
+  ],
+  "__future__": [
+    "app.py",
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/compare_model_performance.py",
+    "src/analysis/review_model_results.py",
+    "src/analysis/session_kpi_analysis.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/core/training_config.py",
+    "src/data/prepare_demo_inputs.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/train_deep_learning_models.py",
+    "src/services/model_registry.py",
+    "src/services/process_env.py",
+    "src/services/web_jobs.py",
+    "src/services/web_stream_worker.py",
+    "src/ui/dashboard_data.py",
+    "src/ui/result_views.py",
+    "src/ui/web_workflow.py",
+    "tests/test_live_console_lifecycle.py",
+    "tests/test_week3_7_contracts.py"
+  ],
+  "argparse": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/compare_model_performance.py",
+    "src/analysis/final_model_validation.py",
+    "src/analysis/review_model_results.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/data/build_ml_features.py",
+    "src/data/prepare_demo_inputs.py",
+    "src/data/preprocess_kpi_data.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/train_deep_learning_models.py",
+    "src/models/train_traditional_models.py",
+    "src/services/web_jobs.py",
+    "src/services/web_stream_worker.py"
+  ],
+  "ast": [
+    "scripts/audit_project.py",
+    "tests/test_structure.py"
+  ],
+  "asyncio": [
+    "src/services/web_stream_worker.py"
+  ],
+  "codecs": [
+    "src/services/web_stream_worker.py"
+  ],
+  "collections": [
+    "src/services/web_stream_worker.py"
+  ],
+  "copy": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "scripts/build_review_documents.py",
+    "src/analysis/final_model_validation.py"
+  ],
+  "csv": [
+    "scripts/audit_project.py",
+    "scripts/build_review_documents.py",
+    "tests/test_week3_7_contracts.py"
+  ],
+  "ctypes": [
+    "src/ui/web_workflow.py"
+  ],
+  "dataclasses": [
+    "src/services/model_registry.py"
+  ],
+  "datetime": [
+    "src/services/model_registry.py",
+    "src/services/web_jobs.py",
+    "src/services/web_stream_worker.py"
+  ],
+  "docx": [
+    "scripts/build_review_documents.py"
+  ],
+  "gc": [
+    "src/models/train_traditional_models.py"
+  ],
+  "hashlib": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "scripts/audit_project.py",
+    "scripts/build_review_documents.py",
+    "scripts/inspect_review_pdfs.py",
+    "scripts/summarize_final_review.py",
+    "src/analysis/final_model_validation.py",
+    "src/ui/web_workflow.py"
+  ],
+  "html": [
+    "src/ui/web_workflow.py"
+  ],
+  "huggingface_hub": [
+    "src/data/download_kpi_data.py"
+  ],
+  "importlib": [
+    "scripts/summarize_final_review.py"
+  ],
+  "io": [
+    "scripts/check_real_artifacts.py",
+    "src/ui/web_workflow.py"
+  ],
+  "json": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "scripts/audit_project.py",
+    "scripts/build_review_documents.py",
+    "scripts/check_real_artifacts.py",
+    "scripts/inspect_review_pdfs.py",
+    "scripts/summarize_final_review.py",
+    "scripts/verify_final_review.py",
+    "src/analysis/compare_model_performance.py",
+    "src/analysis/final_model_validation.py",
+    "src/analysis/review_model_results.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/data/audit_kpi_data.py",
+    "src/data/build_ml_features.py",
+    "src/data/preprocess_kpi_data.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/inference.py",
+    "src/models/train_deep_learning_models.py",
+    "src/models/train_traditional_models.py",
+    "src/services/model_registry.py",
+    "src/services/web_jobs.py",
+    "src/services/web_stream_worker.py",
+    "src/ui/dashboard_data.py",
+    "src/ui/web_workflow.py",
+    "test_inference.py",
+    "test_model_registry.py",
+    "tests/test_algorithm_audit.py",
+    "tests/test_dashboard_sources.py",
+    "tests/test_live_console_lifecycle.py",
+    "tests/test_training_parameters.py",
+    "tests/test_week3_7_contracts.py"
+  ],
+  "lightgbm": [
+    "src/analysis/validate_model_robustness.py",
+    "src/models/train_traditional_models.py"
+  ],
+  "math": [
+    "src/core/training_config.py",
+    "src/models/train_deep_learning_models.py"
+  ],
+  "matplotlib": [
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/compare_model_performance.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/train_deep_learning_models.py",
+    "src/models/train_traditional_models.py"
+  ],
+  "numpy": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "scripts/check_real_artifacts.py",
+    "scripts/verify_final_review.py",
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/compare_model_performance.py",
+    "src/analysis/final_model_validation.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/data/audit_kpi_data.py",
+    "src/data/build_ml_features.py",
+    "src/data/hourly_contract.py",
+    "src/data/prepare_demo_inputs.py",
+    "src/data/preprocess_kpi_data.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/inference.py",
+    "src/models/train_deep_learning_models.py",
+    "src/models/train_traditional_models.py",
+    "test_inference.py",
+    "tests/test_algorithm_audit.py",
+    "tests/test_demo_inputs.py",
+    "tests/test_final_evaluation.py"
+  ],
+  "optuna": [
+    "src/analysis/validate_model_robustness.py"
+  ],
+  "os": [
+    "src/data/download_kpi_data.py",
+    "src/services/process_env.py",
+    "src/ui/web_workflow.py",
+    "tests/test_console_encoding.py",
+    "tests/test_live_console_lifecycle.py"
+  ],
+  "pandas": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "scripts/check_real_artifacts.py",
+    "scripts/summarize_final_review.py",
+    "scripts/verify_final_review.py",
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/compare_model_performance.py",
+    "src/analysis/final_model_validation.py",
+    "src/analysis/review_model_results.py",
+    "src/analysis/session_kpi_analysis.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/data/audit_kpi_data.py",
+    "src/data/build_ml_features.py",
+    "src/data/prepare_demo_inputs.py",
+    "src/data/preprocess_kpi_data.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/inference.py",
+    "src/models/train_deep_learning_models.py",
+    "src/models/train_traditional_models.py",
+    "src/ui/dashboard_data.py",
+    "src/ui/result_views.py",
+    "src/ui/web_workflow.py",
+    "test_inference.py",
+    "tests/test_algorithm_audit.py",
+    "tests/test_dashboard_sources.py",
+    "tests/test_demo_inputs.py",
+    "tests/test_session_kpi_analysis.py",
+    "tests/test_training_parameters.py"
+  ],
+  "pathlib": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "scripts/audit_project.py",
+    "scripts/build_review_documents.py",
+    "scripts/check_real_artifacts.py",
+    "scripts/inspect_review_pdfs.py",
+    "scripts/summarize_final_review.py",
+    "scripts/verify_final_review.py",
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/compare_model_performance.py",
+    "src/analysis/final_model_validation.py",
+    "src/analysis/review_model_results.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/core/config.py",
+    "src/data/audit_kpi_data.py",
+    "src/data/build_ml_features.py",
+    "src/data/download_kpi_data.py",
+    "src/data/prepare_demo_inputs.py",
+    "src/data/preprocess_kpi_data.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/inference.py",
+    "src/models/train_deep_learning_models.py",
+    "src/models/train_traditional_models.py",
+    "src/services/model_registry.py",
+    "src/services/web_jobs.py",
+    "src/services/web_stream_worker.py",
+    "src/ui/dashboard_data.py",
+    "src/ui/result_views.py",
+    "src/ui/web_workflow.py",
+    "test_inference.py",
+    "test_model_registry.py",
+    "tests/test_algorithm_audit.py",
+    "tests/test_dashboard_sources.py",
+    "tests/test_live_console_lifecycle.py",
+    "tests/test_structure.py",
+    "tests/test_training_parameters.py",
+    "tests/test_week3_7_contracts.py"
+  ],
+  "pickle": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "src/analysis/final_model_validation.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/inference.py",
+    "test_inference.py",
+    "tests/test_algorithm_audit.py"
+  ],
+  "plotly": [
+    "src/ui/result_views.py"
+  ],
+  "pypdf": [
+    "scripts/inspect_review_pdfs.py"
+  ],
+  "pypdfium2": [
+    "scripts/inspect_review_pdfs.py"
+  ],
+  "random": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "src/analysis/final_model_validation.py",
+    "src/models/train_deep_learning_models.py"
+  ],
+  "re": [
+    "scripts/build_review_documents.py",
+    "scripts/inspect_review_pdfs.py",
+    "src/ui/web_workflow.py"
+  ],
+  "scipy": [
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/validate_model_robustness.py"
+  ],
+  "secrets": [
+    "src/ui/web_workflow.py"
+  ],
+  "shutil": [
+    "src/data/download_kpi_data.py",
+    "src/services/model_registry.py",
+    "src/services/web_jobs.py"
+  ],
+  "sklearn": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/final_model_validation.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/data/preprocess_kpi_data.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/train_deep_learning_models.py",
+    "src/models/train_traditional_models.py",
+    "test_inference.py"
+  ],
+  "socket": [
+    "src/ui/web_workflow.py"
+  ],
+  "src": [
+    "app.py",
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "scripts/check_real_artifacts.py",
+    "scripts/verify_final_review.py",
+    "src/analysis/analyze_anomaly_statistics.py",
+    "src/analysis/compare_model_performance.py",
+    "src/analysis/final_model_validation.py",
+    "src/analysis/session_kpi_analysis.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/data/audit_kpi_data.py",
+    "src/data/build_ml_features.py",
+    "src/data/download_kpi_data.py",
+    "src/data/prepare_demo_inputs.py",
+    "src/data/preprocess_kpi_data.py",
+    "src/models/architectures.py",
+    "src/models/detect_kpi_anomalies.py",
+    "src/models/inference.py",
+    "src/models/train_deep_learning_models.py",
+    "src/models/train_traditional_models.py",
+    "src/services/model_registry.py",
+    "src/services/web_jobs.py",
+    "src/services/web_stream_worker.py",
+    "src/ui/dashboard_data.py",
+    "src/ui/result_views.py",
+    "src/ui/web_workflow.py",
+    "test_inference.py",
+    "test_model_registry.py",
+    "tests/test_algorithm_audit.py",
+    "tests/test_console_encoding.py",
+    "tests/test_dashboard_sources.py",
+    "tests/test_demo_inputs.py",
+    "tests/test_final_evaluation.py",
+    "tests/test_live_console_lifecycle.py",
+    "tests/test_session_kpi_analysis.py",
+    "tests/test_shared_contracts.py",
+    "tests/test_structure.py",
+    "tests/test_training_parameters.py"
+  ],
+  "streamlit": [
+    "app.py",
+    "scripts/verify_final_review.py",
+    "src/ui/result_views.py",
+    "src/ui/web_workflow.py"
+  ],
+  "subprocess": [
+    "scripts/audit_project.py",
+    "scripts/summarize_final_review.py",
+    "src/services/web_jobs.py",
+    "src/ui/web_workflow.py",
+    "tests/test_console_encoding.py",
+    "tests/test_live_console_lifecycle.py"
+  ],
+  "sys": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "scripts/audit_project.py",
+    "scripts/check_real_artifacts.py",
+    "scripts/verify_final_review.py",
+    "src/analysis/final_model_validation.py",
+    "src/services/web_jobs.py",
+    "src/services/web_stream_worker.py",
+    "src/ui/web_workflow.py",
+    "tests/test_console_encoding.py"
+  ],
+  "tempfile": [
+    "test_inference.py",
+    "test_model_registry.py",
+    "tests/test_algorithm_audit.py",
+    "tests/test_dashboard_sources.py",
+    "tests/test_live_console_lifecycle.py",
+    "tests/test_training_parameters.py"
+  ],
+  "time": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "src/analysis/final_model_validation.py",
+    "src/analysis/validate_model_robustness.py",
+    "src/models/train_traditional_models.py"
+  ],
+  "torch": [
+    "reports/final_audit_20261025/experiments/runner_used.py",
+    "src/analysis/final_model_validation.py",
+    "src/models/architectures.py",
+    "src/models/inference.py",
+    "src/models/train_deep_learning_models.py",
+    "test_inference.py",
+    "tests/test_shared_contracts.py"
+  ],
+  "traceback": [
+    "src/services/web_jobs.py",
+    "src/services/web_stream_worker.py"
+  ],
+  "types": [
+    "tests/test_live_console_lifecycle.py"
+  ],
+  "unittest": [
+    "test_inference.py",
+    "test_model_registry.py",
+    "tests/test_algorithm_audit.py",
+    "tests/test_console_encoding.py",
+    "tests/test_dashboard_sources.py",
+    "tests/test_demo_inputs.py",
+    "tests/test_final_evaluation.py",
+    "tests/test_live_console_lifecycle.py",
+    "tests/test_session_kpi_analysis.py",
+    "tests/test_shared_contracts.py",
+    "tests/test_structure.py",
+    "tests/test_training_parameters.py",
+    "tests/test_week3_7_contracts.py"
+  ],
+  "urllib": [
+    "src/services/web_stream_worker.py"
+  ],
+  "uuid": [
+    "src/services/model_registry.py",
+    "src/services/web_jobs.py"
+  ],
+  "websockets": [
+    "src/services/web_stream_worker.py"
+  ],
+  "xgboost": [
+    "src/analysis/validate_model_robustness.py",
+    "src/models/train_traditional_models.py"
+  ]
+}

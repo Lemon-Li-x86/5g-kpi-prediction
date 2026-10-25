@@ -1,0 +1,10 @@
+test_original_algorithms_roundtrip (test_inference.AnomalyTests.test_original_algorithms_roundtrip) ... ok
+test_deep_trained_roundtrip (test_inference.DeploymentTests.test_deep_trained_roundtrip) ... ok
+test_ml_roundtrip_and_history_validation (test_inference.DeploymentTests.test_ml_roundtrip_and_history_validation) ... ok
+test_archive_keeps_original_and_discovers_versions (test_model_registry.RegistryTests.test_archive_keeps_original_and_discovers_versions) ... ok
+test_invalid_torch_without_sidecar_not_listed (test_model_registry.RegistryTests.test_invalid_torch_without_sidecar_not_listed) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 14.703s
+
+OK

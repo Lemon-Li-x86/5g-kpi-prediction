@@ -1,0 +1,14 @@
+{
+  "total_files": 41660,
+  "total_bytes": 3713748556,
+  "project_files": 775,
+  "project_bytes": 2307702569,
+  "duplicate_groups": 68,
+  "potential_duplicate_bytes": 999462648,
+  "quarantined_files": 69,
+  "quarantined_bytes": 533629,
+  "evidence_files": 139,
+  "evidence_bytes": 6237474,
+  "recovered_documents": 20,
+  "historical_document_mismatches": 1
+}

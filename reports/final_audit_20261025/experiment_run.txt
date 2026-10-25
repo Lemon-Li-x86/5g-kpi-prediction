@@ -1,0 +1,77 @@
+BEGIN fold1_seed42: fit targets 169..335, inner 336..383, evaluate 384..479
+fold1_seed42 RandomForest: 2.9s
+fold1_seed42 XGBoost: 5.9s
+fold1_seed42 GRU epoch1: train=0.480494 inner=0.571522
+fold1_seed42 GRU epoch2: train=0.347971 inner=0.549469
+fold1_seed42 GRU epoch3: train=0.337843 inner=0.531129
+fold1_seed42 GRU epoch4: train=0.331201 inner=0.522164
+fold1_seed42 GRU epoch5: train=0.318858 inner=0.499937
+fold1_seed42 GRU epoch6: train=0.305697 inner=0.468789
+fold1_seed42 GRU epoch7: train=0.301943 inner=0.458576
+fold1_seed42 GRU epoch8: train=0.298574 inner=0.455670
+fold1_seed42 GRU epoch9: train=0.293737 inner=0.474284
+fold1_seed42 GRU epoch10: train=0.291696 inner=0.441030
+fold1_seed42 GRU epoch11: train=0.288513 inner=0.449835
+fold1_seed42 GRU epoch12: train=0.288034 inner=0.439407
+END fold1_seed42
+BEGIN fold2_seed42: fit targets 169..431, inner 432..479, evaluate 480..575
+fold2_seed42 RandomForest: 3.2s
+fold2_seed42 XGBoost: 6.9s
+fold2_seed42 GRU epoch1: train=0.565064 inner=1.087321
+fold2_seed42 GRU epoch2: train=0.428727 inner=1.036185
+fold2_seed42 GRU epoch3: train=0.411796 inner=1.000068
+fold2_seed42 GRU epoch4: train=0.398889 inner=0.980325
+fold2_seed42 GRU epoch5: train=0.380289 inner=0.936294
+fold2_seed42 GRU epoch6: train=0.365085 inner=0.905710
+fold2_seed42 GRU epoch7: train=0.355017 inner=0.885139
+fold2_seed42 GRU epoch8: train=0.348915 inner=0.873961
+fold2_seed42 GRU epoch9: train=0.343541 inner=0.854190
+fold2_seed42 GRU epoch10: train=0.339197 inner=0.837459
+fold2_seed42 GRU epoch11: train=0.333118 inner=0.825452
+fold2_seed42 GRU epoch12: train=0.327957 inner=0.819157
+END fold2_seed42
+BEGIN fold3_seed42: fit targets 169..527, inner 528..575, evaluate 576..671
+fold3_seed42 RandomForest: 3.2s
+fold3_seed42 XGBoost: 6.1s
+fold3_seed42 GRU epoch1: train=0.550145 inner=0.541238
+fold3_seed42 GRU epoch2: train=0.423336 inner=0.502258
+fold3_seed42 GRU epoch3: train=0.401901 inner=0.481985
+fold3_seed42 GRU epoch4: train=0.386390 inner=0.460519
+fold3_seed42 GRU epoch5: train=0.363513 inner=0.434268
+fold3_seed42 GRU epoch6: train=0.347880 inner=0.428214
+fold3_seed42 GRU epoch7: train=0.337213 inner=0.399248
+fold3_seed42 GRU epoch8: train=0.331407 inner=0.400089
+fold3_seed42 GRU epoch9: train=0.322971 inner=0.380701
+fold3_seed42 GRU epoch10: train=0.318348 inner=0.384550
+fold3_seed42 GRU epoch11: train=0.312142 inner=0.372571
+fold3_seed42 GRU epoch12: train=0.308534 inner=0.376254
+END fold3_seed42
+BEGIN holdout_seed42: fit targets 169..587, inner 588..671, evaluate 672..839
+holdout_seed42 RandomForest: 4.2s
+holdout_seed42 XGBoost: 8.2s
+holdout_seed42 GRU epoch1: train=0.607388 inner=0.336922
+holdout_seed42 GRU epoch2: train=0.488520 inner=0.307586
+holdout_seed42 GRU epoch3: train=0.451759 inner=0.309031
+holdout_seed42 GRU epoch4: train=0.411388 inner=0.307269
+holdout_seed42 GRU epoch5: train=0.379550 inner=0.303960
+holdout_seed42 GRU epoch6: train=0.366167 inner=0.303054
+holdout_seed42 GRU epoch7: train=0.349623 inner=0.293523
+holdout_seed42 GRU epoch8: train=0.342716 inner=0.309742
+holdout_seed42 GRU epoch9: train=0.324137 inner=0.304920
+holdout_seed42 GRU epoch10: train=0.319150 inner=0.297006
+END holdout_seed42
+BEGIN holdout_seed43: fit targets 169..587, inner 588..671, evaluate 672..839
+holdout_seed43 RandomForest: 3.7s
+holdout_seed43 XGBoost: 7.0s
+holdout_seed43 GRU epoch1: train=0.638861 inner=0.333635
+holdout_seed43 GRU epoch2: train=0.485623 inner=0.322227
+holdout_seed43 GRU epoch3: train=0.452732 inner=0.330508
+holdout_seed43 GRU epoch4: train=0.417912 inner=0.315318
+holdout_seed43 GRU epoch5: train=0.383144 inner=0.304180
+holdout_seed43 GRU epoch6: train=0.362846 inner=0.302145
+holdout_seed43 GRU epoch7: train=0.346679 inner=0.312896
+holdout_seed43 GRU epoch8: train=0.338645 inner=0.300018
+holdout_seed43 GRU epoch9: train=0.325000 inner=0.311177
+holdout_seed43 GRU epoch10: train=0.321017 inner=0.321900
+holdout_seed43 GRU epoch11: train=0.313842 inner=0.310246
+END holdout_seed43

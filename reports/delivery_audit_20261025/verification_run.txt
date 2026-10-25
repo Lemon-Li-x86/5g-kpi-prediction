@@ -1,0 +1,7 @@
+unit_tests.txt 0
+inference_registry_tests.txt 0
+pip_check.txt 0
+help_train_traditional_models.txt 0
+help_train_deep_learning_models.txt 0
+help_detect_kpi_anomalies.txt 0
+actual_artifact_inference.txt 0
