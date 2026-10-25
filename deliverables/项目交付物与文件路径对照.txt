@@ -7,7 +7,8 @@
 2. submit1/～submit4/ 指本目录内的四阶段交付文件夹；../ 指上一级项目根目录。
 3. 任务书原始 8 周与四阶段文件夹的对应关系：第 1～2 周对应 submit1，第 3～4 周对应 submit2，第 5～6 周对应 submit3，第 7～8 周对应项目源码及 submit4。
 4. 压缩包内部路径单独注明；路径中的空格及特殊汉字保留实际文件名。
-5. 本文件用于定位交付物，不替代运行验收记录。
+5. 项目 Markdown 仅保留 ../README.md、../USERGUIDE.md、../ARCHITECTURE.md；正式报告以本目录内 PDF/PPT/TXT 为准。
+6. 本文件用于定位交付物，不替代运行验收记录。
 ============================================================
 一、任务书规定的 24 项交付物
 ============================================================
@@ -47,11 +48,11 @@
 
 08. 预处理后的 KPI 数据集（CSV 格式）
     相对路径：submit2/2_kpi_timeseries.csv
-    说明：现行运行数据另存于 ../data/processed/kpi_timeseries.csv。
+    说明：本 CSV 使用 Git LFS 随仓库交付，克隆后执行 git lfs pull 获取完整数据。应用使用的副本位于 ../data/processed/kpi_timeseries.csv，准备步骤见 ../USERGUIDE.md。
 
 09. 数据集统计分析报告
     相对路径：submit2/3_数据集统计分析报告.pdf
-    说明：此处按文件名对应；此前内容审查发现该 PDF 正文为模型性能评估报告，需替换为正确的数据集统计分析报告。
+    说明：已核对为正确的 4 页数据集统计分析报告，包含数据审计、分布特征、预处理、时间划分和缩放方法。
 
 【第 4 周：基于传统机器学习的 KPI 预测】
 
@@ -109,6 +110,7 @@
     相对路径：../requirements.txt
     相对路径：../requirements-research.txt
     相对路径：../README.md
+    相对路径：../ARCHITECTURE.md
     说明：系统代码位于项目根目录，不在 submit1～submit4 中另存一份；../src/ 包含 core、data、models、analysis、services、ui 六类模块。
 
 20. 可运行的 Web 应用
@@ -122,8 +124,7 @@
 
 21. 系统使用手册
     相对路径：submit4/3_系统使用手册.pdf
-    相对路径：../USER_GUIDE.md
-    相对路径：../docs/USER_GUIDE.md
+    相对路径：../USERGUIDE.md
 
 【第 8 周：项目总结与汇报】
 

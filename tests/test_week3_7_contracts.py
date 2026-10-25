@@ -46,11 +46,11 @@ class WeekThreeToSevenContracts(unittest.TestCase):
             "reports/prediction_timeseries.csv",
             "reports/w3_deep_learning_metrics.csv",
             "reports/week3/w3_ml_dl_all_metrics.csv",
-            "reports/week3/w3_ml_dl_comparison_report.md",
+            "reports/week3/w3_ml_dl_comparison_summary.csv",
             "reports/w3_anomaly_method_summary.csv",
             "reports/w3_anomaly_candidate_events.csv",
-            "reports/w3_anomaly_root_cause_preliminary.md",
-            "reports/w4_anomaly_diagnostics_report.md",
+            "reports/w3_anomaly_kpi_correlations.csv",
+            "reports/w4_anomaly_kpi_correlation_tests.csv",
         ]
         for path in required:
             with self.subTest(path=path):
@@ -87,8 +87,10 @@ class WeekThreeToSevenContracts(unittest.TestCase):
 
     def test_documented_modules_and_manual_exist(self):
         for path in (
-            "README.md", "USER_GUIDE.md", "requirements.txt",
-            "docs/ARCHITECTURE.md", "docs/TECHNICAL_REPORT.md",
+            "README.md", "USERGUIDE.md", "ARCHITECTURE.md", "requirements.txt",
+            "deliverables/submit4/项目技术报告.pdf",
+            "deliverables/submit4/3_系统使用手册.pdf",
+            "deliverables/项目交付物与文件路径对照.txt",
         ):
             with self.subTest(path=path):
                 self.assertTrue((ROOT / path).is_file())

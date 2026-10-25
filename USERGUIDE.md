@@ -15,7 +15,7 @@
 
 主要有两条独立任务：一是用传统 ML 或 LSTM/GRU/Transformer 预测**下一小时 KPI**；二是用 3σ、IQR、Isolation Forest、One-Class SVM 标记**异常候选**，再做 KPI 关联的探索性分析。两条流程都通过 Streamlit 操作。异常候选没有故障真值标签，不能等同于已确诊的网络故障。
 
-应用按「数据处理 → 训练与测试评估 → 版本管理 → KPI 实际预测 / 异常实际检测 → 关联分析」组织。模型训练结束后可在同页查看该实验的测试指标和真实值/预测值曲线；「模型管理与实验记录」保留不可被新训练覆盖的历史正式成绩，并允许查看任一独立训练 `run_id`。用户在「KPI 预测」或「异常检测」上传/生成 CSV 后调用实际权重推理，不会用历史实验曲线冒充本次预测。新版本界面需要本机回归测试。
+应用按「数据处理 → 训练与测试评估 → 版本管理 → KPI 实际预测 / 异常实际检测 → 关联分析」组织。模型训练结束后可在同页查看该实验的测试指标和真实值/预测值曲线；「模型管理与实验记录」保留不可被新训练覆盖的历史正式成绩，并允许查看任一独立训练 `run_id`。用户在「KPI 预测」或「异常检测」上传/生成 CSV 后调用实际权重推理，不会用历史实验曲线冒充本次预测。六个页面及演示数据预测、异常检测和当前结果关联已于 2026-10-25 完成本机自动核验；人工上传/下载与真实后台训练流程不在本轮复测范围。
 
 ## 2. 运行环境与启动
 
@@ -64,21 +64,39 @@ python -c "import torch; print('PyTorch:',torch.__version__); print('CUDA:',torc
 │   └── demo_inputs/              Web 验收输入 CSV
 ├── reports/                       已追踪的历史实验报告/CSV
 ├── figures/                       已追踪的历史图表
-├── docs/                          技术报告、审查与验收记录
+├── deliverables/                  阶段 PDF/PPT/TXT 与 LFS 交付数据
+├── README.md                      项目与交付入口
+├── USERGUIDE.md                   当前使用手册
+├── ARCHITECTURE.md                架构与参数来源
 └── requirements.txt
 ```
 
-**新 Clone 仓库后有代码和历史统计，却没有原始数据与模型权重，是正常现象**。它们被 `.gitignore` 排除，并非遗失。新机器需要自行下载公开数据并重训，或安全地使用本机已有可信权重。
+仓库通过 Git LFS 提供 `deliverables/submit2/2_kpi_timeseries.csv`。首次克隆后运行 `git lfs install --local` 和 `git lfs pull` 获取完整 CSV。原始数据、运行目录缓存和模型权重仍不随普通 Git 跟踪，新机器需要训练权重或迁移本机可信权重。
 
 ## 4. 数据获取、审计、预处理
 
-### 4.1 Web 方式
+### 4.1 直接使用仓库交付数据
+
+在项目根目录运行，取得 LFS 数据并准备应用副本：
+
+```powershell
+git lfs pull --include="deliverables/submit2/2_kpi_timeseries.csv"
+New-Item -ItemType Directory -Force -Path "data/processed" | Out-Null
+Copy-Item -LiteralPath "deliverables/submit2/2_kpi_timeseries.csv" -Destination "data/processed/kpi_timeseries.csv"
+python -m src.data.build_ml_features --force
+```
+
+`Copy-Item` 用于首次配置；有既有实验时先确认数据版本。交付数据的原始 KPI 与旧运行副本相同，标准化列有小幅差异，不能混用不同版本的缩放参数与权重。Git LFS 指针只有几行元数据；若 CSV 开头是 `version https://git-lfs.github.com/spec/v1`，执行 `git lfs pull` 取得真实内容后再运行应用。
+
+若要从公开原始 CSV 重新审计与处理，使用下方 Web 或命令行流程。预处理缓存还要求原始输入存在，只有交付 CSV 时应使用本节的特征构建入口。
+
+### 4.2 Web 方式
 
 进入「数据管理与预处理」：界面会分别显示 `data/raw/` 中四份原始 KPI CSV 是否存在。
 
 按实际需要操作「下载原始数据」→「审计并预处理」→「生成传统 ML 特征」。如果本地已有处理好的数据和特征文件，可跳过已有步骤；**查看 Web 页面不需要重新下载、重新训练整个数据集**。
 
-### 4.2 命令行方式
+### 4.3 命令行方式
 
 从项目根目录运行：
 
@@ -150,7 +168,7 @@ python -m src.models.train_deep_learning_models --models gru --epochs 3 --batch-
 
 Web 启动的每次 DL 训练会自动分配 `resources/experiments/<run_id>/`，将 `requested_parameters.json`、checkpoint、训练指标和图表保存在独立实验中，并将成功训练的 `.pt` 与同名 `.json` 复制到 `resources/models/<run_id>/` 供推理。**独立实验结果与 `reports/w3_deep_learning_metrics.csv` 的历史成绩不是同一版本。**
 
-历史深度学习指标在 `reports/w3_deep_learning_metrics.csv`，传统 ML/DL 汇总在 `reports/week3/w3_ml_dl_all_metrics.csv`、`w3_ml_dl_comparison_report.md`。训练日志若显示 Early stopping 是正常早停，需再看最终任务状态是否 completed。
+历史深度学习指标在 `reports/w3_deep_learning_metrics.csv`，传统 ML/DL 汇总在 `reports/week3/w3_ml_dl_all_metrics.csv`、`reports/week3/w3_ml_dl_comparison_summary.csv`。训练日志若显示 Early stopping 是正常早停，需再看最终任务状态是否 completed。
 
 ## 7. 异常检测与初步关联分析
 
@@ -164,7 +182,7 @@ Web 启动的每次 DL 训练会自动分配 `resources/experiments/<run_id>/`�
 python -m src.models.detect_kpi_anomalies --out resources/experiments/manual_anomaly_smoke
 ```
 
-Web 的异常训练也会创建 `resources/experiments/<run_id>/` 并保存 `anomalies.pkl`。已有的初步相关性分析报告位于 `reports/w3_anomaly_root_cause_preliminary.md` 和 `reports/w4_anomaly_diagnostics_report.md`；统计处理实现于 `src/analysis/analyze_anomaly_statistics.py`。
+Web 的异常训练也会创建 `resources/experiments/<run_id>/` 并保存 `anomalies.pkl`。正式分析报告见 `deliverables/submit3/` 中的 PDF；数值证据为 `reports/w3_anomaly_kpi_correlations.csv`、`reports/w4_anomaly_kpi_correlation_tests.csv` 和对应候选记录。统计处理实现于 `src/analysis/analyze_anomaly_statistics.py`，不再生成独立 Markdown 报告。
 
 **没有真实故障标签**，因此不能报告故障 Precision、Recall、F1，更不能把 KPI 相关性称为已确认的故障根因。
 
@@ -233,3 +251,7 @@ Web 限制上传约 50 MB。模型 `.pkl` 为 Python pickle 格式，只能加�
 - **WebSocket 断连**：先看 `stream_errors.log` 和 `current.log`，不要反复启动相同训练任务。
 - **无法导出结果**：确认先点击「预测下一小时 KPI」或「运行异常检测」。模型权重或 CSV 内容改变后，需要重新执行推理。
 
+
+## 11. 当前交付说明
+
+项目只维护 [README](README.md)、[USERGUIDE](USERGUIDE.md) 和 [ARCHITECTURE](ARCHITECTURE.md) 三份 Markdown。阶段 PDF/PPT/TXT 位于 `deliverables/`；完整路径见 [交付索引](deliverables/项目交付物与文件路径对照.txt)。数据集统计报告已更换为正确的 4 页版本，CSV 按 Git LFS 跟踪。旧阶段文件中的验证状态按当时实验理解，本次整理后的 58 项自动测试全部通过。

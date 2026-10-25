@@ -48,9 +48,8 @@ desktop.ini
 # Large preprocessed datasets and feature caches
 /data/processed/
 
-# Large dataset copies in submission folders stay local.
-# Keep reports, presentation files, source snapshots and small metrics CSVs.
-/deliverables/**/*kpi_timeseries*.csv
+# The final submission dataset is tracked through Git LFS.
+# Runtime data and feature caches above remain local.
 
 # ============================================================
 # Deep learning model artifacts
@@ -101,3 +100,9 @@ events.out.tfevents.*
 credentials.json
 service-account*.json
 # Evidence exported intentionally to reports/experiment_archive/ is tracked.
+
+# Maintain exactly three project Markdown entry points.
+*.md
+!/README.md
+!/USERGUIDE.md
+!/ARCHITECTURE.md

@@ -204,44 +204,6 @@ def make_figures(all_scores: pd.DataFrame, figures: Path) -> None:
             plt.close(fig)
 
 
-def make_report(
-    summary: pd.DataFrame, notes: list[str], out: Path,
-    ml_source: Path, dl_source: Path,
-) -> None:
-    lines = [
-        "# 第三阶段：传统机器学习与深度学习 KPI 预测对比分析",
-        "",
-        "## 数据来源",
-        "",
-        f"- 传统机器学习：`{ml_source}`",
-        f"- 深度学习：`{dl_source}`",
-        "- 评价粒度：每个 beam × 目标小时，使用原始 KPI 尺度。",
-        "",
-        "## 三项指标的最优模型比较",
-        "",
-        "| KPI | 指标 | 传统 ML 最优 | DL 最优 | DL 相对变化 |",
-        "|---|---|---|---|---:|",
-    ]
-    for r in summary.itertuples(index=False):
-        delta = f"{r.DL_improvement:+.2f}%" if r.metric != "R2" else f"{r.DL_improvement:+.4f}"
-        lines.append(
-            f"| {r.KPI} | {r.metric} | {r.ML_best_model} "
-            f"({r.ML_best_score:.6f}) | {r.DL_best_model} "
-            f"({r.DL_best_score:.6f}) | {delta} |"
-        )
-    lines.extend(["", "## 实验解释及局限性", ""])
-    lines.extend(f"- {note}" for note in notes)
-    lines.extend([
-        "", "## 下一步分析", "",
-        "- 分析 DLThpVol 预测的误差分布，尤其是 MAE 和 RMSE 不同步的现象。",
-        "- 在仅由训练时间段拟合标准化器的条件下重复 DL 实验。",
-        "- 若要论证模型稳定性，增加多个时间窗口的滚动验证或重复种子试验。",
-        "- 不把模型预测偏差直接当作真实 5G 网络故障标签。",
-        "",
-    ])
-    out.write_text("\n".join(lines), encoding="utf-8")
-
-
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ml", type=Path, default=PROJECT_ROOT / "reports" / "model_metrics.csv")
@@ -262,11 +224,6 @@ def main() -> None:
     )
     summary.to_csv(args.out / "w3_ml_dl_comparison_summary.csv", index=False)
     make_figures(scores, args.figures)
-    make_report(
-        summary, notes,
-        args.out / "w3_ml_dl_comparison_report.md",
-        args.ml, args.dl,
-    )
 
     print("\n=== BEST TRADITIONAL ML vs BEST DL FOR EACH KPI ===")
     print(summary.to_string(index=False, float_format=lambda v: f"{v:.6f}"))
