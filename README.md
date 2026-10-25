@@ -107,4 +107,4 @@ python -m unittest discover -v
 - [第四阶段：系统使用手册 PDF](deliverables/submit4/3_系统使用手册.pdf)
 - [第四阶段：项目演示 PPT](deliverables/submit4/ppt.pptx)
 
-PDF/PPT 是阶段提交时的固定版本；当前安装方法、LFS 数据获取、代码入口和验证状态以三份项目说明为准。
+正式 PDF/PPT 已于 2026-10-25 同步最终实验与验收说明。第三阶段报告纳入 GRU 时间回测、双种子与配对检验，以及异常分布、联合规则和站级关联统计；LSTM/Transformer 的架构探索记录注明独立实验条件。安装、LFS 数据获取与代码入口见三份项目说明，最新 58 项回归记录位于 `reports/delivery_final_20261025/tests.txt`。
