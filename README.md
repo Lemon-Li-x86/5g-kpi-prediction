@@ -8,7 +8,7 @@
 
 ```powershell
 git lfs install
-git clone --branch codex/delivery-audit-20261025 https://github.com/Lemon-Li-x86/5g-kpi-prediction.git
+git clone https://github.com/Lemon-Li-x86/5g-kpi-prediction.git
 Set-Location "5g-kpi-prediction"
 git lfs pull
 python -m venv .venv
