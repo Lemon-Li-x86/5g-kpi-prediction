@@ -1,0 +1,26 @@
+usage: python.exe -m src.models.detect_kpi_anomalies [-h] [--csv CSV]
+                                                     [--out OUT]
+                                                     [--test-start TEST_START]
+                                                     [--if-train-sample IF_TRAIN_SAMPLE]
+                                                     [--if-contamination IF_CONTAMINATION]
+                                                     [--svm-train-sample SVM_TRAIN_SAMPLE]
+                                                     [--svm-test-sample SVM_TEST_SAMPLE]
+                                                     [--seed SEED]
+                                                     [--max-events MAX_EVENTS]
+
+Condensed W3 / Original Week 6: 5G KPI anomaly detection and preliminary root-
+cause analysis. Methods: 1. Three-sigma rule 2. IQR 3. Isolation Forest 4.
+One-Class SVM Note: The dataset contains no verified network-fault labels.
+Detected anomalies are candidates, not confirmed faults.
+
+options:
+  -h, --help            show this help message and exit
+  --csv CSV
+  --out OUT
+  --test-start TEST_START
+  --if-train-sample IF_TRAIN_SAMPLE
+  --if-contamination IF_CONTAMINATION
+  --svm-train-sample SVM_TRAIN_SAMPLE
+  --svm-test-sample SVM_TEST_SAMPLE
+  --seed SEED
+  --max-events MAX_EVENTS

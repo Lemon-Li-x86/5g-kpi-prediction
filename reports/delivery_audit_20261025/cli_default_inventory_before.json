@@ -1,0 +1,422 @@
+[
+  {
+    "source": "reports/final_audit_20261025/experiments/runner_used.py",
+    "line": 78,
+    "argument": "'--seeds'",
+    "default": "[42, 43]"
+  },
+  {
+    "source": "reports/final_audit_20261025/experiments/runner_used.py",
+    "line": 79,
+    "argument": "'--max-train'",
+    "default": "60000"
+  },
+  {
+    "source": "reports/final_audit_20261025/experiments/runner_used.py",
+    "line": 80,
+    "argument": "'--epochs'",
+    "default": "12"
+  },
+  {
+    "source": "reports/final_audit_20261025/experiments/runner_used.py",
+    "line": 81,
+    "argument": "'--threads'",
+    "default": "4"
+  },
+  {
+    "source": "src/analysis/analyze_anomaly_statistics.py",
+    "line": 202,
+    "argument": "'--csv'",
+    "default": "Path('data/processed/kpi_timeseries.csv')"
+  },
+  {
+    "source": "src/analysis/analyze_anomaly_statistics.py",
+    "line": 207,
+    "argument": "'--out'",
+    "default": "Path('.')"
+  },
+  {
+    "source": "src/analysis/analyze_anomaly_statistics.py",
+    "line": 208,
+    "argument": "'--test-start'",
+    "default": "DATASET_TEST_START_HOUR"
+  },
+  {
+    "source": "src/analysis/analyze_anomaly_statistics.py",
+    "line": 209,
+    "argument": "'--if-train-sample'",
+    "default": "80000"
+  },
+  {
+    "source": "src/analysis/analyze_anomaly_statistics.py",
+    "line": 210,
+    "argument": "'--if-contamination'",
+    "default": "0.02"
+  },
+  {
+    "source": "src/analysis/analyze_anomaly_statistics.py",
+    "line": 211,
+    "argument": "'--seed'",
+    "default": "42"
+  },
+  {
+    "source": "src/analysis/analyze_anomaly_statistics.py",
+    "line": 212,
+    "argument": "'--bootstrap-iterations'",
+    "default": "500"
+  },
+  {
+    "source": "src/analysis/compare_model_performance.py",
+    "line": 248,
+    "argument": "'--ml'",
+    "default": "PROJECT_ROOT / 'reports' / 'model_metrics.csv'"
+  },
+  {
+    "source": "src/analysis/compare_model_performance.py",
+    "line": 249,
+    "argument": "'--dl'",
+    "default": "PROJECT_ROOT / 'reports' / 'w3_deep_learning_metrics.csv'"
+  },
+  {
+    "source": "src/analysis/compare_model_performance.py",
+    "line": 250,
+    "argument": "'--out'",
+    "default": "PROJECT_ROOT / 'reports' / 'week3'"
+  },
+  {
+    "source": "src/analysis/compare_model_performance.py",
+    "line": 251,
+    "argument": "'--figures'",
+    "default": "PROJECT_ROOT / 'figures' / 'week3'"
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 79,
+    "argument": "'--seeds'",
+    "default": "[42, 43]"
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 80,
+    "argument": "'--max-train'",
+    "default": "60000"
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 81,
+    "argument": "'--epochs'",
+    "default": "12"
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 82,
+    "argument": "'--threads'",
+    "default": "4"
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 83,
+    "argument": "'--out'",
+    "default": "OUT"
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 85,
+    "argument": "'--artifacts'",
+    "default": "ARTIFACTS"
+  },
+  {
+    "source": "src/analysis/review_model_results.py",
+    "line": 176,
+    "argument": "'--metrics'",
+    "default": "ROOT / 'reports' / 'model_metrics.csv'"
+  },
+  {
+    "source": "src/analysis/review_model_results.py",
+    "line": 181,
+    "argument": "'--out'",
+    "default": "ROOT / 'reports' / 'validation'"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1041,
+    "argument": "'--losses'",
+    "default": "REPORT_DIR / 'holdout_hourly_losses.csv'"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1049,
+    "argument": "'--reference'",
+    "default": "'RandomForest'"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1054,
+    "argument": "'--contenders'",
+    "default": "['XGBoost', 'LightGBM']"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1060,
+    "argument": "'--bandwidth'",
+    "default": "24"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1068,
+    "argument": "'--model'",
+    "default": "'RandomForest'"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1078,
+    "argument": "'--target'",
+    "default": "'DLPRB'"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1084,
+    "argument": "'--trials'",
+    "default": "12"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1090,
+    "argument": "'--max-beams'",
+    "default": "256"
+  },
+  {
+    "source": "src/analysis/validate_model_robustness.py",
+    "line": 1018,
+    "argument": "'--models'",
+    "default": "['Persistence', 'LinearRegression', 'DecisionTree', 'RandomForest', 'XGBoost', 'LightGBM']"
+  },
+  {
+    "source": "src/data/prepare_demo_inputs.py",
+    "line": 59,
+    "argument": "'--csv'",
+    "default": "ROOT / 'data' / 'processed' / 'kpi_timeseries.csv'"
+  },
+  {
+    "source": "src/data/prepare_demo_inputs.py",
+    "line": 62,
+    "argument": "'--out'",
+    "default": "ROOT / 'resources' / 'demo_inputs'"
+  },
+  {
+    "source": "src/data/prepare_demo_inputs.py",
+    "line": 65,
+    "argument": "'--forecast-hours'",
+    "default": "ML_HISTORY_HOURS"
+  },
+  {
+    "source": "src/data/prepare_demo_inputs.py",
+    "line": 66,
+    "argument": "'--anomaly-hours'",
+    "default": "3"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 256,
+    "argument": "'--csv'",
+    "default": "Path('data/processed/kpi_timeseries.csv')"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 264,
+    "argument": "'--out'",
+    "default": "Path('.')"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 270,
+    "argument": "'--test-start'",
+    "default": "DATASET_TEST_START_HOUR"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 276,
+    "argument": "'--if-train-sample'",
+    "default": "80000"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 282,
+    "argument": "'--if-contamination'",
+    "default": "0.02"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 288,
+    "argument": "'--svm-train-sample'",
+    "default": "2500"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 294,
+    "argument": "'--svm-test-sample'",
+    "default": "12000"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 300,
+    "argument": "'--seed'",
+    "default": "42"
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 306,
+    "argument": "'--max-events'",
+    "default": "2000"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 461,
+    "argument": "'--csv'",
+    "default": "Path('data/processed/kpi_timeseries.csv')"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 469,
+    "argument": "'--out'",
+    "default": "Path('.')"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 475,
+    "argument": "'--models'",
+    "default": "['lstm', 'gru', 'transformer']"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 490,
+    "argument": "'--seq-len'",
+    "default": "24"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 496,
+    "argument": "'--seasonal-lag'",
+    "default": "168"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 502,
+    "argument": "'--min-target-hour'",
+    "default": "169"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 508,
+    "argument": "'--validation-start'",
+    "default": "588"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 514,
+    "argument": "'--test-start'",
+    "default": "DATASET_TEST_START_HOUR"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 520,
+    "argument": "'--max-train'",
+    "default": "60000"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 526,
+    "argument": "'--max-val'",
+    "default": "12000"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 532,
+    "argument": "'--max-test'",
+    "default": "0"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 538,
+    "argument": "'--epochs'",
+    "default": "12"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 544,
+    "argument": "'--patience'",
+    "default": "3"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 550,
+    "argument": "'--batch-size'",
+    "default": "256"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 556,
+    "argument": "'--hidden'",
+    "default": "32"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 562,
+    "argument": "'--lr'",
+    "default": "0.001"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 568,
+    "argument": "'--seed'",
+    "default": "42"
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 574,
+    "argument": "'--device'",
+    "default": "'auto'"
+  },
+  {
+    "source": "src/models/train_traditional_models.py",
+    "line": 1424,
+    "argument": "'--out'",
+    "default": "None"
+  },
+  {
+    "source": "src/models/train_traditional_models.py",
+    "line": 1428,
+    "argument": "'--max-train'",
+    "default": "200000"
+  },
+  {
+    "source": "src/models/train_traditional_models.py",
+    "line": 1432,
+    "argument": "'--max-test'",
+    "default": "0"
+  },
+  {
+    "source": "src/services/web_jobs.py",
+    "line": 172,
+    "argument": "'model'",
+    "default": "''"
+  },
+  {
+    "source": "src/services/web_jobs.py",
+    "line": 173,
+    "argument": "'--params-json'",
+    "default": "'{}'"
+  },
+  {
+    "source": "src/services/web_stream_worker.py",
+    "line": 180,
+    "argument": "'model'",
+    "default": "''"
+  },
+  {
+    "source": "src/services/web_stream_worker.py",
+    "line": 183,
+    "argument": "'--params-json'",
+    "default": "'{}'"
+  }
+]

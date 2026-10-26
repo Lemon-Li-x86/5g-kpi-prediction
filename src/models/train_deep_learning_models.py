@@ -37,7 +37,9 @@ from sklearn.metrics import (
     r2_score,
 )
 
+from src.core.training_config import DL_DEFAULTS
 from src.core.config import KPIS, KEYS, DATASET_TEST_START_HOUR
+from src.data.hourly_contract import validate_hourly_timeline
 
 try:
     import torch
@@ -110,6 +112,7 @@ def load_tensor(csv_path: Path):
     )
 
     timeline = time_grid[0].copy()
+    validate_hourly_timeline(timeline)
 
     if not np.array_equal(
         time_grid,
@@ -145,6 +148,32 @@ def load_tensor(csv_path: Path):
         )
 
     return data, raw, timeline
+
+
+def fit_training_prefix(raw, timeline, validation_start):
+    """Fit only raw observations before the internal validation boundary.
+
+    This is the existing training-prefix rule, extracted for isolation tests
+    and outer-fold experiments. Scale uses population std (StandardScaler).
+    """
+    mask = np.asarray(timeline) < validation_start
+    if not np.any(mask):
+        raise ValueError('Empty scaler training prefix')
+    prefix = raw[:, mask, :].astype(np.float64)
+    mean = prefix.mean(axis=(0, 1))
+    scale = prefix.std(axis=(0, 1))
+    if not np.isfinite(prefix).all() or np.any(scale <= 0):
+        raise ValueError('Constant or non-finite KPI in scaler training prefix')
+    return ((raw - mean) / scale).astype(np.float32), mean, scale
+
+
+def ensure_fresh_output(output):
+    """Reject reuse before weights/plots are written, not after training."""
+    output = Path(output)
+    files = [p for name in ('models', 'figures', 'reports')
+             for p in (output / name).glob('*') if p.is_file()]
+    if files:
+        raise ValueError('Existing experiment files; use a separate --out directory.')
 
 
 # ============================================================
@@ -462,13 +491,13 @@ def main():
     parser.add_argument(
         "--seq-len",
         type=int,
-        default=24,
+        default=DL_DEFAULTS["seq_len"],
     )
 
     parser.add_argument(
         "--seasonal-lag",
         type=int,
-        default=168,
+        default=DL_DEFAULTS["seasonal_lag"],
     )
 
     parser.add_argument(
@@ -492,55 +521,55 @@ def main():
     parser.add_argument(
         "--max-train",
         type=int,
-        default=60000,
+        default=DL_DEFAULTS["max_train"],
     )
 
     parser.add_argument(
         "--max-val",
         type=int,
-        default=12000,
+        default=DL_DEFAULTS["max_val"],
     )
 
     parser.add_argument(
         "--max-test",
         type=int,
-        default=0,
+        default=DL_DEFAULTS["max_test"],
     )
 
     parser.add_argument(
         "--epochs",
         type=int,
-        default=12,
+        default=DL_DEFAULTS["epochs"],
     )
 
     parser.add_argument(
         "--patience",
         type=int,
-        default=3,
+        default=DL_DEFAULTS["patience"],
     )
 
     parser.add_argument(
         "--batch-size",
         type=int,
-        default=256,
+        default=DL_DEFAULTS["batch_size"],
     )
 
     parser.add_argument(
         "--hidden",
         type=int,
-        default=32,
+        default=DL_DEFAULTS["hidden"],
     )
 
     parser.add_argument(
         "--lr",
         type=float,
-        default=0.001,
+        default=DL_DEFAULTS["lr"],
     )
 
     parser.add_argument(
         "--seed",
         type=int,
-        default=42,
+        default=DL_DEFAULTS["seed"],
     )
 
     parser.add_argument(
@@ -550,7 +579,7 @@ def main():
             "cpu",
             "cuda",
         ],
-        default="auto",
+        default=DL_DEFAULTS["device"],
     )
 
     args = parser.parse_args()
@@ -596,6 +625,8 @@ def main():
             min(8, torch.get_num_threads())
         )
 
+    # Web supplies a new run_id directory. CLI reuse must not overwrite results.
+    ensure_fresh_output(args.out)
     # Output directories
     reports = args.out / "reports"
     figures = args.out / "figures"
@@ -620,24 +651,7 @@ def main():
     # The previous stage fitted its scaler on hours 0..671.
     scale_mask = timeline < args.validation_start
 
-    scale_raw = raw[
-        :,
-        scale_mask,
-        :,
-    ].astype(np.float64)
-
-    raw_mean = scale_raw.mean(
-        axis=(0, 1)
-    )
-
-    raw_std = scale_raw.std(
-        axis=(0, 1)
-    )
-
-    if np.any(raw_std <= 0):
-        raise ValueError(
-            "Constant KPI detected in training period"
-        )
+    normalized, raw_mean, raw_std = fit_training_prefix(raw, timeline, args.validation_start)
 
     # Verify consistency with previous preprocessing.
     rng_check = np.random.default_rng(
@@ -670,9 +684,7 @@ def main():
     )
 
     # Refit from raw training prefix; never use validation/test scaler statistics.
-    data = ((raw - raw_mean) / raw_std).astype(np.float32)
-
-    del scale_raw
+    data = normalized
 
     # Chronological train / validation / test split
     min_idx = max(
@@ -1008,9 +1020,10 @@ def main():
             "training windows and separate validation."
         ),
         "validation_scaler_note": (
-            "Previous scaler was fitted on hours 0..671, "
-            "including the internal validation partition."
+            "Input cached z columns are not used for training. "
+            "Raw scaler is fitted strictly before validation_start."
         ),
+        "scaler_fit_until_exclusive": args.validation_start,
         "runs": run_infos,
     }
 

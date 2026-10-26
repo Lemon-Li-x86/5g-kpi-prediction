@@ -1,0 +1,275 @@
+Running: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\.venv\Scripts\python.exe -u -m src.models.train_traditional_models --out D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81 --quick --max-train 512 --max-test 512
+======================================================================
+W4 traditional machine-learning KPI prediction
+======================================================================
+
+Loading ML feature dataset...
+Input: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\data\processed\ml_features.pkl
+Loaded shape: (1932480, 34)
+
+Preparing feature matrices...
+
+QUICK MODE enabled.
+This mode is only for debugging and must not be used for the final report.
+
+Training matrix: (512, 20)
+Testing matrix:  (512, 20)
+
+======================================================================
+Target KPI: DLPRB(t+1)
+======================================================================
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Persistence
+  MAE:  0.312594
+  RMSE: 0.643141
+  R²:   0.654561
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training LinearRegression...
+  MAE:  0.321103
+  RMSE: 0.616772
+  R²:   0.682307
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training DecisionTree...
+  MAE:  0.302963
+  RMSE: 0.540870
+  R²:   0.755688
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training RandomForest...
+  MAE:  0.343408
+  RMSE: 0.626528
+  R²:   0.672177
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training XGBoost...
+  MAE:  0.314841
+  RMSE: 0.562416
+  R²:   0.735836
+  Fit:  0.2 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training LightGBM...
+  MAE:  0.305119
+  RMSE: 0.540085
+  R²:   0.756396
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+======================================================================
+Target KPI: DLThpVol(t+1)
+======================================================================
+
+Persistence
+  MAE:  0.242519
+  RMSE: 0.551360
+  R²:   0.126629
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training LinearRegression...
+  MAE:  0.244086
+  RMSE: 0.505250
+  R²:   0.266600
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training DecisionTree...
+  MAE:  0.245125
+  RMSE: 0.473796
+  R²:   0.355073
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training RandomForest...
+  MAE:  0.247431
+  RMSE: 0.406455
+  R²:   0.525373
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training XGBoost...
+  MAE:  0.236116
+  RMSE: 0.495415
+  R²:   0.294875
+  Fit:  0.1 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training LightGBM...
+  MAE:  0.222171
+  RMSE: 0.401556
+  R²:   0.536745
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+======================================================================
+Target KPI: DLThpTime(t+1)
+======================================================================
+
+Persistence
+  MAE:  0.290464
+  RMSE: 0.645952
+  R²:   0.460032
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training LinearRegression...
+  MAE:  0.306151
+  RMSE: 0.636528
+  R²:   0.475673
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training DecisionTree...
+  MAE:  0.308100
+  RMSE: 0.567080
+  R²:   0.583844
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training RandomForest...
+  MAE:  0.316671
+  RMSE: 0.547968
+  R²:   0.611422
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training XGBoost...
+  MAE:  0.288595
+  RMSE: 0.551595
+  R²:   0.606262
+  Fit:  0.1 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training LightGBM...
+  MAE:  0.289106
+  RMSE: 0.497691
+  R²:   0.679457
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+======================================================================
+Target KPI: MR_number(t+1)
+======================================================================
+
+Persistence
+  MAE:  0.249208
+  RMSE: 0.461303
+  R²:   0.832039
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training LinearRegression...
+  MAE:  0.262718
+  RMSE: 0.464639
+  R²:   0.829601
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training DecisionTree...
+  MAE:  0.273427
+  RMSE: 0.479489
+  R²:   0.818535
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training RandomForest...
+  MAE:  0.313082
+  RMSE: 0.589596
+  R²:   0.725626
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training XGBoost...
+  MAE:  0.274276
+  RMSE: 0.472937
+  R²:   0.823461
+  Fit:  0.1 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Training LightGBM...
+  MAE:  0.262366
+  RMSE: 0.452139
+  R²:   0.838646
+  Fit:  0.0 s
+  Pred: 0.0 s
+D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_traditional_models.py:354: RuntimeWarning: invalid value encountered in divide
+  sums
+
+Metrics saved: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\reports\model_metrics.csv
+Prediction summary saved: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\reports\prediction_timeseries.csv
+Saved figure: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\figures\DLPRB_predictions.png
+Saved figure: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\figures\DLThpVol_predictions.png
+Saved figure: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\figures\DLThpTime_predictions.png
+Saved figure: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\figures\MR_number_predictions.png
+Saved figure: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\figures\model_comparison_MAE.png
+Saved figure: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\figures\model_comparison_RMSE.png
+Saved figure: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\figures\model_comparison_R2.png
+
+======================================================================
+W4 traditional ML experiment completed.
+======================================================================
+
+Best model by R² for each KPI:
+   target    model      MAE     RMSE       R2
+    DLPRB LightGBM 0.305119 0.540085 0.756396
+DLThpTime LightGBM 0.289106 0.497691 0.679457
+ DLThpVol LightGBM 0.222171 0.401556 0.536745
+MR_number LightGBM 0.262366 0.452139 0.838646
+
+Generated:
+  D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\reports\model_metrics.csv
+  D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\reports\prediction_timeseries.csv
+  D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\reports\model_run_config.json
+  D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\figures
+
+WARNING:
+Results were generated in QUICK MODE.
+Run again without --quick for the final W4 experiment.
+Published 20 traditional ML models: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\models\ml_20261023T075016Z_0e8e81
+New experiment results: D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\resources\experiments\ml_20261023T075016Z_0e8e81\reports\model_metrics.csv

@@ -1,0 +1,392 @@
+[
+  {
+    "source": "reports/final_audit_20261025/experiments/runner_used.py",
+    "line": 30,
+    "literal": "reports/final_audit_20261025/experiments",
+    "exists_at_audit": true
+  },
+  {
+    "source": "reports/final_audit_20261025/experiments/runner_used.py",
+    "line": 31,
+    "literal": "resources/final_audit_20261025",
+    "exists_at_audit": true
+  },
+  {
+    "source": "reports/final_audit_20261025/experiments/runner_used.py",
+    "line": 86,
+    "literal": "data/processed/kpi_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/audit_project.py",
+    "line": 11,
+    "literal": "reports/final_audit_20261025",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 18,
+    "literal": "reports/final_audit_20261025",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 20,
+    "literal": "deliverables/review_20261025",
+    "exists_at_audit": false
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 135,
+    "literal": "reports/week3/w3_ml_dl_comparison_summary.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 145,
+    "literal": "D:/1_ToGo/Huawei5G/week2/w2-1.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 146,
+    "literal": "D:/1_ToGo/Huawei5G/week2/w2-2.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 147,
+    "literal": "D:/1_ToGo/Huawei5G/week2/W2周报.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 148,
+    "literal": "D:/1_ToGo/Huawei5G/week3/W3报告/01_深度学习模型性能评估报告_修订版.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 149,
+    "literal": "D:/1_ToGo/Huawei5G/week3/W3报告/02_传统ML与DL模型对比分析_修订版.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 150,
+    "literal": "D:/1_ToGo/Huawei5G/week3/W3报告/03_异常检测结果报告_修订版.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 151,
+    "literal": "D:/1_ToGo/Huawei5G/week3/W3报告/04_异常根因分析初步方案_修订版.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 152,
+    "literal": "D:/1_ToGo/Huawei5G/week3/W3报告/05_第三阶段周实验报告.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 153,
+    "literal": "D:/1_ToGo/Huawei5G/week3/W3报告/w3周报.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 154,
+    "literal": "D:/1_ToGo/Huawei5G/week4/5G网络KPI预测与异常检测系统_完整项目技术报告_可编辑.docx",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 111,
+    "literal": "reports/w4_anomaly_threshold_shape_summary.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/build_review_documents.py",
+    "line": 120,
+    "literal": "reports/w4_anomaly_kpi_correlation_tests.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/check_real_artifacts.py",
+    "line": 13,
+    "literal": "resources/final_audit_20261025/holdout_seed42",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/check_real_artifacts.py",
+    "line": 15,
+    "literal": "data/processed/kpi_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/check_real_artifacts.py",
+    "line": 39,
+    "literal": "reports/final_audit_20261025/real_artifact_roundtrip.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/check_real_artifacts.py",
+    "line": 31,
+    "literal": "resources/models",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/inspect_review_pdfs.py",
+    "line": 11,
+    "literal": "deliverables/review_20261025",
+    "exists_at_audit": false
+  },
+  {
+    "source": "scripts/inspect_review_pdfs.py",
+    "line": 12,
+    "literal": "resources/final_audit_20261025/document_previews",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/inspect_review_pdfs.py",
+    "line": 33,
+    "literal": "reports/final_audit_20261025/document_qa.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/summarize_final_review.py",
+    "line": 10,
+    "literal": "reports/final_audit_20261025",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/summarize_final_review.py",
+    "line": 168,
+    "literal": "data/processed/kpi_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/summarize_final_review.py",
+    "line": 148,
+    "literal": "deliverables/review_20261025/交付索引.md",
+    "exists_at_audit": false
+  },
+  {
+    "source": "scripts/summarize_final_review.py",
+    "line": 166,
+    "literal": "resources/final_audit_20261025",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/verify_final_review.py",
+    "line": 10,
+    "literal": "reports/final_audit_20261025",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/verify_final_review.py",
+    "line": 14,
+    "literal": "reports/w4_anomaly_test_flags.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/verify_final_review.py",
+    "line": 26,
+    "literal": "reports/w4_anomaly_kpi_correlation_tests.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "scripts/verify_final_review.py",
+    "line": 28,
+    "literal": "reports/w4_anomaly_kpi_correlation_matrix.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "src/analysis/analyze_anomaly_statistics.py",
+    "line": 205,
+    "literal": "data/processed/kpi_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 30,
+    "literal": "reports/final_audit_20261025/experiments",
+    "exists_at_audit": true
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 31,
+    "literal": "resources/final_audit_20261025",
+    "exists_at_audit": true
+  },
+  {
+    "source": "src/analysis/final_model_validation.py",
+    "line": 92,
+    "literal": "data/processed/kpi_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "src/core/config.py",
+    "line": 17,
+    "literal": "data/train",
+    "exists_at_audit": false
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 260,
+    "literal": "data/processed/kpi_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "src/models/detect_kpi_anomalies.py",
+    "line": 518,
+    "literal": "reports/preprocessing_summary.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "src/models/inference.py",
+    "line": 15,
+    "literal": "reports/preprocessing_summary.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "src/models/train_deep_learning_models.py",
+    "line": 465,
+    "literal": "data/processed/kpi_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_algorithm_audit.py",
+    "line": 79,
+    "literal": "models/w3_gru.pt",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_training_parameters.py",
+    "line": 92,
+    "literal": "reports/model_metrics.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_training_parameters.py",
+    "line": 93,
+    "literal": "reports/prediction_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_training_parameters.py",
+    "line": 94,
+    "literal": "reports/model_run_config.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_training_parameters.py",
+    "line": 139,
+    "literal": "resources/jobs/current.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_training_parameters.py",
+    "line": 174,
+    "literal": "resources/jobs/current.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 42,
+    "literal": "reports/preprocessing_summary.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 43,
+    "literal": "reports/raw_data_audit_summary.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 44,
+    "literal": "reports/ml_feature_summary.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 45,
+    "literal": "reports/model_metrics.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 46,
+    "literal": "reports/prediction_timeseries.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 47,
+    "literal": "reports/w3_deep_learning_metrics.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 48,
+    "literal": "reports/week3/w3_ml_dl_all_metrics.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 49,
+    "literal": "reports/week3/w3_ml_dl_comparison_report.md",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 50,
+    "literal": "reports/w3_anomaly_method_summary.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 51,
+    "literal": "reports/w3_anomaly_candidate_events.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 52,
+    "literal": "reports/w3_anomaly_root_cause_preliminary.md",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 53,
+    "literal": "reports/w4_anomaly_diagnostics_report.md",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 71,
+    "literal": "reports/model_metrics.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 71,
+    "literal": "reports/w3_deep_learning_metrics.csv",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 61,
+    "literal": "reports/preprocessing_summary.json",
+    "exists_at_audit": true
+  },
+  {
+    "source": "tests/test_week3_7_contracts.py",
+    "line": 80,
+    "literal": "reports/week3/w3_ml_dl_all_metrics.csv",
+    "exists_at_audit": true
+  }
+]

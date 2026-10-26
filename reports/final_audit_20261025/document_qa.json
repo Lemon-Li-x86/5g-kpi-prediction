@@ -1,0 +1,602 @@
+[
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W2_周报_核验修订20261025.pdf",
+    "pages": 8,
+    "sha256": "8383b479ceb7f85f7fc9a870ba01c8868ff2142a3f393dc5e063abff629d62c8",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 174,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc00-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 832,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc00-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 345,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc00-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 573,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc00-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 842,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc00-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1824,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc00-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 1923,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc00-page07.png"
+      },
+      {
+        "page": 8,
+        "text_characters": 958,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc00-page08.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W2_数据集统计分析报告_核验修订20261025.pdf",
+    "pages": 7,
+    "sha256": "07c3eb24aa16c50b237f1a1462b9f15ede6a99c0442372d9673e6d10abc56f7c",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 232,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc01-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 941,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc01-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 893,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc01-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 1300,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc01-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 525,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc01-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1643,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc01-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 1404,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc01-page07.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W2_模型性能评估报告_核验修订20261025.pdf",
+    "pages": 14,
+    "sha256": "7b97c34f3da3602107c950f3394bbf52ccb89539a34ad6ddccd0b88fb532283e",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 259,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 1305,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 1387,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 1229,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 547,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 456,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 481,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page07.png"
+      },
+      {
+        "page": 8,
+        "text_characters": 865,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page08.png"
+      },
+      {
+        "page": 9,
+        "text_characters": 1676,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page09.png"
+      },
+      {
+        "page": 10,
+        "text_characters": 1607,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page10.png"
+      },
+      {
+        "page": 11,
+        "text_characters": 558,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page11.png"
+      },
+      {
+        "page": 12,
+        "text_characters": 1826,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page12.png"
+      },
+      {
+        "page": 13,
+        "text_characters": 1925,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page13.png"
+      },
+      {
+        "page": 14,
+        "text_characters": 1881,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc02-page14.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W3_传统ML与DL模型对比分析_核验修订20261025.pdf",
+    "pages": 8,
+    "sha256": "0e99c969c774bc6ca3a5ebb2e20b408221dc6898733dcd8bcd9336b25eaf30dd",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 294,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc03-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 1123,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc03-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 768,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc03-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 1006,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc03-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 1367,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc03-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1834,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc03-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 1933,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc03-page07.png"
+      },
+      {
+        "page": 8,
+        "text_characters": 968,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc03-page08.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W3_周报_核验修订20261025.pdf",
+    "pages": 9,
+    "sha256": "4a5bea3673b73d8583e86ef092b6a99a6cee463724959dcfa703424907a44754",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 183,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 854,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 582,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 630,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 760,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1171,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 1867,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page07.png"
+      },
+      {
+        "page": 8,
+        "text_characters": 1888,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page08.png"
+      },
+      {
+        "page": 9,
+        "text_characters": 1578,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc04-page09.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W3_异常根因分析初步方案_核验修订20261025.pdf",
+    "pages": 7,
+    "sha256": "5f436456bbb565c67d65d69401b0652dbcda4c2996aef91ea925d085c585f261",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 252,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc05-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 696,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc05-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 1167,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc05-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 1182,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc05-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 355,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc05-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1411,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc05-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 707,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc05-page07.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W3_异常检测结果报告_核验修订20261025.pdf",
+    "pages": 7,
+    "sha256": "7adf37041ea68bdd32490360402e67b6f5a0f85cf7a3c9dac9c04cae27c6d8a5",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 270,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc06-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 956,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc06-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 627,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc06-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 1481,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc06-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 139,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc06-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1409,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc06-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 705,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc06-page07.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W3_深度学习模型性能评估报告_核验修订20261025.pdf",
+    "pages": 8,
+    "sha256": "83a07904baef8a354869ce90ffcdadeb9c90e062fd7185491dd0d818b553052f",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 261,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc07-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 982,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc07-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 917,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc07-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 1019,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc07-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 829,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc07-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1829,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc07-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 1928,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc07-page07.png"
+      },
+      {
+        "page": 8,
+        "text_characters": 963,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc07-page08.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\W3_第三阶段周实验报告_核验修订20261025.pdf",
+    "pages": 7,
+    "sha256": "8bf199beb309f7e485fbd3d1c113ee5c32c5271142bdcbe721aea0414bd4b803",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 210,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc08-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 1197,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc08-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 1091,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc08-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 1826,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc08-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 1925,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc08-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1553,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc08-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 706,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc08-page07.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  },
+  {
+    "file": "deliverables\\review_20261025\\pdf\\完整项目技术报告_核验修订20261025.pdf",
+    "pages": 21,
+    "sha256": "1eefe10984f9c3aa81b7e370c63677d71a19bfaa97ceda529dd40da5a7f2c9a0",
+    "page_checks": [
+      {
+        "page": 1,
+        "text_characters": 335,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page01.png"
+      },
+      {
+        "page": 2,
+        "text_characters": 1862,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page02.png"
+      },
+      {
+        "page": 3,
+        "text_characters": 1323,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page03.png"
+      },
+      {
+        "page": 4,
+        "text_characters": 638,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page04.png"
+      },
+      {
+        "page": 5,
+        "text_characters": 1492,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page05.png"
+      },
+      {
+        "page": 6,
+        "text_characters": 1708,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page06.png"
+      },
+      {
+        "page": 7,
+        "text_characters": 1481,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page07.png"
+      },
+      {
+        "page": 8,
+        "text_characters": 1047,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page08.png"
+      },
+      {
+        "page": 9,
+        "text_characters": 1364,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page09.png"
+      },
+      {
+        "page": 10,
+        "text_characters": 823,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page10.png"
+      },
+      {
+        "page": 11,
+        "text_characters": 1456,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page11.png"
+      },
+      {
+        "page": 12,
+        "text_characters": 1226,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page12.png"
+      },
+      {
+        "page": 13,
+        "text_characters": 1538,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page13.png"
+      },
+      {
+        "page": 14,
+        "text_characters": 928,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page14.png"
+      },
+      {
+        "page": 15,
+        "text_characters": 1476,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page15.png"
+      },
+      {
+        "page": 16,
+        "text_characters": 329,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page16.png"
+      },
+      {
+        "page": 17,
+        "text_characters": 1292,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page17.png"
+      },
+      {
+        "page": 18,
+        "text_characters": 2228,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page18.png"
+      },
+      {
+        "page": 19,
+        "text_characters": 2155,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page19.png"
+      },
+      {
+        "page": 20,
+        "text_characters": 1820,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page20.png"
+      },
+      {
+        "page": 21,
+        "text_characters": 731,
+        "path": "resources\\final_audit_20261025\\document_previews\\doc09-page21.png"
+      }
+    ],
+    "mentions_latest_tests": true,
+    "blank_page_numbers": [],
+    "renderer": "Installed Microsoft Word ExportAsFixedFormat -> pypdfium2 PNG; bundled render_docx failed: LibreOffice absent",
+    "visual_inspection": "Reviewed rendered page contact sheets and full-resolution statistical tables/figure captions; no clipped table text, missing original figures or blank pages observed in final export.",
+    "preserved_original_figures": true
+  }
+]

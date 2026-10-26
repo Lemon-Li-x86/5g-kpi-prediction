@@ -1,0 +1,13 @@
+# Keep experimental evidence byte-for-byte so published SHA-256 manifests work
+# after a clone on Windows as well as on other platforms.
+/reports/delivery_audit_20261025/** -text
+/reports/experiment_archive/** -text
+/reports/final_audit_20261025/** -text
+/reports/delivery_final_20261025/** -text
+
+# Preserve formal document bytes and avoid treating PDF streams as source text.
+*.pdf binary
+*.pptx binary
+
+# The submission CSV is a required deliverable, stored with Git LFS.
+/deliverables/submit2/2_kpi_timeseries.csv filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,144 @@
+{
+  "version": "20261023T065043Z_0c450a",
+  "reason": "before_train_ml",
+  "artifacts": [
+    {
+      "filename": "anomalies.pkl",
+      "family": "anomaly",
+      "model": "3sigma/IQR/IF/SVM",
+      "target": "ALL"
+    },
+    {
+      "filename": "LightGBM_MR_number.pkl",
+      "family": "ml",
+      "model": "LightGBM",
+      "target": "MR_number"
+    },
+    {
+      "filename": "XGBoost_MR_number.pkl",
+      "family": "ml",
+      "model": "XGBoost",
+      "target": "MR_number"
+    },
+    {
+      "filename": "RandomForest_MR_number.pkl",
+      "family": "ml",
+      "model": "RandomForest",
+      "target": "MR_number"
+    },
+    {
+      "filename": "DecisionTree_MR_number.pkl",
+      "family": "ml",
+      "model": "DecisionTree",
+      "target": "MR_number"
+    },
+    {
+      "filename": "LinearRegression_MR_number.pkl",
+      "family": "ml",
+      "model": "LinearRegression",
+      "target": "MR_number"
+    },
+    {
+      "filename": "LightGBM_DLThpTime.pkl",
+      "family": "ml",
+      "model": "LightGBM",
+      "target": "DLThpTime"
+    },
+    {
+      "filename": "XGBoost_DLThpTime.pkl",
+      "family": "ml",
+      "model": "XGBoost",
+      "target": "DLThpTime"
+    },
+    {
+      "filename": "RandomForest_DLThpTime.pkl",
+      "family": "ml",
+      "model": "RandomForest",
+      "target": "DLThpTime"
+    },
+    {
+      "filename": "DecisionTree_DLThpTime.pkl",
+      "family": "ml",
+      "model": "DecisionTree",
+      "target": "DLThpTime"
+    },
+    {
+      "filename": "LinearRegression_DLThpTime.pkl",
+      "family": "ml",
+      "model": "LinearRegression",
+      "target": "DLThpTime"
+    },
+    {
+      "filename": "LightGBM_DLThpVol.pkl",
+      "family": "ml",
+      "model": "LightGBM",
+      "target": "DLThpVol"
+    },
+    {
+      "filename": "XGBoost_DLThpVol.pkl",
+      "family": "ml",
+      "model": "XGBoost",
+      "target": "DLThpVol"
+    },
+    {
+      "filename": "RandomForest_DLThpVol.pkl",
+      "family": "ml",
+      "model": "RandomForest",
+      "target": "DLThpVol"
+    },
+    {
+      "filename": "DecisionTree_DLThpVol.pkl",
+      "family": "ml",
+      "model": "DecisionTree",
+      "target": "DLThpVol"
+    },
+    {
+      "filename": "LinearRegression_DLThpVol.pkl",
+      "family": "ml",
+      "model": "LinearRegression",
+      "target": "DLThpVol"
+    },
+    {
+      "filename": "LightGBM_DLPRB.pkl",
+      "family": "ml",
+      "model": "LightGBM",
+      "target": "DLPRB"
+    },
+    {
+      "filename": "XGBoost_DLPRB.pkl",
+      "family": "ml",
+      "model": "XGBoost",
+      "target": "DLPRB"
+    },
+    {
+      "filename": "RandomForest_DLPRB.pkl",
+      "family": "ml",
+      "model": "RandomForest",
+      "target": "DLPRB"
+    },
+    {
+      "filename": "DecisionTree_DLPRB.pkl",
+      "family": "ml",
+      "model": "DecisionTree",
+      "target": "DLPRB"
+    },
+    {
+      "filename": "LinearRegression_DLPRB.pkl",
+      "family": "ml",
+      "model": "LinearRegression",
+      "target": "DLPRB"
+    },
+    {
+      "filename": "w3_lstm.pt",
+      "family": "dl",
+      "model": "LSTM",
+      "target": "ALL"
+    },
+    {
+      "filename": "w3_gru.pt",
+      "family": "dl",
+      "model": "GRU",
+      "target": "ALL"
+    }
+  ]
+}

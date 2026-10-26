@@ -1,0 +1,5 @@
+0781ca9151faa8bcb6d881566ca928eb46601662	refs/heads/archive/5g-kpi-web-system-2026-10-23-rc1
+21bfa52dc2fac2b70ef1ba57978297fdef3bd922	refs/heads/backup/pre-refactor-2026-10-22
+9f13564b8b23b2bef1588c4edaa59c382a6011a6	refs/heads/backup/pre-w4-app-integration-2026-10-22
+8782bdd909baf0adc3088f98b5cf334d658280ac	refs/heads/backup/statistical-analysis-revisions-2026-10-23
+45dfa84324b6a5afb984bdd8f6b9729142fe6c93	refs/heads/main

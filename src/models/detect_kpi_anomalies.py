@@ -30,6 +30,7 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 from sklearn.svm import OneClassSVM
 
+from src.core.training_config import ANOMALY_DEFAULTS
 from src.core.config import KPIS, KEYS, DATASET_TEST_START_HOUR
 
 
@@ -46,6 +47,7 @@ Z = [f"{k}_z" for k in KPIS]
 # ============================================================
 
 def load_data(path: Path):
+    from src.data.hourly_contract import validate_hourly_timeline
 
     cols = [
         "Time",
@@ -89,6 +91,7 @@ def load_data(path: Path):
     )
 
     timeline = tgrid[0].copy()
+    validate_hourly_timeline(timeline)
 
     if not np.array_equal(
         tgrid,
@@ -274,37 +277,37 @@ def main():
     p.add_argument(
         "--if-train-sample",
         type=int,
-        default=80000,
+        default=ANOMALY_DEFAULTS["if_train_sample"],
     )
 
     p.add_argument(
         "--if-contamination",
         type=float,
-        default=0.02,
+        default=ANOMALY_DEFAULTS["if_contamination"],
     )
 
     p.add_argument(
         "--svm-train-sample",
         type=int,
-        default=2500,
+        default=ANOMALY_DEFAULTS["svm_train_sample"],
     )
 
     p.add_argument(
         "--svm-test-sample",
         type=int,
-        default=12000,
+        default=ANOMALY_DEFAULTS["svm_test_sample"],
     )
 
     p.add_argument(
         "--seed",
         type=int,
-        default=42,
+        default=ANOMALY_DEFAULTS["seed"],
     )
 
     p.add_argument(
         "--max-events",
         type=int,
-        default=2000,
+        default=ANOMALY_DEFAULTS["max_events"],
     )
 
     args = p.parse_args()
@@ -820,123 +823,6 @@ def main():
     events.to_csv(
         reports / "w3_anomaly_candidate_events.csv",
         index=False,
-    )
-
-    # --------------------------------------------------------
-    # Preliminary root-cause investigation notes
-    # --------------------------------------------------------
-
-    nflags = {
-        row["method"]: float(row["flag_rate"])
-        for row in rates
-    }
-
-    notes = f"""# W3: KPI Anomaly Detection and Preliminary Root-Cause Analysis
-
-## 1. Experimental scope
-
-- Input dataset: {args.csv}
-- Training period: Time < {args.test_start}
-- Test period: Time >= {args.test_start}
-- Total test beam-hours: {len(if_flag):,}
-- Consensus anomaly candidates: {int(consensus.sum()):,}
-- Consensus anomaly rate: {consensus.mean():.2%}
-
-This dataset does not contain verified network-fault labels.
-Anomaly candidates must not be interpreted as confirmed faults.
-
-## 2. Detection methods
-
-### Three-sigma rule
-
-Per-beam training mean and standard deviation are used.
-An observation is flagged when any KPI exceeds 3 standard deviations.
-
-Full-test flag rate: {nflags["3sigma"]:.2%}
-
-### IQR
-
-Per-beam Q1 and Q3 are used to construct IQR fences.
-For {fallback_count} zero-IQR beam-KPI distributions, the
-1st/99th training percentiles are used as fallback bounds.
-
-Full-test flag rate: {nflags["IQR"]:.2%}
-
-### Isolation Forest
-
-Input features:
-- Four current standardized KPI values
-- Four causal first-difference values
-
-Training sample size: {len(if_train):,}
-
-Full-test flag rate: {nflags["IsolationForest"]:.2%}
-
-### One-Class SVM
-
-Kernel: RBF
-Training samples: {len(svm_train):,}
-Test subset: {len(svm_idx):,}
-
-Sampled-test flag rate: {nflags["OneClassSVM"]:.2%}
-
-The One-Class SVM result is calculated on a sampled subset
-and must not be presented as a full-test detection rate.
-
-## 3. Consensus detection
-
-Consensus is defined as:
-
-Isolation Forest flag AND (Three-sigma flag OR IQR flag).
-
-It is a screening criterion, not a verified fault classifier.
-
-## 4. KPI association and possible investigation directions
-
-The four investigated indicators are:
-- DLPRB: Downlink physical resource block usage
-- DLThpVol: Downlink traffic volume
-- DLThpTime: Downlink transmission time
-- MR_number: Measurement report count
-
-Inspect the event table and correlation matrix to identify
-which KPI deviations tend to occur together.
-
-Possible investigation hypotheses include:
-- High DLPRB accompanied by changed throughput demand:
-  investigate potential load or resource pressure.
-- Sudden DLThpVol or DLThpTime changes:
-  investigate changes in traffic or scheduling conditions.
-- Unusual MR_number changes:
-  investigate measurement activity and related network context.
-
-These are hypotheses only. KPI correlation does not prove
-any specific cause.
-
-## 5. Limitations
-
-- No verified network fault labels.
-- No precision, recall or F1 can be reported.
-- Thresholds may be sensitive to nonstationary traffic.
-- One-Class SVM uses sampled training and test records.
-- Additional RSRP, SINR, traffic, alarm and equipment logs
-  would be required for more reliable root-cause analysis.
-
-## 6. Saved results
-
-- w3_anomaly_method_summary.csv
-- w3_anomaly_rate_by_hour.csv
-- w3_anomaly_candidate_events.csv
-- w3_anomaly_kpi_correlations.csv
-- w3_one_class_svm_test_subset.csv
-
-"""
-
-    (
-        reports / "w3_anomaly_root_cause_preliminary.md"
-    ).write_text(
-        notes,
-        encoding="utf-8",
     )
 
     # --------------------------------------------------------

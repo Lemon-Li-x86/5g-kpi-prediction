@@ -1,0 +1,57 @@
+{
+  "dataset": "data\\processed\\kpi_timeseries.csv",
+  "seed": 42,
+  "device": "cpu",
+  "seq_len": 24,
+  "seasonal_lag": 168,
+  "target": "t+1; four per-beam original-scale KPI targets (z normalized for training)",
+  "metric_units": "raw KPI units (same as earlier traditional ML)",
+  "train_scale_mean": [
+    0.5315661751768953,
+    0.3217190506265501,
+    0.420173489540618,
+    0.5918890555774581
+  ],
+  "train_scale_std": [
+    1.0306299494505335,
+    1.1268269936600015,
+    1.0396724890271647,
+    1.0329812066115358
+  ],
+  "train_scaler_consistency_max_error": 0.20944089860413673,
+  "training": [
+    169,
+    587
+  ],
+  "validation": [
+    588,
+    671
+  ],
+  "test": [
+    672,
+    839
+  ],
+  "train_samples": 512,
+  "validation_samples": 512,
+  "test_samples": 512,
+  "full_test": false,
+  "comparison_note": "Same prediction target/test hours/raw target scale as earlier ML, but DL uses sampled training windows and separate validation.",
+  "validation_scaler_note": "Input cached z columns are not used for training. Raw scaler is fitted strictly before validation_start.",
+  "scaler_fit_until_exclusive": 588,
+  "runs": {
+    "gru": {
+      "best_epoch": 1,
+      "best_val_mse": 1.063336044549942,
+      "num_parameters": 476,
+      "epochs_run": 1,
+      "loss_history": {
+        "train": [
+          0.6954238824546337
+        ],
+        "val": [
+          1.063336044549942
+        ]
+      }
+    }
+  }
+}

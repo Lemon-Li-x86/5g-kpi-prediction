@@ -1,0 +1,8 @@
+  master                                                          c9a7d59 chore(w4): exclude versioned local weights and job logs from Git
+* w4/local-integration-2026-10-23                                 0781ca9 [origin/w4/local-integration-2026-10-23: gone] docs: record final source audit, model-specific parameters, retained results and test status
+  remotes/origin/HEAD                                             -> origin/main
+  remotes/origin/archive/5g-kpi-web-system-2026-10-23-rc1         0781ca9 docs: record final source audit, model-specific parameters, retained results and test status
+  remotes/origin/backup/pre-refactor-2026-10-22                   21bfa52 add web application to visualize anomaly detection results and statistical diagnostics. This includes a user guide, figures for KPI correlation significance, flag rates, and training distribution shape, as well as various reports summarizing the analysis. The application is built using Flask and provides an interactive interface for users to explore the results of the anomaly detection process.
+  remotes/origin/backup/pre-w4-app-integration-2026-10-22         9f13564 Add local model persistence and unified inference foundations
+  remotes/origin/backup/statistical-analysis-revisions-2026-10-23 8782bdd feat: add W4 anomaly statistical diagnostics
+  remotes/origin/main                                             45dfa84 Fix formatting and clarify experiment results

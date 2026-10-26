@@ -1,0 +1,69 @@
+test_anomaly_loader_rejects_duplicate_and_fractional_hours (tests.test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours) ... 
+  test_anomaly_loader_rejects_duplicate_and_fractional_hours (tests.test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours) (times=[0, 1, 1, 2]) ... FAIL
+  test_anomaly_loader_rejects_duplicate_and_fractional_hours (tests.test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours) (times=[0.5, 1.5, 2.5]) ... FAIL
+test_dl_scaler_ignores_all_future_changes (tests.test_algorithm_audit.AlgorithmAuditTests.test_dl_scaler_ignores_all_future_changes) ... ERROR
+test_existing_experiment_is_rejected_before_writes (tests.test_algorithm_audit.AlgorithmAuditTests.test_existing_experiment_is_rejected_before_writes) ... ERROR
+test_loaders_reject_joint_missing_hour (tests.test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour) ... 
+  test_loaders_reject_joint_missing_hour (tests.test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour) (loader='load_tensor') ... FAIL
+  test_loaders_reject_joint_missing_hour (tests.test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour) (loader='load_data') ... FAIL
+test_twenty_features_match_inference_on_each_beam (tests.test_algorithm_audit.AlgorithmAuditTests.test_twenty_features_match_inference_on_each_beam) ... ok
+test_window_uses_target_exclusive_history_and_origin_season (tests.test_algorithm_audit.AlgorithmAuditTests.test_window_uses_target_exclusive_history_and_origin_season) ... ok
+
+======================================================================
+ERROR: test_dl_scaler_ignores_all_future_changes (tests.test_algorithm_audit.AlgorithmAuditTests.test_dl_scaler_ignores_all_future_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 45, in test_dl_scaler_ignores_all_future_changes
+    from src.models.train_deep_learning_models import fit_training_prefix
+ImportError: cannot import name 'fit_training_prefix' from 'src.models.train_deep_learning_models' (D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_deep_learning_models.py)
+
+======================================================================
+ERROR: test_existing_experiment_is_rejected_before_writes (tests.test_algorithm_audit.AlgorithmAuditTests.test_existing_experiment_is_rejected_before_writes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 66, in test_existing_experiment_is_rejected_before_writes
+    from src.models.train_deep_learning_models import ensure_fresh_output
+ImportError: cannot import name 'ensure_fresh_output' from 'src.models.train_deep_learning_models' (D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\src\models\train_deep_learning_models.py)
+
+======================================================================
+FAIL: test_anomaly_loader_rejects_duplicate_and_fractional_hours (tests.test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours) (times=[0, 1, 1, 2])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 41, in test_anomaly_loader_rejects_duplicate_and_fractional_hours
+    with self.subTest(times=times), self.assertRaises(ValueError):
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_anomaly_loader_rejects_duplicate_and_fractional_hours (tests.test_algorithm_audit.AlgorithmAuditTests.test_anomaly_loader_rejects_duplicate_and_fractional_hours) (times=[0.5, 1.5, 2.5])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 41, in test_anomaly_loader_rejects_duplicate_and_fractional_hours
+    with self.subTest(times=times), self.assertRaises(ValueError):
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_loaders_reject_joint_missing_hour (tests.test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour) (loader='load_tensor')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 33, in test_loaders_reject_joint_missing_hour
+    with self.subTest(loader=loader.__name__), self.assertRaisesRegex(ValueError, 'contiguous'):
+                                               ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_loaders_reject_joint_missing_hour (tests.test_algorithm_audit.AlgorithmAuditTests.test_loaders_reject_joint_missing_hour) (loader='load_data')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 33, in test_loaders_reject_joint_missing_hour
+    with self.subTest(loader=loader.__name__), self.assertRaisesRegex(ValueError, 'contiguous'):
+                                               ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.143s
+
+FAILED (failures=4, errors=2)
+
+Building time-series features...

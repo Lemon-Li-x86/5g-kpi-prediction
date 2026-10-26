@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-25",
+  "scope": "正式交付文档同步，现有数值实验结果未改写",
+  "pdf_count": 9,
+  "pdf_pages": 52,
+  "pdfs": [
+    {
+      "path": "deliverables/submit3/2-深度学习模型性能评估报告.pdf",
+      "pages": 4,
+      "sha256": "90d02155e4eea15f63d8f16cd7f7b9e705fcf38d14fa3cbe94c07758246693a9"
+    },
+    {
+      "path": "deliverables/submit3/3-传统机器学习与深度学习模型对比分析.pdf",
+      "pages": 4,
+      "sha256": "0bd5f1c28241c7ca6f383aef77a5bfc61651cf3aa97a2c682d12e2c0fb7eb698"
+    },
+    {
+      "path": "deliverables/submit3/5-异常检测结果报告.pdf",
+      "pages": 3,
+      "sha256": "bf25eec2767baf2987dd0e61beb8f1599a82e2eb3fcd828bff200d244124c720"
+    },
+    {
+      "path": "deliverables/submit3/6-异常根因分析初步⽅案.pdf",
+      "pages": 3,
+      "sha256": "1191d37ba3a48984fad6123376682bca4383c7664b1a2b4b1b6d7e10f3c727a9"
+    },
+    {
+      "path": "deliverables/submit3/s3周报.pdf",
+      "pages": 3,
+      "sha256": "0781b55335b1f44f461576bb1874575d0a22578bf0016e49624d3b465ded6c0e"
+    },
+    {
+      "path": "deliverables/submit4/项目技术报告.pdf",
+      "pages": 17,
+      "sha256": "37b27ce4e70eccdf1eb7a701883717f5757c63bbb19940e045c6a3c5eaa50503"
+    },
+    {
+      "path": "deliverables/submit4/3_系统使用手册.pdf",
+      "pages": 8,
+      "sha256": "4ff23418fb5a19bfcefbcf118b2504c8229325b100cea6b8bbb230cf24527345"
+    },
+    {
+      "path": "deliverables/submit4/w4周报.pdf",
+      "pages": 5,
+      "sha256": "7a91823199ca2e83f9c3bc3ec9464efb6219fa4c5a4ce227712ffe630b53484e"
+    },
+    {
+      "path": "deliverables/submit2/s2周报.pdf",
+      "pages": 5,
+      "sha256": "f55c6ff7d1336a13f5847c5acdacb4d8b9637129dbcf4e883590d9d5bbabf0b3"
+    }
+  ],
+  "ppt": {
+    "path": "deliverables/submit4/ppt.pptx",
+    "slides": 14,
+    "sha256": "c5dab5215cbb20ca42ae47a004d924a36497f9872c4ce4470630a5f6e8a3502b",
+    "native_chart_workbooks_verified": true
+  },
+  "regression_tests": {
+    "passed": 58,
+    "failed": 0,
+    "log": "reports/delivery_final_20261025/tests.txt"
+  },
+  "delivery_index_paths_verified": 55,
+  "formal_metrics_verified": 36,
+  "dataset_sha256_unchanged": "a2f03f39f383610c374805325587287ecf4f7552d1587906904cb1d54e9fe853",
+  "teacher_feedback": {
+    "rmse_and_metrics": "已补齐并核对",
+    "figure_captions_and_conclusions": "已整合到正文，图2与图注同页",
+    "time_validation_and_significance": "GRU/RF/XGB三折、双种子留出、HAC/Holm；LSTM/Transformer探索条件单列",
+    "anomaly_distribution": "定量分布诊断与阈值标记率已同步",
+    "and_or_logic": "组合实际数量、IF AND IQR仅增加6条已解释",
+    "correlation_sample_and_significance": "n=3165，30站聚类、bootstrap区间及Holm p已同步"
+  },
+  "runtime_evidence_note": "本次重新运行58项单元/契约测试；页面、模型回载与现场截图使用前次已验证记录。",
+  "git_note": "修改已保存在本机工作目录，尚未提交或推送。",
+  "markdown_files_verified": [
+    "ARCHITECTURE.md",
+    "README.md",
+    "USERGUIDE.md"
+  ],
+  "git_diff_whitespace_check": "passed",
+  "document_binary_attributes": "PDF/PPTX binary，CSV继续使用Git LFS"
+}

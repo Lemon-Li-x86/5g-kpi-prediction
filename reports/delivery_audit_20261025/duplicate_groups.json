@@ -1,0 +1,815 @@
+[
+  {
+    "size": 2916730,
+    "sha256": "1b61d506f2205ffe60c1e6ab9a7b96d5b3ebd1ab223acc34e1440546e4340bc7",
+    "paths": [
+      "models/DecisionTree_DLPRB.pkl",
+      "resources/models/20261023T040631Z_4aed26/DecisionTree_DLPRB.pkl",
+      "resources/models/20261023T041120Z_c5e29e/DecisionTree_DLPRB.pkl",
+      "resources/models/20261023T041128Z_d39d61/DecisionTree_DLPRB.pkl",
+      "resources/models/20261023T065043Z_0c450a/DecisionTree_DLPRB.pkl",
+      "resources/models/20261023T071017Z_461308/DecisionTree_DLPRB.pkl"
+    ],
+    "potential_bytes": 14583650,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 2542622,
+    "sha256": "6407963255803490edff540d48c3fc01d230f0e83e5a281cc175f37ef022b393",
+    "paths": [
+      "models/DecisionTree_DLThpTime.pkl",
+      "resources/models/20261023T040631Z_4aed26/DecisionTree_DLThpTime.pkl",
+      "resources/models/20261023T041120Z_c5e29e/DecisionTree_DLThpTime.pkl",
+      "resources/models/20261023T041128Z_d39d61/DecisionTree_DLThpTime.pkl",
+      "resources/models/20261023T065043Z_0c450a/DecisionTree_DLThpTime.pkl",
+      "resources/models/20261023T071017Z_461308/DecisionTree_DLThpTime.pkl"
+    ],
+    "potential_bytes": 12713110,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1779709,
+    "sha256": "c25af96a9b9957db014c2ee2803672b89396b069093c40fb37969225b7d4f038",
+    "paths": [
+      "models/DecisionTree_DLThpVol.pkl",
+      "resources/models/20261023T040631Z_4aed26/DecisionTree_DLThpVol.pkl",
+      "resources/models/20261023T041120Z_c5e29e/DecisionTree_DLThpVol.pkl",
+      "resources/models/20261023T041128Z_d39d61/DecisionTree_DLThpVol.pkl",
+      "resources/models/20261023T065043Z_0c450a/DecisionTree_DLThpVol.pkl",
+      "resources/models/20261023T071017Z_461308/DecisionTree_DLThpVol.pkl"
+    ],
+    "potential_bytes": 8898545,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 3455294,
+    "sha256": "8c6e0edc9c60a248d4544a9da4ff929e8f6a7599cc0c78b0a7aa920ba80dc508",
+    "paths": [
+      "models/DecisionTree_MR_number.pkl",
+      "resources/models/20261023T040631Z_4aed26/DecisionTree_MR_number.pkl",
+      "resources/models/20261023T041120Z_c5e29e/DecisionTree_MR_number.pkl",
+      "resources/models/20261023T041128Z_d39d61/DecisionTree_MR_number.pkl",
+      "resources/models/20261023T065043Z_0c450a/DecisionTree_MR_number.pkl",
+      "resources/models/20261023T071017Z_461308/DecisionTree_MR_number.pkl"
+    ],
+    "potential_bytes": 17276470,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1443824,
+    "sha256": "447617c4a323dc97a34c604d7cc43e75b3919a2187d0753f629174653f644fe0",
+    "paths": [
+      "models/LightGBM_DLPRB.pkl",
+      "resources/models/20261023T040631Z_4aed26/LightGBM_DLPRB.pkl",
+      "resources/models/20261023T041120Z_c5e29e/LightGBM_DLPRB.pkl",
+      "resources/models/20261023T041128Z_d39d61/LightGBM_DLPRB.pkl",
+      "resources/models/20261023T065043Z_0c450a/LightGBM_DLPRB.pkl",
+      "resources/models/20261023T071017Z_461308/LightGBM_DLPRB.pkl"
+    ],
+    "potential_bytes": 7219120,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1422333,
+    "sha256": "28ec5d13b0433a00597b1777c5e736cf4fdcf9b9e3a31a98da7cc2a0468c7302",
+    "paths": [
+      "models/LightGBM_DLThpTime.pkl",
+      "resources/models/20261023T040631Z_4aed26/LightGBM_DLThpTime.pkl",
+      "resources/models/20261023T041120Z_c5e29e/LightGBM_DLThpTime.pkl",
+      "resources/models/20261023T041128Z_d39d61/LightGBM_DLThpTime.pkl",
+      "resources/models/20261023T065043Z_0c450a/LightGBM_DLThpTime.pkl",
+      "resources/models/20261023T071017Z_461308/LightGBM_DLThpTime.pkl"
+    ],
+    "potential_bytes": 7111665,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1413271,
+    "sha256": "bf1884bee140399e4fdb53bf67370ad2b19c7fdc18ad79c49706522f7819d582",
+    "paths": [
+      "models/LightGBM_DLThpVol.pkl",
+      "resources/models/20261023T040631Z_4aed26/LightGBM_DLThpVol.pkl",
+      "resources/models/20261023T041120Z_c5e29e/LightGBM_DLThpVol.pkl",
+      "resources/models/20261023T041128Z_d39d61/LightGBM_DLThpVol.pkl",
+      "resources/models/20261023T065043Z_0c450a/LightGBM_DLThpVol.pkl",
+      "resources/models/20261023T071017Z_461308/LightGBM_DLThpVol.pkl"
+    ],
+    "potential_bytes": 7066355,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1452304,
+    "sha256": "3d9dcbf90c98a19ca341c48edf3c6026289c8e0c900a7ecf3166fbcb23bec078",
+    "paths": [
+      "models/LightGBM_MR_number.pkl",
+      "resources/models/20261023T040631Z_4aed26/LightGBM_MR_number.pkl",
+      "resources/models/20261023T041120Z_c5e29e/LightGBM_MR_number.pkl",
+      "resources/models/20261023T041128Z_d39d61/LightGBM_MR_number.pkl",
+      "resources/models/20261023T065043Z_0c450a/LightGBM_MR_number.pkl",
+      "resources/models/20261023T071017Z_461308/LightGBM_MR_number.pkl"
+    ],
+    "potential_bytes": 7261520,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1146,
+    "sha256": "75093c1feca3857c024c09956258ec56e093f51e2feef7edaa50082338f9ee4c",
+    "paths": [
+      "models/LinearRegression_DLPRB.pkl",
+      "resources/models/20261023T040631Z_4aed26/LinearRegression_DLPRB.pkl",
+      "resources/models/20261023T041120Z_c5e29e/LinearRegression_DLPRB.pkl",
+      "resources/models/20261023T041128Z_d39d61/LinearRegression_DLPRB.pkl",
+      "resources/models/20261023T065043Z_0c450a/LinearRegression_DLPRB.pkl",
+      "resources/models/20261023T071017Z_461308/LinearRegression_DLPRB.pkl"
+    ],
+    "potential_bytes": 5730,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1150,
+    "sha256": "0fd87d601c60e3c0a8560fc06d9ad85c2e4edcb03075523518b480270b496c89",
+    "paths": [
+      "models/LinearRegression_DLThpTime.pkl",
+      "resources/models/20261023T040631Z_4aed26/LinearRegression_DLThpTime.pkl",
+      "resources/models/20261023T041120Z_c5e29e/LinearRegression_DLThpTime.pkl",
+      "resources/models/20261023T041128Z_d39d61/LinearRegression_DLThpTime.pkl",
+      "resources/models/20261023T065043Z_0c450a/LinearRegression_DLThpTime.pkl",
+      "resources/models/20261023T071017Z_461308/LinearRegression_DLThpTime.pkl"
+    ],
+    "potential_bytes": 5750,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1149,
+    "sha256": "233b09724dbb8febc6f818ec67ec42af6d274ec24a860c4d60cabfbbee851c66",
+    "paths": [
+      "models/LinearRegression_DLThpVol.pkl",
+      "resources/models/20261023T040631Z_4aed26/LinearRegression_DLThpVol.pkl",
+      "resources/models/20261023T041120Z_c5e29e/LinearRegression_DLThpVol.pkl",
+      "resources/models/20261023T041128Z_d39d61/LinearRegression_DLThpVol.pkl",
+      "resources/models/20261023T065043Z_0c450a/LinearRegression_DLThpVol.pkl",
+      "resources/models/20261023T071017Z_461308/LinearRegression_DLThpVol.pkl"
+    ],
+    "potential_bytes": 5745,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1150,
+    "sha256": "f8a8d7850fc6c76ba7240721ae244f9336ea196253a36e88c6349c700cfe2aa6",
+    "paths": [
+      "models/LinearRegression_MR_number.pkl",
+      "resources/models/20261023T040631Z_4aed26/LinearRegression_MR_number.pkl",
+      "resources/models/20261023T041120Z_c5e29e/LinearRegression_MR_number.pkl",
+      "resources/models/20261023T041128Z_d39d61/LinearRegression_MR_number.pkl",
+      "resources/models/20261023T065043Z_0c450a/LinearRegression_MR_number.pkl",
+      "resources/models/20261023T071017Z_461308/LinearRegression_MR_number.pkl"
+    ],
+    "potential_bytes": 5750,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 35499670,
+    "sha256": "d721921f9d8d84442434f43e0e64d366709594e6c5bd582053b0c017366b6f16",
+    "paths": [
+      "models/RandomForest_DLPRB.pkl",
+      "resources/models/20261023T040631Z_4aed26/RandomForest_DLPRB.pkl",
+      "resources/models/20261023T041120Z_c5e29e/RandomForest_DLPRB.pkl",
+      "resources/models/20261023T041128Z_d39d61/RandomForest_DLPRB.pkl",
+      "resources/models/20261023T065043Z_0c450a/RandomForest_DLPRB.pkl",
+      "resources/models/20261023T071017Z_461308/RandomForest_DLPRB.pkl"
+    ],
+    "potential_bytes": 177498350,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 29352458,
+    "sha256": "dc056ed0abe8e8304161f13619703bf358921dd7bf397e033cd63d89c29bb3df",
+    "paths": [
+      "models/RandomForest_DLThpTime.pkl",
+      "resources/models/20261023T040631Z_4aed26/RandomForest_DLThpTime.pkl",
+      "resources/models/20261023T041120Z_c5e29e/RandomForest_DLThpTime.pkl",
+      "resources/models/20261023T041128Z_d39d61/RandomForest_DLThpTime.pkl",
+      "resources/models/20261023T065043Z_0c450a/RandomForest_DLThpTime.pkl",
+      "resources/models/20261023T071017Z_461308/RandomForest_DLThpTime.pkl"
+    ],
+    "potential_bytes": 146762290,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 23708656,
+    "sha256": "d3756d5221ae44ed2cdcda20a6df66a5efdfc7753fc2ec17212f13c5bdc3c45e",
+    "paths": [
+      "models/RandomForest_DLThpVol.pkl",
+      "resources/models/20261023T040631Z_4aed26/RandomForest_DLThpVol.pkl",
+      "resources/models/20261023T041120Z_c5e29e/RandomForest_DLThpVol.pkl",
+      "resources/models/20261023T041128Z_d39d61/RandomForest_DLThpVol.pkl",
+      "resources/models/20261023T065043Z_0c450a/RandomForest_DLThpVol.pkl",
+      "resources/models/20261023T071017Z_461308/RandomForest_DLThpVol.pkl"
+    ],
+    "potential_bytes": 118543280,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 40546154,
+    "sha256": "bacc8cf71c8fde4cb55ceb8dbaae36285b3e3cd6502eeac25d88b4198a15b4f8",
+    "paths": [
+      "models/RandomForest_MR_number.pkl",
+      "resources/models/20261023T040631Z_4aed26/RandomForest_MR_number.pkl",
+      "resources/models/20261023T041120Z_c5e29e/RandomForest_MR_number.pkl",
+      "resources/models/20261023T041128Z_d39d61/RandomForest_MR_number.pkl",
+      "resources/models/20261023T065043Z_0c450a/RandomForest_MR_number.pkl",
+      "resources/models/20261023T071017Z_461308/RandomForest_MR_number.pkl"
+    ],
+    "potential_bytes": 202730770,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 3996569,
+    "sha256": "61c9e6a1f4f43475b022cf9a99a7ab6859f3ff12a6ead39a6d43da7c59110507",
+    "paths": [
+      "models/XGBoost_DLPRB.pkl",
+      "resources/models/20261023T040631Z_4aed26/XGBoost_DLPRB.pkl",
+      "resources/models/20261023T041120Z_c5e29e/XGBoost_DLPRB.pkl",
+      "resources/models/20261023T041128Z_d39d61/XGBoost_DLPRB.pkl",
+      "resources/models/20261023T065043Z_0c450a/XGBoost_DLPRB.pkl",
+      "resources/models/20261023T071017Z_461308/XGBoost_DLPRB.pkl"
+    ],
+    "potential_bytes": 19982845,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 3721715,
+    "sha256": "1e4d72106d5de27351889866f866fe59fcce8cd6235a505879910c5216cd6187",
+    "paths": [
+      "models/XGBoost_DLThpTime.pkl",
+      "resources/models/20261023T040631Z_4aed26/XGBoost_DLThpTime.pkl",
+      "resources/models/20261023T041120Z_c5e29e/XGBoost_DLThpTime.pkl",
+      "resources/models/20261023T041128Z_d39d61/XGBoost_DLThpTime.pkl",
+      "resources/models/20261023T065043Z_0c450a/XGBoost_DLThpTime.pkl",
+      "resources/models/20261023T071017Z_461308/XGBoost_DLThpTime.pkl"
+    ],
+    "potential_bytes": 18608575,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 3504590,
+    "sha256": "e6caeda3693839bd9c704318829cbc5bcbe0790b414cce84d98031653785ea63",
+    "paths": [
+      "models/XGBoost_DLThpVol.pkl",
+      "resources/models/20261023T040631Z_4aed26/XGBoost_DLThpVol.pkl",
+      "resources/models/20261023T041120Z_c5e29e/XGBoost_DLThpVol.pkl",
+      "resources/models/20261023T041128Z_d39d61/XGBoost_DLThpVol.pkl",
+      "resources/models/20261023T065043Z_0c450a/XGBoost_DLThpVol.pkl",
+      "resources/models/20261023T071017Z_461308/XGBoost_DLThpVol.pkl"
+    ],
+    "potential_bytes": 17522950,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 3984737,
+    "sha256": "d767dbb3298deb0c05f8d745de6acf0595d4fab2949e8e74455c721476be66cc",
+    "paths": [
+      "models/XGBoost_MR_number.pkl",
+      "resources/models/20261023T040631Z_4aed26/XGBoost_MR_number.pkl",
+      "resources/models/20261023T041120Z_c5e29e/XGBoost_MR_number.pkl",
+      "resources/models/20261023T041128Z_d39d61/XGBoost_MR_number.pkl",
+      "resources/models/20261023T065043Z_0c450a/XGBoost_MR_number.pkl",
+      "resources/models/20261023T071017Z_461308/XGBoost_MR_number.pkl"
+    ],
+    "potential_bytes": 19923685,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 32083682,
+    "sha256": "b029a88f1fe638c56dfae0071a084abab85efeb5f7b4c17cb60f82132e28d1fa",
+    "paths": [
+      "models/anomalies.pkl",
+      "resources/experiments/anomaly_20261023T072214Z_5ccb20/models/anomalies.pkl",
+      "resources/models/20261023T041128Z_d39d61/anomalies.pkl",
+      "resources/models/20261023T065043Z_0c450a/anomalies.pkl",
+      "resources/models/20261023T071017Z_461308/anomalies.pkl",
+      "resources/models/anomaly_20261023T072214Z_5ccb20/anomalies.pkl"
+    ],
+    "potential_bytes": 160418410,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 380,
+    "sha256": "e3e1c2b61e946abd88ce1a18a8ce050d2c7daeef515038ffd689fd90c92e8274",
+    "paths": [
+      "models/w3_gru.json",
+      "resources/experiments/gru_20261023T040942Z_22c99f/models/w3_gru.json",
+      "resources/experiments/gru_20261023T071632Z_9c47c2/models/w3_gru.json",
+      "resources/models/20261023T030915Z_8eb163/w3_gru.json",
+      "resources/models/20261023T035701Z_4616a4/w3_gru.json",
+      "resources/models/20261023T040129Z_98346a/w3_gru.json",
+      "resources/models/20261023T040631Z_4aed26/w3_gru.json",
+      "resources/models/20261023T041120Z_c5e29e/w3_gru.json",
+      "resources/models/20261023T041128Z_d39d61/w3_gru.json",
+      "resources/models/20261023T065043Z_0c450a/w3_gru.json",
+      "resources/models/20261023T071017Z_461308/w3_gru.json",
+      "resources/models/gru_20261023T040942Z_22c99f/w3_gru.json",
+      "resources/models/gru_20261023T071632Z_9c47c2/w3_gru.json"
+    ],
+    "potential_bytes": 4560,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 22975,
+    "sha256": "0a3ea4995acac997c8cbe1d2e13c033ee7c029af7ce59f2d968c041b0d3814c0",
+    "paths": [
+      "models/w3_gru.pt",
+      "resources/experiments/gru_20261023T040942Z_22c99f/models/w3_gru.pt",
+      "resources/models/20261023T030915Z_8eb163/w3_gru.pt",
+      "resources/models/20261023T035701Z_4616a4/w3_gru.pt",
+      "resources/models/20261023T040129Z_98346a/w3_gru.pt",
+      "resources/models/20261023T040631Z_4aed26/w3_gru.pt",
+      "resources/models/20261023T041120Z_c5e29e/w3_gru.pt",
+      "resources/models/20261023T041128Z_d39d61/w3_gru.pt",
+      "resources/models/20261023T065043Z_0c450a/w3_gru.pt",
+      "resources/models/20261023T071017Z_461308/w3_gru.pt",
+      "resources/models/gru_20261023T040942Z_22c99f/w3_gru.pt"
+    ],
+    "potential_bytes": 229750,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 381,
+    "sha256": "76712687b4ba8a8eb704243a88b2401fd0246fbd96d134ac17406adfeded3a19",
+    "paths": [
+      "models/w3_lstm.json",
+      "resources/experiments/lstm_20261023T031426Z_3c1956/models/w3_lstm.json",
+      "resources/experiments/lstm_20261023T040821Z_737aea/models/w3_lstm.json",
+      "resources/models/20261023T025138Z_8fd183/w3_lstm.json",
+      "resources/models/20261023T025953Z_9f7976/w3_lstm.json",
+      "resources/models/20261023T030915Z_8eb163/w3_lstm.json",
+      "resources/models/20261023T035701Z_4616a4/w3_lstm.json",
+      "resources/models/20261023T040129Z_98346a/w3_lstm.json",
+      "resources/models/20261023T040631Z_4aed26/w3_lstm.json",
+      "resources/models/20261023T041120Z_c5e29e/w3_lstm.json",
+      "resources/models/20261023T041128Z_d39d61/w3_lstm.json",
+      "resources/models/20261023T065043Z_0c450a/w3_lstm.json",
+      "resources/models/20261023T071017Z_461308/w3_lstm.json",
+      "resources/models/lstm_20261023T031426Z_3c1956/w3_lstm.json",
+      "resources/models/lstm_20261023T040821Z_737aea/w3_lstm.json"
+    ],
+    "potential_bytes": 5334,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 27853,
+    "sha256": "cbbc9ed9cd33af8d7d43284fb30b1d52ae217bbd619aee716ecae59b5014c737",
+    "paths": [
+      "models/w3_lstm.pt",
+      "resources/experiments/lstm_20261023T031426Z_3c1956/models/w3_lstm.pt",
+      "resources/experiments/lstm_20261023T040821Z_737aea/models/w3_lstm.pt",
+      "resources/models/20261023T025138Z_8fd183/w3_lstm.pt",
+      "resources/models/20261023T025953Z_9f7976/w3_lstm.pt",
+      "resources/models/20261023T030915Z_8eb163/w3_lstm.pt",
+      "resources/models/20261023T035701Z_4616a4/w3_lstm.pt",
+      "resources/models/20261023T040129Z_98346a/w3_lstm.pt",
+      "resources/models/20261023T040631Z_4aed26/w3_lstm.pt",
+      "resources/models/20261023T041120Z_c5e29e/w3_lstm.pt",
+      "resources/models/20261023T041128Z_d39d61/w3_lstm.pt",
+      "resources/models/20261023T065043Z_0c450a/w3_lstm.pt",
+      "resources/models/20261023T071017Z_461308/w3_lstm.pt",
+      "resources/models/lstm_20261023T031426Z_3c1956/w3_lstm.pt",
+      "resources/models/lstm_20261023T040821Z_737aea/w3_lstm.pt"
+    ],
+    "potential_bytes": 389942,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 277,
+    "sha256": "5823c50cb83e2474827e85e06fcd7649106b88dad3f335d9abe945d5db8279f5",
+    "paths": [
+      "reports/w3_anomaly_method_summary.csv",
+      "resources/experiments/anomaly_20261023T072214Z_5ccb20/reports/w3_anomaly_method_summary.csv"
+    ],
+    "potential_bytes": 277,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 13924,
+    "sha256": "8768f9366f6786052bbd77c01247e96b74fadeba9c24b64dfcc5554781f3f614",
+    "paths": [
+      "reports/w3_anomaly_rate_by_hour.csv",
+      "resources/experiments/anomaly_20261023T072214Z_5ccb20/reports/w3_anomaly_rate_by_hour.csv"
+    ],
+    "potential_bytes": 13924,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 2804,
+    "sha256": "f9ee3625746699f934e55a7f6f3451fd3b5b326be38fe08203ba893fa1c712fd",
+    "paths": [
+      "reports/w3_anomaly_root_cause_preliminary.md",
+      "resources/experiments/anomaly_20261023T072214Z_5ccb20/reports/w3_anomaly_root_cause_preliminary.md"
+    ],
+    "potential_bytes": 2804,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 342,
+    "sha256": "cc5c87a801665b1a4552c678f383dfa3c17bbe7fbc6ed3c55517386d29086e6c",
+    "paths": [
+      "reports/w3_anomaly_run_config.json",
+      "resources/experiments/anomaly_20261023T072214Z_5ccb20/reports/w3_anomaly_run_config.json"
+    ],
+    "potential_bytes": 342,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 400757,
+    "sha256": "68f8863d456eb9aa98da4a70a893101af01d5db46c55a533942bd1ef093c03ab",
+    "paths": [
+      "reports/w3_one_class_svm_test_subset.csv",
+      "resources/experiments/anomaly_20261023T072214Z_5ccb20/reports/w3_one_class_svm_test_subset.csv"
+    ],
+    "potential_bytes": 400757,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 237,
+    "sha256": "27d3f1d9d03a4b5bad6c4c915cc3bf48a5d92dc27000a57f4e445e2a3ecb9eeb",
+    "paths": [
+      "resources/experiments/anomaly_20261023T072214Z_5ccb20/requested_parameters.json",
+      "resources/models/anomaly_20261023T072214Z_5ccb20/requested_parameters.json"
+    ],
+    "potential_bytes": 237,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 32119448,
+    "sha256": "d198038d4c597f6bb5e0f69cb5685c4c7185041e20927cc12b0d050bf09c6904",
+    "paths": [
+      "resources/experiments/anomaly_20261023T072714Z_3ed272/models/anomalies.pkl",
+      "resources/models/anomaly_20261023T072714Z_3ed272/anomalies.pkl"
+    ],
+    "potential_bytes": 32119448,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 232,
+    "sha256": "4e121588f3d84e3c052633d9b28a7d735557edd8d03b9a752f97aa737ea56b4f",
+    "paths": [
+      "resources/experiments/anomaly_20261023T072714Z_3ed272/requested_parameters.json",
+      "resources/models/anomaly_20261023T072714Z_3ed272/requested_parameters.json"
+    ],
+    "potential_bytes": 232,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 22975,
+    "sha256": "1a85c3733b6b175756a1d0371f874ea641e688f25cdc401c26b3cc32dfaf8ea9",
+    "paths": [
+      "resources/experiments/gru_20261023T071632Z_9c47c2/models/w3_gru.pt",
+      "resources/models/gru_20261023T071632Z_9c47c2/w3_gru.pt"
+    ],
+    "potential_bytes": 22975,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 317,
+    "sha256": "8176cad5560f10790c6c79929a2d0efd1694477331bec1d6fc76304610b704e0",
+    "paths": [
+      "resources/experiments/gru_20261023T071632Z_9c47c2/requested_parameters.json",
+      "resources/models/gru_20261023T071632Z_9c47c2/requested_parameters.json"
+    ],
+    "potential_bytes": 317,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 119873,
+    "sha256": "bd5e8dc602ef891725346c86d884328fa99800e6ec85781f51eee9a22efec846",
+    "paths": [
+      "resources/experiments/lstm_20261023T031426Z_3c1956/figures/w3_lstm_DLPRB_prediction.png",
+      "resources/experiments/lstm_20261023T040821Z_737aea/figures/w3_lstm_DLPRB_prediction.png"
+    ],
+    "potential_bytes": 119873,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 118950,
+    "sha256": "0e526db1813776f80a71eeff2bba39d5dfb5b7d21bb82fcdd9684cdbb4b0671a",
+    "paths": [
+      "resources/experiments/lstm_20261023T031426Z_3c1956/figures/w3_lstm_DLThpTime_prediction.png",
+      "resources/experiments/lstm_20261023T040821Z_737aea/figures/w3_lstm_DLThpTime_prediction.png"
+    ],
+    "potential_bytes": 118950,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 119236,
+    "sha256": "6252b03c6a0ead04f842d0bfb253dcc036fa7991b6868e378180fc93e47ce82f",
+    "paths": [
+      "resources/experiments/lstm_20261023T031426Z_3c1956/figures/w3_lstm_DLThpVol_prediction.png",
+      "resources/experiments/lstm_20261023T040821Z_737aea/figures/w3_lstm_DLThpVol_prediction.png"
+    ],
+    "potential_bytes": 119236,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 121475,
+    "sha256": "ccd52719347724a195b9e1b1e043e8e72b009196001617142581d9a3268632c8",
+    "paths": [
+      "resources/experiments/lstm_20261023T031426Z_3c1956/figures/w3_lstm_MR_number_prediction.png",
+      "resources/experiments/lstm_20261023T040821Z_737aea/figures/w3_lstm_MR_number_prediction.png"
+    ],
+    "potential_bytes": 121475,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 51385,
+    "sha256": "85d6a49f5d9d4cd98cd01438c42b29b11a830e98ed7bfa0bbdf90c309797ea24",
+    "paths": [
+      "resources/experiments/lstm_20261023T031426Z_3c1956/figures/w3_lstm_loss.png",
+      "resources/experiments/lstm_20261023T040821Z_737aea/figures/w3_lstm_loss.png"
+    ],
+    "potential_bytes": 51385,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 373,
+    "sha256": "78d55e8abcaa7c5a951009bbb0af7732fb8e2671268038567f7372c1dfc869e0",
+    "paths": [
+      "resources/experiments/lstm_20261023T031426Z_3c1956/reports/w3_deep_learning_metrics.csv",
+      "resources/experiments/lstm_20261023T040821Z_737aea/reports/w3_deep_learning_metrics.csv"
+    ],
+    "potential_bytes": 373,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1815,
+    "sha256": "c11a16cd3c8f5bc357e3472c22d016ce85fc754d4bc98e2394886605cbec0bf0",
+    "paths": [
+      "resources/experiments/lstm_20261023T031426Z_3c1956/reports/w3_deep_learning_run_config.json",
+      "resources/experiments/lstm_20261023T040821Z_737aea/reports/w3_deep_learning_run_config.json"
+    ],
+    "potential_bytes": 1815,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 26767,
+    "sha256": "75d46c3f57ab680cd976894fd54fa4bacbd535b1b6f01cbac0b2bb305edba297",
+    "paths": [
+      "resources/experiments/lstm_20261023T031426Z_3c1956/reports/w3_lstm_hourly_predictions.csv",
+      "resources/experiments/lstm_20261023T040821Z_737aea/reports/w3_lstm_hourly_predictions.csv"
+    ],
+    "potential_bytes": 26767,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 4309,
+    "sha256": "5d85956b726d5d0f5504bb141a9bbfdeccef972ebd8e05a37eb51c073ee088a3",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/DecisionTree_DLPRB.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/DecisionTree_DLPRB.pkl"
+    ],
+    "potential_bytes": 4309,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 4313,
+    "sha256": "267e82592e8ac3033583eb95d204085f4cc01961639bfec4eb52cbe1abb639be",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/DecisionTree_DLThpTime.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/DecisionTree_DLThpTime.pkl"
+    ],
+    "potential_bytes": 4313,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 4600,
+    "sha256": "93add735985581002d31c5349f9824b1f50a4847c09c4f36a6c0360fd969db5e",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/DecisionTree_DLThpVol.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/DecisionTree_DLThpVol.pkl"
+    ],
+    "potential_bytes": 4600,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 4313,
+    "sha256": "a7b85a6968ee724940d367ef00c1786d867e04ddb265f0822c3d6f0341011735",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/DecisionTree_MR_number.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/DecisionTree_MR_number.pkl"
+    ],
+    "potential_bytes": 4313,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 100934,
+    "sha256": "e2b38897bbd030872b70e7bd5b5b8d0dc51b1c26b85bb2581e57ffd30ca9cd7e",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/LightGBM_DLPRB.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/LightGBM_DLPRB.pkl"
+    ],
+    "potential_bytes": 100934,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 101982,
+    "sha256": "842194c946174720cb40a0ad90379330cd1947217d476ae01a2a4b270fca203c",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/LightGBM_DLThpTime.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/LightGBM_DLThpTime.pkl"
+    ],
+    "potential_bytes": 101982,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 102376,
+    "sha256": "1748a3f30cf5cb0e8043b5f45c542e46319d820e334b736ac7244585301fc5ff",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/LightGBM_DLThpVol.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/LightGBM_DLThpVol.pkl"
+    ],
+    "potential_bytes": 102376,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 101156,
+    "sha256": "134bfc9d16d93e61c1d6926bb3d4c334fd9f94b50e59f169745995a1805346a5",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/LightGBM_MR_number.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/LightGBM_MR_number.pkl"
+    ],
+    "potential_bytes": 101156,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1146,
+    "sha256": "7158ca9eef789e0fa83aada47ed06b43d8cfece414029941742bf774c7036725",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/LinearRegression_DLPRB.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/LinearRegression_DLPRB.pkl"
+    ],
+    "potential_bytes": 1146,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1150,
+    "sha256": "b8e464a219171940a2f773deb058dc17267be172f19747712ed70e4ac82f84a4",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/LinearRegression_DLThpTime.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/LinearRegression_DLThpTime.pkl"
+    ],
+    "potential_bytes": 1150,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1149,
+    "sha256": "e9335aa1b745dab745af8ed330a632bea71157217395f58323e9023cd9074997",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/LinearRegression_DLThpVol.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/LinearRegression_DLThpVol.pkl"
+    ],
+    "potential_bytes": 1149,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 1150,
+    "sha256": "3d4f5347763fe6633f569fd76e5a7fddd30c0bedd8baca0693efb9b058343e4f",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/LinearRegression_MR_number.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/LinearRegression_MR_number.pkl"
+    ],
+    "potential_bytes": 1150,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 16016,
+    "sha256": "e84c2b21e9e32bbdeda7bca7b9082985903d1c1c98e996af4c7973fc96db1874",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/RandomForest_DLPRB.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/RandomForest_DLPRB.pkl"
+    ],
+    "potential_bytes": 16016,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 15876,
+    "sha256": "72774c00e6c523eb24ea89e72c47bb4aef4e4116c0740301cb595011f512cfb0",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/RandomForest_DLThpTime.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/RandomForest_DLThpTime.pkl"
+    ],
+    "potential_bytes": 15876,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 16883,
+    "sha256": "5c60511a3046cfcae77e7fb8d03790c30734b2062b3ae257eb42ab12db6680d2",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/RandomForest_DLThpVol.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/RandomForest_DLThpVol.pkl"
+    ],
+    "potential_bytes": 16883,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 16020,
+    "sha256": "848368f7f13a67c4295f42a2393411aab71725cded0027505ee55d241484f9f1",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/RandomForest_MR_number.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/RandomForest_MR_number.pkl"
+    ],
+    "potential_bytes": 16020,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 244610,
+    "sha256": "f78f9d62bf5ee83ab50bbf0234ca55a1f5d60942025b8bb201695d30364d4f30",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/XGBoost_DLPRB.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/XGBoost_DLPRB.pkl"
+    ],
+    "potential_bytes": 244610,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 222775,
+    "sha256": "075d1ca0058fa5672f1ac47243fbad922d5d174ed82f9ee30bef052c1feba2de",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/XGBoost_DLThpTime.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/XGBoost_DLThpTime.pkl"
+    ],
+    "potential_bytes": 222775,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 216370,
+    "sha256": "3e6e265be7e182c230149860cf87229dfb24ed66bcc338cf637fae019563e5a2",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/XGBoost_DLThpVol.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/XGBoost_DLThpVol.pkl"
+    ],
+    "potential_bytes": 216370,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 242570,
+    "sha256": "3580f9d23277d81bcf2f7813a3965f7a746d1db8af1e91f8d85968d122f15d2d",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/models/XGBoost_MR_number.pkl",
+      "resources/models/ml_20261023T075016Z_0e8e81/XGBoost_MR_number.pkl"
+    ],
+    "potential_bytes": 242570,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 131,
+    "sha256": "8e0ac7f8e2d93d04e97106293d526c58b44bca480974fc97f53c55273c9736b0",
+    "paths": [
+      "resources/experiments/ml_20261023T075016Z_0e8e81/requested_parameters.json",
+      "resources/models/ml_20261023T075016Z_0e8e81/requested_parameters.json"
+    ],
+    "potential_bytes": 131,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 388,
+    "sha256": "1fe943df2d63925219b8a7c607233ca5ea3219dfee072d376a0a2ac380907843",
+    "paths": [
+      "resources/experiments/transformer_20261023T041033Z_7e775e/models/w3_transformer.json",
+      "resources/models/transformer_20261023T041033Z_7e775e/w3_transformer.json"
+    ],
+    "potential_bytes": 388,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 50457,
+    "sha256": "66cf5e1f5ea84b0102d16d9293201353f3aefeae35dde0614006418f7bb5e550",
+    "paths": [
+      "resources/experiments/transformer_20261023T041033Z_7e775e/models/w3_transformer.pt",
+      "resources/models/transformer_20261023T041033Z_7e775e/w3_transformer.pt"
+    ],
+    "potential_bytes": 50457,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 24084,
+    "sha256": "b0bef3d885f41906da7ac21e56297500d9d6469f5e642449a54bce9fb285f547",
+    "paths": [
+      "resources/final_audit_20261025/fold1_seed42/beam_keys.csv",
+      "resources/final_audit_20261025/fold2_seed42/beam_keys.csv",
+      "resources/final_audit_20261025/fold3_seed42/beam_keys.csv",
+      "resources/final_audit_20261025/holdout_seed42/beam_keys.csv",
+      "resources/final_audit_20261025/holdout_seed43/beam_keys.csv"
+    ],
+    "potential_bytes": 96336,
+    "action": "retain pending review; content equality does not prove dispensability"
+  },
+  {
+    "size": 300,
+    "sha256": "2021f9877edd334618b492cc2378a00dd1dabaf924fe53e5ae4ac56394a1d44c",
+    "paths": [
+      "resources/final_audit_20261025/holdout_seed42/gru.json",
+      "resources/final_audit_20261025/holdout_seed43/gru.json"
+    ],
+    "potential_bytes": 300,
+    "action": "retain pending review; content equality does not prove dispensability"
+  }
+]

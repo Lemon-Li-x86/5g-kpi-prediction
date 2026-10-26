@@ -1,0 +1,122 @@
+[
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "seq_len",
+    "old_default": 24,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "seasonal_lag",
+    "old_default": 168,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "max_train",
+    "old_default": 60000,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "max_val",
+    "old_default": 12000,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "max_test",
+    "old_default": 0,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "epochs",
+    "old_default": 12,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "patience",
+    "old_default": 3,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "batch_size",
+    "old_default": 256,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "hidden",
+    "old_default": 32,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "lr",
+    "old_default": 0.001,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "seed",
+    "old_default": 42,
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_deep_learning_models.py",
+    "parameter": "device",
+    "old_default": "auto",
+    "owner": "src/core/training_config.py:DL_DEFAULTS"
+  },
+  {
+    "file": "src/models/detect_kpi_anomalies.py",
+    "parameter": "if_train_sample",
+    "old_default": 80000,
+    "owner": "src/core/training_config.py:ANOMALY_DEFAULTS"
+  },
+  {
+    "file": "src/models/detect_kpi_anomalies.py",
+    "parameter": "if_contamination",
+    "old_default": 0.02,
+    "owner": "src/core/training_config.py:ANOMALY_DEFAULTS"
+  },
+  {
+    "file": "src/models/detect_kpi_anomalies.py",
+    "parameter": "svm_train_sample",
+    "old_default": 2500,
+    "owner": "src/core/training_config.py:ANOMALY_DEFAULTS"
+  },
+  {
+    "file": "src/models/detect_kpi_anomalies.py",
+    "parameter": "svm_test_sample",
+    "old_default": 12000,
+    "owner": "src/core/training_config.py:ANOMALY_DEFAULTS"
+  },
+  {
+    "file": "src/models/detect_kpi_anomalies.py",
+    "parameter": "seed",
+    "old_default": 42,
+    "owner": "src/core/training_config.py:ANOMALY_DEFAULTS"
+  },
+  {
+    "file": "src/models/detect_kpi_anomalies.py",
+    "parameter": "max_events",
+    "old_default": 2000,
+    "owner": "src/core/training_config.py:ANOMALY_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_traditional_models.py",
+    "parameter": "max_train",
+    "old_default": 200000,
+    "owner": "src/core/training_config.py:ML_DEFAULTS"
+  },
+  {
+    "file": "src/models/train_traditional_models.py",
+    "parameter": "max_test",
+    "old_default": 0,
+    "owner": "src/core/training_config.py:ML_DEFAULTS"
+  }
+]

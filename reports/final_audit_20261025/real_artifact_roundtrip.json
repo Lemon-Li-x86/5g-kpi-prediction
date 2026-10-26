@@ -1,0 +1,62 @@
+[
+  {
+    "model": "GRU",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\gru.pt",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "RandomForest",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\RandomForest_DLPRB.pkl",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "RandomForest",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\RandomForest_DLThpVol.pkl",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "RandomForest",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\RandomForest_DLThpTime.pkl",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "RandomForest",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\RandomForest_MR_number.pkl",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "XGBoost",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\XGBoost_DLPRB.pkl",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "XGBoost",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\XGBoost_DLThpVol.pkl",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "XGBoost",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\XGBoost_DLThpTime.pkl",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "XGBoost",
+    "artifact": "resources\\final_audit_20261025\\holdout_seed42\\XGBoost_MR_number.pkl",
+    "roundtrip": true,
+    "csv_export": true
+  },
+  {
+    "model": "historical anomaly",
+    "artifact": "resources\\models\\20261023T041128Z_d39d61\\anomalies.pkl",
+    "n": 5760,
+    "csv_export": true
+  }
+]

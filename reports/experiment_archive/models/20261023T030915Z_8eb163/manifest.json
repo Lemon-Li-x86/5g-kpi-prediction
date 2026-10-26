@@ -1,0 +1,18 @@
+{
+  "version": "20261023T030915Z_8eb163",
+  "reason": "before_train_dl",
+  "artifacts": [
+    {
+      "filename": "w3_gru.pt",
+      "family": "dl",
+      "model": "GRU",
+      "target": "ALL"
+    },
+    {
+      "filename": "w3_lstm.pt",
+      "family": "dl",
+      "model": "LSTM",
+      "target": "ALL"
+    }
+  ]
+}

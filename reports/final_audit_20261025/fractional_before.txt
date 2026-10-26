@@ -1,0 +1,15 @@
+test_forecast_rejects_fractional_hour_before_casting_target (tests.test_algorithm_audit.AlgorithmAuditTests.test_forecast_rejects_fractional_hour_before_casting_target) ... FAIL
+
+======================================================================
+FAIL: test_forecast_rejects_fractional_hour_before_casting_target (tests.test_algorithm_audit.AlgorithmAuditTests.test_forecast_rejects_fractional_hour_before_casting_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\1_ToGo\Huawei5G\5g-kpi-prediction-refactor-project-structure\tests\test_algorithm_audit.py", line 72, in test_forecast_rejects_fractional_hour_before_casting_target
+    with self.assertRaisesRegex(ValueError,'integer'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.051s
+
+FAILED (failures=1)

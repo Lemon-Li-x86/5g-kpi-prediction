@@ -1,0 +1,72 @@
+[
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week2\\w2-1.docx",
+    "source_sha256": "e38e036fdaefd814dded90b2266de90051b074b8101cb13e244674021e99293c",
+    "revised": "deliverables\\review_20261025\\W2_数据集统计分析报告_核验修订20261025.docx",
+    "kind": "w2stats",
+    "sha256": "fde7c2f0acae64e11413ab45723baf438fb68210a49b4c702a5d0ac21dc2ad3e"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week2\\w2-2.docx",
+    "source_sha256": "4ce6dae1d452b2ca346c54ec5decaa08134aa9176ac0a9a1ee177639e8f6b06c",
+    "revised": "deliverables\\review_20261025\\W2_模型性能评估报告_核验修订20261025.docx",
+    "kind": "w2model",
+    "sha256": "e4398e00782453bec2d45d1f4f3847442a50c21c2ebf4c155608cc2a0738c049"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week2\\W2周报.docx",
+    "source_sha256": "ed97c523336d8bd27e606522751fcaf033286187af92e48ef547a9a88b7e7cdb",
+    "revised": "deliverables\\review_20261025\\W2_周报_核验修订20261025.docx",
+    "kind": "w2weekly",
+    "sha256": "fa4fe6789e9a1dc3d52a940497a70bfcd51f80b912a1e36f2a550a376f6ae7e6"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\01_深度学习模型性能评估报告_修订版.docx",
+    "source_sha256": "65c17ee9cc61e626c4c78eddd5d3e62dad81b31127a32aa8d64e655bc868f3de",
+    "revised": "deliverables\\review_20261025\\W3_深度学习模型性能评估报告_核验修订20261025.docx",
+    "kind": "dl",
+    "sha256": "0949330849749238e7bc7ef8549268254cebb5b46702a2c97ae62c9c1f322d79"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\02_传统ML与DL模型对比分析_修订版.docx",
+    "source_sha256": "e49e3bcb31e5a307a4773ddcfa183bbb4ec29a5c99745155a89768eeb5e1175c",
+    "revised": "deliverables\\review_20261025\\W3_传统ML与DL模型对比分析_核验修订20261025.docx",
+    "kind": "comparison",
+    "sha256": "da510c539c56dc6e90c134c5044e36659ea1c47480f20330e843668d76820a59"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\03_异常检测结果报告_修订版.docx",
+    "source_sha256": "d182f4a86da654e694a97d5b0330fadabc7a7185b3603e4bf58e131097082c89",
+    "revised": "deliverables\\review_20261025\\W3_异常检测结果报告_核验修订20261025.docx",
+    "kind": "anomaly",
+    "sha256": "60197b3b95446441c979233d3c3b3bacdb41bf7b72efea89ea69d927a368c4d7"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\04_异常根因分析初步方案_修订版.docx",
+    "source_sha256": "2183d44a66edd5d2792ac2c1addf2b2c8386ab19db330fd86c2135ee2a2574ed",
+    "revised": "deliverables\\review_20261025\\W3_异常根因分析初步方案_核验修订20261025.docx",
+    "kind": "rootcause",
+    "sha256": "9be1cd9006bee13ff62ab88e21c5d8bde768429010cd7e57c184f22498fbf2f4"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\05_第三阶段周实验报告.docx",
+    "source_sha256": "f6bff0544ebbe7def6fcdaa32d606b0e572029a67cc1c159fdecddc1ac368aa2",
+    "revised": "deliverables\\review_20261025\\W3_第三阶段周实验报告_核验修订20261025.docx",
+    "kind": "w3stage",
+    "sha256": "d27c9cef65a1e3a42a02f4446fb63c8b6ceccc2dc21d3c05411ebf5fc83d3bab"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week3\\W3报告\\w3周报.docx",
+    "source_sha256": "415530c39809bc10cc01c2563901376f0695510f620fb00a269b6dcc0f71ea09",
+    "revised": "deliverables\\review_20261025\\W3_周报_核验修订20261025.docx",
+    "kind": "w3weekly",
+    "sha256": "5f24437d95141d08edf43997bb6bd1df4b9a962b026e6584bdfd44e32c8d528b"
+  },
+  {
+    "source": "D:\\1_ToGo\\Huawei5G\\week4\\5G网络KPI预测与异常检测系统_完整项目技术报告_可编辑.docx",
+    "source_sha256": "1ba23cb93818c78d43f65b7348470e0fc2b6ee6bd6156c26409ef4325b68ecf2",
+    "revised": "deliverables\\review_20261025\\完整项目技术报告_核验修订20261025.docx",
+    "kind": "final",
+    "sha256": "f7f8ae2dfe8997be6966118070d15683baf6d4aac8b7dbd6f564b1e26f8f026e"
+  }
+]

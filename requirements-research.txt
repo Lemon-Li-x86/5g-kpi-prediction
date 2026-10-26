@@ -1,0 +1,7 @@
+# Optional research, document generation and PDF inspection tools.
+-r requirements.txt
+optuna>=3
+python-docx>=1
+pypdf>=4
+pypdfium2>=4
+Pillow>=10

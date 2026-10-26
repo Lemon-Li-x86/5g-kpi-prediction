@@ -1,0 +1,17 @@
+[
+  {
+    "model": "GRU",
+    "training_labels": 60000,
+    "decision": "GRU MAE preferred; RF DLThpVol RMSE exception"
+  },
+  {
+    "model": "RandomForest",
+    "training_labels": 60000,
+    "decision": "GRU MAE preferred; RF DLThpVol RMSE exception"
+  },
+  {
+    "model": "XGBoost",
+    "training_labels": 60000,
+    "decision": "GRU MAE preferred; RF DLThpVol RMSE exception"
+  }
+]

@@ -1,0 +1,5 @@
+method,evaluated_samples,flagged_samples,flag_rate,evaluation_scope
+3sigma,483840,22059,0.045591517857142855,full test
+IQR,483840,51318,0.1060639880952381,full test
+IsolationForest,483840,11107,0.022955935846560846,full test
+OneClassSVM,500,45,0.09,sampled test subset
